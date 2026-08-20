@@ -1,0 +1,148 @@
+[
+  {
+    "id": 1,
+    "listing_id": 3,
+    "from_phone": "+919876543211",
+    "from_name": "Suresh Buyer",
+    "to_phone": "+919876543210",
+    "body": "Hello Ramesh, do you have fresh stock available?",
+    "ts": "2026-08-19T15:11:32.988912+00:00"
+  },
+  {
+    "id": 2,
+    "listing_id": 3,
+    "from_phone": "+919876543210",
+    "from_name": "Ramesh Kumar",
+    "to_phone": "+919876543211",
+    "body": "Yes Suresh! Freshly harvested today.",
+    "ts": "2026-08-19T15:11:33.005201+00:00"
+  },
+  {
+    "id": 3,
+    "listing_id": 4,
+    "from_phone": "7993271575",
+    "from_name": "sai",
+    "to_phone": "+919876543210",
+    "body": "hey",
+    "ts": "2026-08-19T15:13:31.322411+00:00"
+  },
+  {
+    "id": 4,
+    "listing_id": 5,
+    "from_phone": "7993271575",
+    "from_name": "sai",
+    "to_phone": "7993271576",
+    "body": "hey",
+    "ts": "2026-08-19T15:32:20.497656+00:00"
+  },
+  {
+    "id": 5,
+    "listing_id": 5,
+    "crop_name": "MANGO",
+    "from_phone": "9990002222",
+    "from_name": "Suresh Buyer",
+    "to_phone": "9990001111",
+    "to_name": "Ramesh Farmer",
+    "body": "Hi Ramesh, I need 20kg mangoes. Is rate negotiable?",
+    "ts": "2026-08-19T15:39:24.876575+00:00"
+  },
+  {
+    "id": 6,
+    "listing_id": 5,
+    "crop_name": "MANGO",
+    "from_phone": "9990003333",
+    "from_name": "Anita Buyer",
+    "to_phone": "9990001111",
+    "to_name": "Ramesh Farmer",
+    "body": "Hello, can you deliver 50kg to zip 500001?",
+    "ts": "2026-08-19T15:39:24.897218+00:00"
+  },
+  {
+    "id": 7,
+    "listing_id": 5,
+    "crop_name": "MANGO",
+    "from_phone": "9990001111",
+    "from_name": "Ramesh Farmer",
+    "to_phone": "9990002222",
+    "to_name": "Suresh Buyer",
+    "body": "Hi Suresh, yes I can do 75/kg for 20kg.",
+    "ts": "2026-08-19T15:39:24.977727+00:00"
+  },
+  {
+    "id": 8,
+    "listing_id": 5,
+    "crop_name": "BANANA",
+    "from_phone": "7993271576",
+    "from_name": "sai",
+    "to_phone": "7993271575",
+    "to_name": "sai",
+    "body": "how can i help you",
+    "ts": "2026-08-19T15:43:23.247172+00:00"
+  },
+  {
+    "id": 9,
+    "listing_id": 6,
+    "crop_name": "CARROT",
+    "from_phone": "9990002222",
+    "from_name": "Suresh Buyer",
+    "to_phone": "9990001111",
+    "to_name": "Ramesh Farmer",
+    "body": "\ud83d\udce6 Batch Order Request #1: Requested 20 KG of CARROT for $400. Note: Deliver to warehouse 4",
+    "ts": "2026-08-19T15:51:10.918111+00:00"
+  },
+  {
+    "id": 10,
+    "listing_id": 6,
+    "crop_name": "CARROT",
+    "from_phone": "9990001111",
+    "from_name": "Ramesh Farmer",
+    "to_phone": "9990002222",
+    "to_name": "Suresh Buyer",
+    "body": "\u2705 Order Accepted! Your request for 20 KG of CARROT ($400) has been approved.",
+    "ts": "2026-08-19T15:51:11.033954+00:00"
+  },
+  {
+    "id": 11,
+    "listing_id": 6,
+    "crop_name": "CARROT",
+    "from_phone": "9990003333",
+    "from_name": "Anita Buyer",
+    "to_phone": "9990001111",
+    "to_name": "Ramesh Farmer",
+    "body": "\ud83d\udce6 Batch Order Request #2: Requested 30 KG of CARROT for $600. Note: Full batch purchase",
+    "ts": "2026-08-19T15:51:11.114127+00:00"
+  },
+  {
+    "id": 12,
+    "listing_id": 6,
+    "crop_name": "CARROT",
+    "from_phone": "9990001111",
+    "from_name": "Ramesh Farmer",
+    "to_phone": "9990003333",
+    "to_name": "Anita Buyer",
+    "body": "\u2705 Order Accepted! Your request for 30 KG of CARROT ($600) has been approved.",
+    "ts": "2026-08-19T15:51:11.123267+00:00"
+  },
+  {
+    "id": 13,
+    "listing_id": 5,
+    "crop_name": "BANANA",
+    "from_phone": "7993271575",
+    "from_name": "sai",
+    "to_phone": "7993271576",
+    "to_name": "sai",
+    "body": "\ud83d\udce6 Batch Order Request #3: Requested 8 KG of BANANA for $552. Note: need in 2 days",
+    "ts": "2026-08-19T15:52:01.213982+00:00"
+  },
+  {
+    "id": 14,
+    "listing_id": 5,
+    "crop_name": "BANANA",
+    "from_phone": "7993271576",
+    "from_name": "sai",
+    "to_phone": "7993271575",
+    "to_name": "sai",
+    "body": "\u2705 Order Accepted! Your request for 8 KG of BANANA ($552) has been approved.",
+    "ts": "2026-08-19T15:52:30.980785+00:00"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 4,
+    "farmer_name": "Ramesh Kumar",
+    "farmer_phone": "+919876543210",
+    "crop_name": "CHILLI",
+    "quantity_kg": 40,
+    "price_per_kg": 60,
+    "zip_code": "500001",
+    "source": "SMS"
+  },
+  {
+    "id": 3,
+    "farmer_name": "Ramesh Kumar",
+    "farmer_phone": "+919876543210",
+    "crop_name": "RED ONION",
+    "quantity_kg": 80,
+    "price_per_kg": 28,
+    "zip_code": "500001",
+    "source": "WEB"
+  },
+  {
+    "id": 1,
+    "farmer_name": "Farmer John",
+    "farmer_phone": "+1234567890",
+    "crop_name": "TOMATO",
+    "quantity_kg": 50,
+    "price_per_kg": 30,
+    "zip_code": "90210",
+    "source": "SMS"
+  },
+  {
+    "id": 2,
+    "farmer_name": "Sarah Smith",
+    "farmer_phone": "+1987654321",
+    "crop_name": "POTATO",
+    "quantity_kg": 120,
+    "price_per_kg": 15,
+    "zip_code": "10001",
+    "source": "WEB"
+  }
+]

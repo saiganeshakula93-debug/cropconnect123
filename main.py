@@ -2397,7 +2397,7 @@ def serve_frontend():
     }
 
     function parseRouteStops() {
-      const lines = document.getElementById("routeStops").value.split(/\r?\n/).map(x => x.trim()).filter(Boolean);
+      const lines = document.getElementById("routeStops").value.split(/\\r?\\n/).map(x => x.trim()).filter(Boolean);
       const stops = [];
       for (const line of lines) {
         const parts = line.split(",").map(x => x.trim());

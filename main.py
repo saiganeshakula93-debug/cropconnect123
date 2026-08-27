@@ -2,6 +2,7 @@ import re
 import json
 import os
 import hashlib
+import math
 from datetime import datetime, timezone
 from typing import List, Optional
 from fastapi import FastAPI, Form, HTTPException, Response, Request
@@ -162,6 +163,26 @@ class SendMessageSchema(BaseModel):
     from_phone: str
     to_phone: str
     body: str
+
+
+class ForecastQuerySchema(BaseModel):
+    crop: str
+    days: int = 7
+
+
+class RouteStopSchema(BaseModel):
+    name: str
+    lat: float
+    lon: float
+    quantity_kg: float = 0
+
+
+class RoutePlanSchema(BaseModel):
+    origin_name: str = "Farm / Warehouse"
+    origin_lat: float
+    origin_lon: float
+    stops: List[RouteStopSchema]
+    vehicle_capacity_kg: float = 1000
 
 
 def require_user(phone: str) -> dict:
@@ -535,6 +556,200 @@ def send_message(listing_id: int, data: SendMessageSchema):
     save_messages(MESSAGES_DB)
     return {"message": "Sent.", "msg": msg}
 
+
+# ----- AI Demand Forecasting & Smart Logistics -----
+
+def _accepted_demand_by_day(crop_name: str) -> dict:
+    """Build daily demand history from orders that were not rejected."""
+    crop = crop_name.strip().lower()
+    daily = {}
+    for order in ORDERS_DB:
+        if str(order.get("crop_name", "")).strip().lower() != crop:
+            continue
+        if str(order.get("status", "")).upper() == "REJECTED":
+            continue
+        ts = order.get("created_at")
+        if not ts:
+            continue
+        try:
+            day = datetime.fromisoformat(ts.replace("Z", "+00:00")).date().isoformat()
+        except Exception:
+            continue
+        daily[day] = daily.get(day, 0) + float(order.get("quantity_kg", 0))
+    return daily
+
+
+@app.get("/api/ai/demand-forecast")
+def demand_forecast(crop: str, days: int = 7):
+    """
+    AI-assisted demand forecast using recency-weighted linear trend regression.
+    It works on the project's existing order history and current listings.
+    """
+    if not crop or not crop.strip():
+        raise HTTPException(status_code=400, detail="Crop name is required.")
+    days = max(1, min(int(days), 30))
+    crop_clean = crop.strip().upper()
+
+    history = _accepted_demand_by_day(crop_clean)
+    today = datetime.now(timezone.utc).date()
+
+    # Fill missing days with zero demand so the trend reflects quiet days too.
+    observed = []
+    if history:
+        first_day = min(datetime.fromisoformat(d).date() for d in history)
+        span = (today - first_day).days + 1
+        # Keep the model lightweight while retaining up to 60 days of history.
+        start = max(first_day, today - __import__("datetime").timedelta(days=59))
+        cursor = start
+        while cursor <= today:
+            observed.append(float(history.get(cursor.isoformat(), 0)))
+            cursor += __import__("datetime").timedelta(days=1)
+
+    current_supply = sum(
+        float(l.get("quantity_kg", 0))
+        for l in LISTINGS_DB
+        if str(l.get("crop_name", "")).strip().lower() == crop_clean.lower()
+    )
+
+    if observed:
+        n = len(observed)
+        xs = list(range(n))
+        # Recency weights: recent observations matter more.
+        weights = [1.0 + (i / max(1, n - 1)) * 2.0 for i in range(n)]
+        w_sum = sum(weights)
+        x_bar = sum(x * w for x, w in zip(xs, weights)) / w_sum
+        y_bar = sum(y * w for y, w in zip(observed, weights)) / w_sum
+        denom = sum(w * (x - x_bar) ** 2 for x, w in zip(xs, weights))
+        slope = (
+            sum(w * (x - x_bar) * (y - y_bar) for x, y, w in zip(xs, observed, weights)) / denom
+            if denom else 0.0
+        )
+        intercept = y_bar - slope * x_bar
+        forecast_daily = max(0.0, intercept + slope * (n - 1 + 1))
+        avg_daily = sum(observed) / n
+        trend = "rising" if slope > max(0.05, avg_daily * 0.03) else ("falling" if slope < -max(0.05, avg_daily * 0.03) else "stable")
+        confidence = min(92, 50 + n * 1.2 + min(20, sum(1 for x in observed if x > 0) * 2))
+        method = "Recency-weighted linear trend"
+    else:
+        # No order history: use current marketplace supply as a conservative signal.
+        forecast_daily = max(0.0, current_supply * 0.10)
+        avg_daily = forecast_daily
+        trend = "limited-history"
+        confidence = 35
+        method = "Cold-start estimate from marketplace inventory"
+
+    total_forecast = round(forecast_daily * days, 1)
+    recommended_stock = round(max(total_forecast * 1.10, total_forecast), 1)
+    gap = round(recommended_stock - current_supply, 1)
+
+    if trend == "rising":
+        recommendation = f"Increase supply planning. Target about {recommended_stock} KG for the next {days} days."
+    elif trend == "falling":
+        recommendation = f"Avoid overstocking. Plan around {recommended_stock} KG for the next {days} days."
+    elif trend == "limited-history":
+        recommendation = f"Collect more orders for a stronger forecast. Initial planning target: {recommended_stock} KG."
+    else:
+        recommendation = f"Maintain steady supply around {recommended_stock} KG for the next {days} days."
+
+    return {
+        "crop": crop_clean,
+        "forecast_days": days,
+        "forecast_daily_kg": round(forecast_daily, 1),
+        "forecast_total_kg": total_forecast,
+        "current_supply_kg": round(current_supply, 1),
+        "recommended_stock_kg": recommended_stock,
+        "supply_gap_kg": gap,
+        "trend": trend,
+        "confidence_percent": round(confidence, 1),
+        "method": method,
+        "history_days": len(observed),
+        "recommendation": recommendation,
+    }
+
+
+def _haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    r = 6371.0
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    dp = math.radians(lat2 - lat1)
+    dl = math.radians(lon2 - lon1)
+    a = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
+    return 2 * r * math.asin(math.sqrt(a))
+
+
+@app.post("/api/logistics/optimize")
+def optimize_logistics(data: RoutePlanSchema):
+    """
+    Lightweight route optimizer using nearest-neighbour ordering.
+    Distances are geodesic estimates; connect this to a road-routing API later
+    if turn-by-turn navigation is required.
+    """
+    if not data.stops:
+        raise HTTPException(status_code=400, detail="Add at least one delivery stop.")
+    if data.vehicle_capacity_kg <= 0:
+        raise HTTPException(status_code=400, detail="Vehicle capacity must be greater than zero.")
+
+    total_load = sum(max(0.0, float(s.quantity_kg)) for s in data.stops)
+    if total_load > data.vehicle_capacity_kg:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Total planned load ({total_load:.1f} KG) exceeds vehicle capacity ({data.vehicle_capacity_kg:.1f} KG)."
+        )
+
+    remaining = list(data.stops)
+    route = []
+    current_lat, current_lon = data.origin_lat, data.origin_lon
+    total_km = 0.0
+
+    while remaining:
+        next_stop = min(
+            remaining,
+            key=lambda s: _haversine_km(current_lat, current_lon, s.lat, s.lon)
+        )
+        leg_km = _haversine_km(current_lat, current_lon, next_stop.lat, next_stop.lon)
+        total_km += leg_km
+        route.append({
+            "sequence": len(route) + 1,
+            "name": next_stop.name,
+            "lat": next_stop.lat,
+            "lon": next_stop.lon,
+            "quantity_kg": round(float(next_stop.quantity_kg), 1),
+            "distance_from_previous_km": round(leg_km, 2),
+        })
+        current_lat, current_lon = next_stop.lat, next_stop.lon
+        remaining.remove(next_stop)
+
+    # Approximate average road speed; this is an estimate, not live traffic.
+    eta_hours = total_km / 35.0 if total_km else 0
+    utilization = (total_load / data.vehicle_capacity_kg) * 100
+
+    if total_load <= 100:
+        vehicle = "Small pickup / mini-truck"
+    elif total_load <= 500:
+        vehicle = "Light commercial vehicle"
+    elif total_load <= 1500:
+        vehicle = "Medium goods vehicle"
+    else:
+        vehicle = "Heavy goods vehicle"
+
+    return {
+        "origin": {
+            "name": data.origin_name,
+            "lat": data.origin_lat,
+            "lon": data.origin_lon,
+        },
+        "route": route,
+        "total_distance_km": round(total_km, 2),
+        "estimated_travel_hours": round(eta_hours, 2),
+        "estimated_travel_minutes": round(eta_hours * 60),
+        "total_load_kg": round(total_load, 1),
+        "vehicle_capacity_kg": round(data.vehicle_capacity_kg, 1),
+        "load_utilization_percent": round(utilization, 1),
+        "recommended_vehicle": vehicle,
+        "optimization_method": "Nearest-neighbour distance optimization",
+        "traffic_note": "Travel time is an estimate and does not include live traffic.",
+    }
+
+
 # Twilio SMS Inbound Webhook Endpoint
 @app.post("/sms/webhook")
 async def twilio_sms_webhook(From: str = Form(...), Body: str = Form(...)):
@@ -597,6 +812,10 @@ def serve_frontend():
     .chat-msg-other { background-color: #ffffff; color: #212529; border: 1px solid #dee2e6; border-bottom-left-radius: 2px; }
     .chat-box { height: 330px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
     .buyer-tab-btn.active { background-color: #2e7d32 !important; color: white !important; }
+    .smart-card { border: 0; box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+    .metric-card { border-radius: 14px; background: #f8fff8; border: 1px solid #dcefdc; }
+    .route-stop { border-left: 4px solid #2e7d32; }
+    .ai-badge { background: #e8f5e9; color: #1b5e20; border: 1px solid #c8e6c9; }
   </style>
 </head>
 <body class="bg-light">
@@ -743,6 +962,109 @@ def serve_frontend():
       </div>
       <div class="row g-4" id="listingsContainer"></div>
       <div id="noListings" class="text-center text-muted d-none my-4 py-5" data-i18n="no_listings">No listings match your search.</div>
+    </main>
+  </div>
+
+
+  <!-- ============ AI + LOGISTICS ============ -->
+  <div id="smartView" class="d-none">
+    <main class="container my-4">
+      <div class="card smart-card mb-4">
+        <div class="card-body p-4">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+            <div>
+              <h3 class="fw-bold text-success mb-1"><i class="bi bi-cpu-fill me-2"></i>Smart Market & Logistics</h3>
+              <p class="text-muted mb-0">AI-assisted demand planning + route optimization for faster, lower-cost delivery.</p>
+            </div>
+            <span class="badge rounded-pill ai-badge px-3 py-2"><i class="bi bi-stars me-1"></i>AI Assisted</span>
+          </div>
+
+          <div class="row g-4">
+            <!-- Demand Forecast -->
+            <div class="col-lg-5">
+              <div class="card h-100 metric-card">
+                <div class="card-body">
+                  <h5 class="fw-bold text-success"><i class="bi bi-graph-up-arrow me-2"></i>Demand Forecast</h5>
+                  <p class="small text-muted">Forecast expected crop demand from historical orders and current marketplace supply.</p>
+                  <div class="row g-2">
+                    <div class="col-7">
+                      <label class="form-label small fw-semibold">Crop</label>
+                      <input id="forecastCrop" class="form-control" placeholder="e.g. TOMATO">
+                    </div>
+                    <div class="col-5">
+                      <label class="form-label small fw-semibold">Days</label>
+                      <select id="forecastDays" class="form-select">
+                        <option value="7">7</option>
+                        <option value="14">14</option>
+                        <option value="30">30</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button class="btn btn-success w-100 mt-3" onclick="runDemandForecast()">
+                    <i class="bi bi-magic me-1"></i>Run Forecast
+                  </button>
+                  <div id="forecastResult" class="mt-3">
+                    <div class="text-muted small text-center py-3">Enter a crop and run the forecast.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Route Optimization -->
+            <div class="col-lg-7">
+              <div class="card h-100 metric-card">
+                <div class="card-body">
+                  <h5 class="fw-bold text-success"><i class="bi bi-truck me-2"></i>Logistics Route Optimizer</h5>
+                  <p class="small text-muted mb-2">Enter delivery stops as <code>Name, Latitude, Longitude, KG</code>, one per line.</p>
+                  <div class="row g-2">
+                    <div class="col-md-4">
+                      <label class="form-label small fw-semibold">Origin Lat</label>
+                      <input id="originLat" type="number" step="any" class="form-control" value="17.3850">
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label small fw-semibold">Origin Lon</label>
+                      <input id="originLon" type="number" step="any" class="form-control" value="78.4867">
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label small fw-semibold">Vehicle Capacity KG</label>
+                      <input id="vehicleCapacity" type="number" step="1" class="form-control" value="500">
+                    </div>
+                  </div>
+                  <label class="form-label small fw-semibold mt-3">Delivery Stops</label>
+                  <textarea id="routeStops" class="form-control font-monospace" rows="5" placeholder="Buyer A, 17.4065, 78.4772, 100&#10;Buyer B, 17.3616, 78.4747, 150&#10;Buyer C, 17.4200, 78.4500, 80"></textarea>
+                  <button class="btn btn-success w-100 mt-3" onclick="runRouteOptimizer()">
+                    <i class="bi bi-signpost-split me-1"></i>Optimize Route
+                  </button>
+                  <div id="routeResult" class="mt-3">
+                    <div class="text-muted small text-center py-3">Add at least one delivery stop.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3 mt-1">
+            <div class="col-md-4">
+              <div class="p-3 bg-light rounded h-100">
+                <div class="fw-bold text-success"><i class="bi bi-people-fill me-2"></i>Direct Market Linkage</div>
+                <small class="text-muted">Farmers/FPOs can reach consumers and bulk buyers with fewer intermediaries.</small>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 bg-light rounded h-100">
+                <div class="fw-bold text-success"><i class="bi bi-box-seam me-2"></i>Logistics Support</div>
+                <small class="text-muted">Plan vehicle capacity, delivery sequence, distance and estimated travel time.</small>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 bg-light rounded h-100">
+                <div class="fw-bold text-success"><i class="bi bi-cash-coin me-2"></i>Lower Waste & Better Prices</div>
+                <small class="text-muted">Better demand planning can reduce overstock, empty trips and avoidable supply-chain costs.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 
@@ -1304,6 +1626,7 @@ def serve_frontend():
       document.getElementById("publicView").classList.add("d-none");
       document.getElementById("farmerView").classList.add("d-none");
       document.getElementById("buyerView").classList.add("d-none");
+      document.getElementById("smartView").classList.add("d-none");
       document.getElementById("navAuthBtns").classList.add("d-none");
       document.getElementById("navUserArea").classList.add("d-none");
       document.getElementById("navMyOrdersBtn").classList.add("d-none");
@@ -1320,6 +1643,7 @@ def serve_frontend():
       document.getElementById("navUserArea").classList.add("d-flex");
       document.getElementById("navUserName").textContent = currentUser.name;
       document.getElementById("navUserBadge").textContent = currentUser.role === "FARMER" ? t("farmer_label") : t("buyer_label");
+      document.getElementById("smartView").classList.remove("d-none");
 
       if (currentUser.role === "FARMER") {
         document.getElementById("farmerView").classList.remove("d-none");
@@ -2034,6 +2358,105 @@ def serve_frontend():
       activeChatListing = null;
       activeChatPartnerPhone = null;
     });
+
+
+    // ============ AI Demand Forecast + Logistics ============
+
+    async function runDemandForecast() {
+      const crop = document.getElementById("forecastCrop").value.trim();
+      const days = document.getElementById("forecastDays").value;
+      const result = document.getElementById("forecastResult");
+      if (!crop) {
+        result.innerHTML = `<div class="alert alert-warning small mb-0">Enter a crop name first.</div>`;
+        return;
+      }
+
+      result.innerHTML = `<div class="text-center text-muted py-3"><span class="spinner-border spinner-border-sm me-2"></span>Analyzing order history...</div>`;
+      try {
+        const res = await fetch(`/api/ai/demand-forecast?crop=${encodeURIComponent(crop)}&days=${encodeURIComponent(days)}`);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Forecast failed");
+
+        const trendIcon = data.trend === "rising" ? "bi-arrow-up-right" : (data.trend === "falling" ? "bi-arrow-down-right" : "bi-dash-lg");
+        const trendClass = data.trend === "rising" ? "text-success" : (data.trend === "falling" ? "text-danger" : "text-secondary");
+
+        result.innerHTML = `
+          <div class="row g-2">
+            <div class="col-6"><div class="p-2 bg-white rounded border"><small class="text-muted d-block">Forecast</small><strong>${data.forecast_total_kg} KG</strong><small class="text-muted"> / ${data.forecast_days} days</small></div></div>
+            <div class="col-6"><div class="p-2 bg-white rounded border"><small class="text-muted d-block">Current Supply</small><strong>${data.current_supply_kg} KG</strong></div></div>
+            <div class="col-6"><div class="p-2 bg-white rounded border"><small class="text-muted d-block">Trend</small><strong class="${trendClass}"><i class="bi ${trendIcon}"></i> ${esc(data.trend)}</strong></div></div>
+            <div class="col-6"><div class="p-2 bg-white rounded border"><small class="text-muted d-block">Confidence</small><strong>${data.confidence_percent}%</strong></div></div>
+          </div>
+          <div class="alert alert-success small mt-2 mb-0">
+            <strong>Recommendation:</strong> ${esc(data.recommendation)}
+            <br><span class="text-muted">Model: ${esc(data.method)} · ${data.history_days} days of history</span>
+          </div>`;
+      } catch (err) {
+        result.innerHTML = `<div class="alert alert-danger small mb-0">${esc(err.message)}</div>`;
+      }
+    }
+
+    function parseRouteStops() {
+      const lines = document.getElementById("routeStops").value.split(/\r?\n/).map(x => x.trim()).filter(Boolean);
+      const stops = [];
+      for (const line of lines) {
+        const parts = line.split(",").map(x => x.trim());
+        if (parts.length < 4) throw new Error(`Invalid stop: ${line}. Use Name, Latitude, Longitude, KG.`);
+        const lat = Number(parts[1]);
+        const lon = Number(parts[2]);
+        const kg = Number(parts[3]);
+        if (!Number.isFinite(lat) || !Number.isFinite(lon) || !Number.isFinite(kg) || kg < 0) {
+          throw new Error(`Invalid numbers in stop: ${line}`);
+        }
+        stops.push({ name: parts[0], lat, lon, quantity_kg: kg });
+      }
+      return stops;
+    }
+
+    async function runRouteOptimizer() {
+      const result = document.getElementById("routeResult");
+      try {
+        const stops = parseRouteStops();
+        const originLat = Number(document.getElementById("originLat").value);
+        const originLon = Number(document.getElementById("originLon").value);
+        const capacity = Number(document.getElementById("vehicleCapacity").value);
+
+        result.innerHTML = `<div class="text-center text-muted py-3"><span class="spinner-border spinner-border-sm me-2"></span>Optimizing delivery sequence...</div>`;
+
+        const res = await fetch("/api/logistics/optimize", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            origin_name: "Farm / Warehouse",
+            origin_lat: originLat,
+            origin_lon: originLon,
+            stops,
+            vehicle_capacity_kg: capacity
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Route optimization failed");
+
+        result.innerHTML = `
+          <div class="row g-2 mb-2">
+            <div class="col-4"><div class="p-2 bg-white rounded border"><small class="text-muted d-block">Distance</small><strong>${data.total_distance_km} km</strong></div></div>
+            <div class="col-4"><div class="p-2 bg-white rounded border"><small class="text-muted d-block">ETA</small><strong>${data.estimated_travel_minutes} min</strong></div></div>
+            <div class="col-4"><div class="p-2 bg-white rounded border"><small class="text-muted d-block">Load</small><strong>${data.load_utilization_percent}%</strong></div></div>
+          </div>
+          <div class="alert alert-success py-2 small mb-2"><strong>Recommended vehicle:</strong> ${esc(data.recommended_vehicle)}</div>
+          <div class="small fw-bold mb-1">Optimized delivery sequence</div>
+          ${data.route.map(stop => `
+            <div class="route-stop bg-white p-2 mb-1 rounded">
+              <strong>${stop.sequence}. ${esc(stop.name)}</strong>
+              <span class="float-end">${stop.quantity_kg} KG</span>
+              <div class="text-muted" style="font-size:.78rem;">${stop.distance_from_previous_km} km from previous stop</div>
+            </div>
+          `).join("")}
+          <div class="text-muted mt-2" style="font-size:.75rem;">${esc(data.optimization_method)}. ${esc(data.traffic_note)}</div>`;
+      } catch (err) {
+        result.innerHTML = `<div class="alert alert-danger small mb-0">${esc(err.message)}</div>`;
+      }
+    }
 
     // ============ Auth Submit Handlers ============
     async function handleLogin(e) {

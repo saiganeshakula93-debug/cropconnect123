@@ -54,5 +54,19 @@
     "zip_code": "500001",
     "role": "BUYER",
     "password": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1"
+  },
+  "+919876543220": {
+    "name": "Telangana Kisan FPO (Aggregator)",
+    "phone": "+919876543220",
+    "zip_code": "500001",
+    "role": "FPO",
+    "password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f"
+  },
+  "+919876543230": {
+    "name": "Priya Sharma (Consumer)",
+    "phone": "+919876543230",
+    "zip_code": "500001",
+    "role": "CONSUMER",
+    "password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f"
   }
 }

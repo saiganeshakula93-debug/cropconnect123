@@ -1,5 +1,71 @@
 [
   {
+    "id": 7,
+    "farmer_name": "Ramesh Kumar",
+    "farmer_phone": "+919876543210",
+    "seller_type": "FARMER",
+    "crop_name": "CABBAGE",
+    "quantity_kg": 80.0,
+    "price_per_kg": 20.0,
+    "mandi_price_per_kg": 14.0,
+    "retail_market_price_per_kg": 28.0,
+    "min_order_kg": 5.0,
+    "bulk_price_per_kg": 18.0,
+    "zip_code": "500001",
+    "location_name": "Farm SMS (500001)",
+    "lat": 17.385,
+    "lon": 78.4867,
+    "quality_grade": "Grade A Fresh",
+    "harvest_date": "2026-08-27",
+    "shelf_life_days": 7,
+    "source": "SMS",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 6,
+    "farmer_name": "Ramesh Kumar",
+    "farmer_phone": "+919876543210",
+    "seller_type": "FARMER",
+    "crop_name": "CABBAGE",
+    "quantity_kg": 80.0,
+    "price_per_kg": 20.0,
+    "mandi_price_per_kg": 14.0,
+    "retail_market_price_per_kg": 28.0,
+    "min_order_kg": 5.0,
+    "bulk_price_per_kg": 18.0,
+    "zip_code": "500001",
+    "location_name": "Farm SMS (500001)",
+    "lat": 17.385,
+    "lon": 78.4867,
+    "quality_grade": "Grade A Fresh",
+    "harvest_date": "2026-08-27",
+    "shelf_life_days": 7,
+    "source": "SMS",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 5,
+    "farmer_name": "Ramesh Kumar",
+    "farmer_phone": "+919876543210",
+    "seller_type": "FARMER",
+    "crop_name": "CABBAGE",
+    "quantity_kg": 80.0,
+    "price_per_kg": 20.0,
+    "mandi_price_per_kg": 14.0,
+    "retail_market_price_per_kg": 28.0,
+    "min_order_kg": 5.0,
+    "bulk_price_per_kg": 18.0,
+    "zip_code": "500001",
+    "location_name": "Farm SMS (500001)",
+    "lat": 17.385,
+    "lon": 78.4867,
+    "quality_grade": "Grade A Fresh",
+    "harvest_date": "2026-08-27",
+    "shelf_life_days": 7,
+    "source": "SMS",
+    "status": "ACTIVE"
+  },
+  {
     "id": 4,
     "farmer_name": "Ramesh Kumar",
     "farmer_phone": "+919876543210",
@@ -7,7 +73,12 @@
     "quantity_kg": 40,
     "price_per_kg": 60,
     "zip_code": "500001",
-    "source": "SMS"
+    "source": "SMS",
+    "seller_type": "FARMER",
+    "mandi_price_per_kg": 40.8,
+    "retail_market_price_per_kg": 87.0,
+    "min_order_kg": 5.0,
+    "status": "ACTIVE"
   },
   {
     "id": 3,
@@ -17,7 +88,12 @@
     "quantity_kg": 80,
     "price_per_kg": 28,
     "zip_code": "500001",
-    "source": "WEB"
+    "source": "WEB",
+    "seller_type": "FARMER",
+    "mandi_price_per_kg": 19.0,
+    "retail_market_price_per_kg": 40.6,
+    "min_order_kg": 5.0,
+    "status": "ACTIVE"
   },
   {
     "id": 1,
@@ -27,7 +103,12 @@
     "quantity_kg": 50,
     "price_per_kg": 30,
     "zip_code": "90210",
-    "source": "SMS"
+    "source": "SMS",
+    "seller_type": "FARMER",
+    "mandi_price_per_kg": 20.4,
+    "retail_market_price_per_kg": 43.5,
+    "min_order_kg": 5.0,
+    "status": "ACTIVE"
   },
   {
     "id": 2,
@@ -37,6 +118,11 @@
     "quantity_kg": 120,
     "price_per_kg": 15,
     "zip_code": "10001",
-    "source": "WEB"
+    "source": "WEB",
+    "seller_type": "FARMER",
+    "mandi_price_per_kg": 10.2,
+    "retail_market_price_per_kg": 21.8,
+    "min_order_kg": 5.0,
+    "status": "ACTIVE"
   }
 ]

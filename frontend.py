@@ -1,7 +1,7 @@
 # ==============================================================================
-# CropConnect - Direct Agri Marketplace & Smart Logistics UI
-# Warm, Human-Made, Handcrafted Design for Indian Farmers & Direct Buyers
-# All currency formatted in Indian Rupee (₹)
+# CropConnect - Direct Farm-to-Buyer Marketplace & Smart Logistics Platform
+# Thoughtfully Handcrafted UI with Modern Lucide React Iconography
+# Currency: Indian Rupee (₹) | Real-time APMC Mandi Linkage | Consolidated 2-Opt Logistics
 # ==============================================================================
 
 FRONTEND_HTML = r"""<!DOCTYPE html>
@@ -9,35 +9,53 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CropConnect | Direct Farm-to-Buyer Marketplace & Smart Logistics</title>
+  <title>CropConnect | Direct Farm-to-Buyer Marketplace &amp; Smart Agri Logistics</title>
+  
   <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Bootstrap 5 & Bootstrap Icons -->
+  
+  <!-- Bootstrap 5.3.2 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <!-- Lucide Icons (Standard Modern React Icon System) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
-      --primary: #155e38;
-      --primary-dark: #0f4629;
-      --primary-light: #2d8a56;
+      --primary: #15803d;
+      --primary-dark: #14532d;
+      --primary-light: #22c55e;
       --primary-surface: #f0fdf4;
+      --primary-border: #bbf7d0;
+      
       --accent-amber: #d97706;
       --accent-amber-light: #fef3c7;
-      --accent-earth: #854d0e;
-      --bg-warm: #fbfbfa;
+      --accent-earth: #92400e;
+      
+      --bg-warm: #f8fafc;
       --bg-card: #ffffff;
-      --text-main: #1e293b;
+      --text-main: #0f172a;
+      --text-secondary: #475569;
       --text-muted: #64748b;
-      --border-subtle: #e5e9e2;
-      --shadow-sm: 0 2px 8px rgba(21, 94, 56, 0.04);
-      --shadow-md: 0 8px 24px -4px rgba(21, 94, 56, 0.08);
-      --shadow-hover: 0 16px 32px -6px rgba(21, 94, 56, 0.14);
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+      
+      --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+      --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+      --shadow-hover: 0 14px 28px -4px rgba(21, 128, 61, 0.12), 0 6px 12px -2px rgba(21, 128, 61, 0.06);
+      
+      --radius-xs: 6px;
       --radius-sm: 10px;
       --radius-md: 16px;
-      --radius-lg: 24px;
+      --radius-lg: 22px;
+      --radius-full: 9999px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
 
     body {
@@ -45,88 +63,181 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       background-color: var(--bg-warm);
       color: var(--text-main);
       -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
     }
 
     h1, h2, h3, h4, h5, h6, .brand-font {
       font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
+      color: var(--text-main);
     }
 
-    /* Navbar */
+    /* Lucide React Icon Sizing & Sizing Utilities */
+    .lucide, [data-lucide] {
+      width: 1.15rem;
+      height: 1.15rem;
+      stroke-width: 1.9px;
+      stroke: currentColor;
+      display: inline-block;
+      vertical-align: -0.16em;
+      transition: stroke 0.15s ease;
+    }
+    .icon-xs { width: 0.92rem !important; height: 0.92rem !important; stroke-width: 2.1px !important; }
+    .icon-sm { width: 1.05rem !important; height: 1.05rem !important; stroke-width: 2px !important; }
+    .icon-md { width: 1.3rem !important; height: 1.3rem !important; stroke-width: 1.85px !important; }
+    .icon-lg { width: 1.65rem !important; height: 1.65rem !important; stroke-width: 1.8px !important; }
+    .icon-xl { width: 2.25rem !important; height: 2.25rem !important; stroke-width: 1.75px !important; }
+
+    /* Top Navbar */
     .navbar-custom {
       background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border-subtle);
-      padding: 0.85rem 0;
+      padding: 0.75rem 0;
+      transition: box-shadow 0.2s ease;
     }
     .brand-logo {
       font-weight: 800;
-      font-size: 1.4rem;
-      color: var(--primary) !important;
-      display: flex;
+      font-size: 1.35rem;
+      color: var(--primary-dark) !important;
+      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.55rem;
+      text-decoration: none;
     }
     .brand-logo .logo-icon {
       width: 36px;
       height: 36px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-      color: #fff;
-      border-radius: 10px;
+      background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);
+      color: #ffffff;
+      border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 12px rgba(21, 94, 56, 0.2);
+      box-shadow: 0 4px 10px rgba(21, 128, 61, 0.25);
     }
+
+    /* Live Mandi Benchmark Ticker */
+    .mandi-ticker-bar {
+      background: #0f2e1b;
+      color: #e2f2e6;
+      font-size: 0.78rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-pill-label {
+      background: #22c55e;
+      color: #052e16;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.03em;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-right: 0.8rem;
+    }
+    .ticker-pulse-dot {
+      width: 6px;
+      height: 6px;
+      background: #052e16;
+      border-radius: 50%;
+      animation: pulseGreen 1.8s infinite;
+    }
+    @keyframes pulseGreen {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(1.4); }
+    }
+    .ticker-scroll-content {
+      display: inline-block;
+      white-space: nowrap;
+      animation: tickerScroll 38s linear infinite;
+    }
+    .ticker-scroll-content:hover {
+      animation-play-state: paused;
+    }
+    @keyframes tickerScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-right: 1.8rem;
+      color: #cbd5e1;
+    }
+    .ticker-item strong {
+      color: #ffffff;
+    }
+    .ticker-up { color: #4ade80; font-weight: 600; }
+    .ticker-down { color: #f87171; font-weight: 600; }
 
     /* Hero Section */
     .hero-container {
-      background: linear-gradient(145deg, #155e38 0%, #1e4620 60%, #16381a 100%);
+      background: linear-gradient(145deg, #14532d 0%, #166534 50%, #0f3d1f 100%);
       color: #ffffff;
-      padding: 3.5rem 0 3rem;
+      padding: 3.25rem 0 2.75rem;
       position: relative;
       overflow: hidden;
-      border-bottom-left-radius: var(--radius-lg);
-      border-bottom-right-radius: var(--radius-lg);
     }
     .hero-container::before {
       content: "";
       position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(45, 138, 86, 0.25) 0%, rgba(255,255,255,0) 70%);
+      top: -40%;
+      right: -8%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.18) 0%, rgba(255,255,255,0) 70%);
       border-radius: 50%;
       pointer-events: none;
     }
-    .pill-highlight {
-      background: rgba(255, 255, 255, 0.14);
+    .hero-container::after {
+      content: "";
+      position: absolute;
+      bottom: -30%;
+      left: -5%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(217, 119, 6, 0.15) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .badge-glass {
+      background: rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       color: #ffffff;
-      padding: 0.4rem 1rem;
-      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      border-radius: var(--radius-full);
       font-size: 0.82rem;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.45rem;
     }
-    .sms-badge-box {
-      background: rgba(0, 0, 0, 0.25);
+    .sms-callout-pill {
+      background: rgba(0, 0, 0, 0.32);
       border: 1px dashed rgba(255, 255, 255, 0.35);
-      border-radius: 999px;
-      padding: 0.35rem 1.1rem;
-      font-size: 0.8rem;
+      border-radius: var(--radius-full);
+      padding: 0.35rem 1rem;
+      font-size: 0.82rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #e2e8f0;
     }
 
     /* Tabs Bar */
     .nav-tabs-wrapper {
       background: #ffffff;
       border-bottom: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-xs);
     }
     .nav-tabs-custom .nav-link {
       color: var(--text-muted);
@@ -134,34 +245,35 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       font-size: 0.92rem;
       border: none;
       border-bottom: 3px solid transparent;
-      padding: 0.9rem 1.3rem;
+      padding: 0.85rem 1.25rem;
       transition: all 0.2s ease;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.5rem;
     }
     .nav-tabs-custom .nav-link:hover {
       color: var(--primary);
+      border-bottom-color: rgba(21, 128, 61, 0.3);
     }
     .nav-tabs-custom .nav-link.active {
-      color: var(--primary);
+      color: var(--primary-dark);
       border-bottom-color: var(--primary);
       background: transparent;
       font-weight: 700;
     }
 
-    /* Category Chips */
+    /* Category Filter Chips */
     .chip-filter {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      padding: 0.4rem 0.9rem;
-      border-radius: 999px;
+      gap: 0.45rem;
+      padding: 0.42rem 0.95rem;
+      border-radius: var(--radius-full);
       background: #ffffff;
       border: 1px solid var(--border-subtle);
-      font-size: 0.82rem;
+      font-size: 0.83rem;
       font-weight: 600;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       cursor: pointer;
       transition: all 0.18s ease;
       user-select: none;
@@ -170,46 +282,63 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       border-color: var(--primary-light);
       color: var(--primary);
       background: var(--primary-surface);
+      transform: translateY(-1px);
     }
     .chip-filter.active {
       background: var(--primary);
       color: #ffffff;
       border-color: var(--primary);
-      box-shadow: 0 3px 8px rgba(21, 94, 56, 0.2);
+      box-shadow: 0 2px 8px rgba(21, 128, 61, 0.25);
+    }
+    .chip-filter.active .lucide {
+      stroke: #ffffff;
     }
 
-    /* Cards */
+    /* Crop Card System */
     .crop-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-sm);
       transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-      position: relative;
       display: flex;
       flex-direction: column;
       height: 100%;
+      position: relative;
     }
     .crop-card:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-hover);
-      border-color: rgba(21, 94, 56, 0.3);
+      border-color: rgba(21, 128, 61, 0.35);
     }
+
+    /* Visual Crop Badges with tailored color themes */
     .crop-avatar {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 12px;
-      background: var(--primary-surface);
-      border: 1px solid rgba(21, 94, 56, 0.12);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
       flex-shrink: 0;
+      transition: transform 0.2s ease;
     }
+    .crop-card:hover .crop-avatar {
+      transform: scale(1.05);
+    }
+    .crop-avatar-rose   { background: #fff1f2; color: #e11d48; border: 1px solid #ffe4e6; }
+    .crop-avatar-purple { background: #faf5ff; color: #9333ea; border: 1px solid #f3e8ff; }
+    .crop-avatar-amber  { background: #fffbeb; color: #b45309; border: 1px solid #fef3c7; }
+    .crop-avatar-red    { background: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; }
+    .crop-avatar-green  { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
+    .crop-avatar-yellow { background: #fefce8; color: #ca8a04; border: 1px solid #fef9c3; }
+    .crop-avatar-gold   { background: #fffbeb; color: #d97706; border: 1px solid #fef3c7; }
+    .crop-avatar-emerald{ background: #ecfdf5; color: #059669; border: 1px solid #d1fae5; }
+    .crop-avatar-default{ background: #f0fdf4; color: #15803d; border: 1px solid #dcfce7; }
+
     .price-display {
       font-family: 'Outfit', sans-serif;
-      font-size: 1.55rem;
+      font-size: 1.6rem;
       font-weight: 800;
       color: var(--text-main);
       line-height: 1;
@@ -221,28 +350,41 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
     }
     .savings-badge {
       background: var(--accent-amber-light);
-      color: var(--accent-amber);
+      color: var(--accent-earth);
       font-weight: 700;
       font-size: 0.76rem;
-      padding: 0.3rem 0.6rem;
-      border-radius: 8px;
-      border: 1px solid rgba(217, 119, 6, 0.2);
+      padding: 0.28rem 0.6rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid rgba(217, 119, 6, 0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
     }
 
-    /* Verified Badges */
-    .badge-farmer-tag {
+    /* Role Badges */
+    .role-badge-farmer {
       background: #ecfdf5;
       color: #065f46;
       border: 1px solid #a7f3d0;
       font-weight: 600;
       font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
     }
-    .badge-fpo-tag {
+    .role-badge-fpo {
       background: #f5f3ff;
       color: #5b21b6;
       border: 1px solid #ddd6fe;
       font-weight: 600;
       font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
     }
 
     /* Buttons */
@@ -252,13 +394,18 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       font-weight: 600;
       border: none;
       border-radius: var(--radius-sm);
-      padding: 0.55rem 1.1rem;
+      padding: 0.55rem 1.15rem;
       transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
     }
     .btn-brand:hover {
       background: var(--primary-dark);
       color: #ffffff;
-      box-shadow: 0 4px 14px rgba(21, 94, 56, 0.25);
+      box-shadow: 0 4px 12px rgba(21, 128, 61, 0.25);
+      transform: translateY(-1px);
     }
     .btn-brand-outline {
       background: transparent;
@@ -268,6 +415,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       border-radius: var(--radius-sm);
       padding: 0.5rem 1rem;
       transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
     }
     .btn-brand-outline:hover {
       background: var(--primary-surface);
@@ -275,65 +426,98 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       border-color: var(--primary-dark);
     }
 
-    /* Chat Elements */
+    /* Chat Styling */
     .chat-bubble {
-      max-width: 80%;
+      max-width: 82%;
       word-break: break-word;
       border-radius: 14px;
-      padding: 0.6rem 0.9rem;
+      padding: 0.65rem 0.95rem;
+      font-size: 0.88rem;
     }
     .chat-bubble-self {
       background: var(--primary);
       color: #ffffff;
-      border-bottom-right-radius: 3px;
+      border-bottom-right-radius: 4px;
     }
     .chat-bubble-other {
       background: #ffffff;
       color: var(--text-main);
       border: 1px solid var(--border-subtle);
-      border-bottom-left-radius: 3px;
+      border-bottom-left-radius: 4px;
     }
 
-    /* Metrics & Dashboard */
+    /* Metric Card */
     .metric-card {
       background: #ffffff;
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 1.2rem;
-      box-shadow: var(--shadow-sm);
+      padding: 1.15rem;
+      box-shadow: var(--shadow-xs);
       text-align: center;
+      transition: transform 0.18s ease;
+    }
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
     }
 
     /* Modals */
     .modal-content-custom {
       border-radius: var(--radius-lg);
       border: none;
-      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
     }
     .modal-header-custom {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, #16a34a 100%);
       color: #ffffff;
-      border-top-left-radius: var(--radius-lg);
-      border-top-right-radius: var(--radius-lg);
-      padding: 1.2rem 1.5rem;
+      padding: 1.15rem 1.5rem;
+      border-bottom: none;
     }
 
-    /* Route Optimizer Stops */
-    .route-stop-card {
+    /* Toast Notification Container */
+    .toast-container-custom {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.25rem;
+      z-index: 1090;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      max-width: 380px;
+      pointer-events: none;
+    }
+    .custom-toast {
       background: #ffffff;
       border: 1px solid var(--border-subtle);
       border-left: 4px solid var(--primary);
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
-      box-shadow: var(--shadow-sm);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1.1rem;
+      box-shadow: var(--shadow-md);
+      pointer-events: auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      animation: slideInToast 0.25s ease-out forwards;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .custom-toast-error {
+      border-left-color: #ef4444;
+    }
+    .custom-toast-info {
+      border-left-color: #3b82f6;
+    }
+    @keyframes slideInToast {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     /* Footer */
     .footer-custom {
       background: #ffffff;
       border-top: 1px solid var(--border-subtle);
-      padding: 2.5rem 0 1.5rem;
-      margin-top: 4rem;
+      padding: 2.75rem 0 1.75rem;
+      margin-top: 4.5rem;
       color: var(--text-muted);
       font-size: 0.85rem;
     }
@@ -341,11 +525,37 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 </head>
 <body>
 
+  <!-- Live APMC Mandi Benchmark Ticker -->
+  <div class="mandi-ticker-bar">
+    <div class="container d-flex align-items-center">
+      <div class="ticker-pill-label flex-shrink-0">
+        <span class="ticker-pulse-dot"></span>
+        <span>LIVE MANDI BENCHMARKS</span>
+      </div>
+      <div class="overflow-hidden flex-grow-1">
+        <div class="ticker-scroll-content">
+          <span class="ticker-item"><strong>Azadpur APMC Tomato:</strong> ₹18.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹1.50</span></span>
+          <span class="ticker-item"><strong>Bowenpally Onion Red:</strong> ₹16.00/kg <span class="ticker-down"><i data-lucide="trending-down" class="icon-xs"></i> -₹0.80</span></span>
+          <span class="ticker-item"><strong>Kolar APMC Potato:</strong> ₹14.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹0.50</span></span>
+          <span class="ticker-item"><strong>Guntur APMC Chilli Teja:</strong> ₹42.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹2.20</span></span>
+          <span class="ticker-item"><strong>Vashi Banana:</strong> ₹24.00/dozen <span class="text-white-50">— Stable</span></span>
+          <span class="ticker-item"><strong>Warangal Turmeric:</strong> ₹92.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹3.00</span></span>
+          <span class="ticker-item"><strong>Shamshabad Hub Logistics:</strong> 2-Opt Pooled Freight ₹2.50/kg</span>
+          <!-- Repeat for smooth infinite scroll -->
+          <span class="ticker-item"><strong>Azadpur APMC Tomato:</strong> ₹18.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹1.50</span></span>
+          <span class="ticker-item"><strong>Bowenpally Onion Red:</strong> ₹16.00/kg <span class="ticker-down"><i data-lucide="trending-down" class="icon-xs"></i> -₹0.80</span></span>
+          <span class="ticker-item"><strong>Kolar APMC Potato:</strong> ₹14.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹0.50</span></span>
+          <span class="ticker-item"><strong>Guntur APMC Chilli Teja:</strong> ₹42.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹2.20</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Top Navigation Bar -->
   <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
     <div class="container">
       <a class="navbar-brand brand-logo" href="#" onclick="switchTab('marketplace'); return false;">
-        <div class="logo-icon"><i class="bi bi-flower1"></i></div>
+        <div class="logo-icon"><i data-lucide="sprout"></i></div>
         <span>CropConnect</span>
       </a>
 
@@ -353,29 +563,37 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       <div class="d-flex align-items-center gap-2">
         <!-- Language Switcher -->
         <div class="dropdown">
-          <button class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1 rounded-pill px-3" type="button" data-bs-toggle="dropdown">
-            <i class="bi bi-translate text-success"></i>
+          <button class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1.5 rounded-pill px-3" type="button" data-bs-toggle="dropdown">
+            <i data-lucide="globe" class="icon-sm text-success"></i>
             <span id="langLabel" class="fw-semibold">English</span>
           </button>
-          <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
-            <li><a class="dropdown-item py-2" href="#" onclick="setLang('en');return false;"><span class="badge bg-primary me-2">EN</span>English</a></li>
-            <li><a class="dropdown-item py-2" href="#" onclick="setLang('hi');return false;"><span class="badge bg-warning text-dark me-2">हि</span>हिन्दी (Hindi)</a></li>
-            <li><a class="dropdown-item py-2" href="#" onclick="setLang('te');return false;"><span class="badge bg-danger me-2">తె</span>తెలుగు (Telugu)</a></li>
-            <li><a class="dropdown-item py-2" href="#" onclick="setLang('ta');return false;"><span class="badge bg-success me-2">த</span>தமிழ் (Tamil)</a></li>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm border rounded-3">
+            <li><a class="dropdown-item py-2" href="#" onclick="setLang('en');return false;"><span class="badge bg-primary-subtle text-primary border me-2">EN</span>English</a></li>
+            <li><a class="dropdown-item py-2" href="#" onclick="setLang('hi');return false;"><span class="badge bg-warning-subtle text-warning-emphasis border me-2">हि</span>हिन्दी (Hindi)</a></li>
+            <li><a class="dropdown-item py-2" href="#" onclick="setLang('te');return false;"><span class="badge bg-danger-subtle text-danger border me-2">తె</span>తెలుగు (Telugu)</a></li>
+            <li><a class="dropdown-item py-2" href="#" onclick="setLang('ta');return false;"><span class="badge bg-success-subtle text-success border me-2">த</span>தமிழ் (Tamil)</a></li>
           </ul>
         </div>
 
         <!-- Auth Actions (Guest) -->
         <div id="navAuthBtns" class="d-flex gap-2">
-          <button class="btn btn-sm btn-brand-outline rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#authModal" onclick="setAuthTab('login')" data-i18n="login">Log In</button>
-          <button class="btn btn-sm btn-brand rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#authModal" onclick="setAuthTab('register')" data-i18n="register">Register</button>
+          <button class="btn btn-sm btn-brand-outline rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#authModal" onclick="setAuthTab('login')">
+            <i data-lucide="log-in" class="icon-xs"></i>
+            <span data-i18n="login">Log In</span>
+          </button>
+          <button class="btn btn-sm btn-brand rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#authModal" onclick="setAuthTab('register')">
+            <i data-lucide="user-plus" class="icon-xs"></i>
+            <span data-i18n="register">Register</span>
+          </button>
         </div>
 
         <!-- Logged In User State -->
         <div id="navUserArea" class="d-none align-items-center gap-2">
           <span class="badge rounded-pill" id="navUserBadge"></span>
           <span class="fw-bold text-dark small" id="navUserName"></span>
-          <button class="btn btn-sm btn-outline-danger rounded-circle p-1" style="width:30px;height:30px;" onclick="logout()" title="Logout"><i class="bi bi-box-arrow-right"></i></button>
+          <button class="btn btn-sm btn-outline-danger rounded-circle p-1 d-flex align-items-center justify-content-center" style="width:32px;height:32px;" onclick="logout()" title="Logout">
+            <i data-lucide="log-out" class="icon-xs"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -384,51 +602,56 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
   <!-- Hero Header -->
   <section class="hero-container">
     <div class="container text-center position-relative">
-      <div class="pill-highlight mb-3">
-        <i class="bi bi-patch-check-fill text-warning"></i>
-        <span data-i18n="tagline_badge">Direct Farm-to-Buyer Marketplace & Smart AI Logistics</span>
+      <div class="badge-glass mb-3">
+        <i data-lucide="shield-check" class="icon-xs text-emerald-300"></i>
+        <span data-i18n="tagline_badge">Direct Farm-to-Buyer Marketplace &amp; Smart AI Logistics</span>
       </div>
-      <h1 class="display-6 fw-bold mb-2" data-i18n="hero_title">Fair Harvest Prices for Farmers. Fresh Produce for Buyers.</h1>
-      <p class="lead mb-3 text-white-50 small mx-auto" style="max-width: 680px;" data-i18n="hero_subtitle">
+      <h1 class="display-6 fw-bold mb-2 text-white" data-i18n="hero_title">Fair Harvest Prices for Farmers. Fresh Produce for Buyers.</h1>
+      <p class="lead mb-3 text-white-50 small mx-auto" style="max-width: 720px;" data-i18n="hero_subtitle">
         Farmers earn up to +45% over APMC mandi rates, direct buyers save 25% vs supermarket markups, with zero middleman commissions and optimized pooled delivery routes.
       </p>
 
       <!-- SMS Helpline Callout -->
-      <div class="d-inline-flex align-items-center sms-badge-box text-white">
-        <i class="bi bi-phone-vibrate text-warning me-2"></i>
+      <div class="sms-callout-pill">
+        <i data-lucide="smartphone" class="icon-xs text-warning"></i>
         <span><span data-i18n="sms_hint">No smartphone needed: Farmers list via SMS:</span> <code class="text-warning fw-bold bg-dark bg-opacity-50 px-2 py-0.5 rounded">SELL TOMATO 50KG 28</code></span>
       </div>
     </div>
   </section>
 
-  <!-- Main Tabs Bar -->
-  <div class="nav-tabs-wrapper sticky-top" style="top: 61px; z-index: 1020;">
+  <!-- Main Tabs Navigation -->
+  <div class="nav-tabs-wrapper sticky-top" style="top: 57px; z-index: 1020;">
     <div class="container">
       <ul class="nav nav-tabs nav-tabs-custom border-bottom-0" id="mainAppTabs">
         <li class="nav-item">
           <button class="nav-link active" onclick="switchTab('marketplace')" id="tab-marketplace">
-            <i class="bi bi-shop text-success"></i> <span data-i18n="nav_marketplace">Direct Marketplace</span>
+            <i data-lucide="store" class="icon-sm"></i>
+            <span data-i18n="nav_marketplace">Direct Marketplace</span>
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-link" onclick="switchTab('orders')" id="tab-orders">
-            <i class="bi bi-box-seam text-primary"></i> <span data-i18n="nav_orders">Orders & Requests</span>
+            <i data-lucide="package-check" class="icon-sm"></i>
+            <span data-i18n="nav_orders">Orders &amp; Requests</span>
             <span class="badge bg-danger rounded-pill ms-1 d-none" id="tabOrdersBadge">0</span>
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-link" onclick="switchTab('ai')" id="tab-ai">
-            <i class="bi bi-graph-up-arrow text-warning"></i> <span data-i18n="nav_ai">AI Demand Forecast</span>
+            <i data-lucide="trending-up" class="icon-sm"></i>
+            <span data-i18n="nav_ai">AI Demand Forecast</span>
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-link" onclick="switchTab('logistics')" id="tab-logistics">
-            <i class="bi bi-truck text-info"></i> <span data-i18n="nav_logistics">Smart Logistics & Route</span>
+            <i data-lucide="truck" class="icon-sm"></i>
+            <span data-i18n="nav_logistics">Smart Logistics &amp; Route</span>
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-link" onclick="switchTab('analytics')" id="tab-analytics">
-            <i class="bi bi-pie-chart-fill text-success"></i> <span data-i18n="nav_value">Fair Pricing & Value Chain</span>
+            <i data-lucide="pie-chart" class="icon-sm"></i>
+            <span data-i18n="nav_value">Fair Pricing &amp; Value Chain</span>
           </button>
         </li>
       </ul>
@@ -447,41 +670,44 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         <div class="row g-2 align-items-center mb-3">
           <div class="col-md-5">
             <div class="input-group">
-              <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-search"></i></span>
+              <span class="input-group-text bg-light border-end-0 text-muted"><i data-lucide="search" class="icon-sm"></i></span>
               <input type="text" id="searchInput" class="form-control border-start-0 bg-light" oninput="fetchListings()" placeholder="Search crops (e.g. Tomato, Onion, Chilli)..." data-i18n-attr="placeholder" data-i18n="search_placeholder">
             </div>
           </div>
           <div class="col-md-3">
             <div class="input-group">
-              <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-geo-alt"></i></span>
+              <span class="input-group-text bg-light border-end-0 text-muted"><i data-lucide="map-pin" class="icon-sm"></i></span>
               <input type="text" id="zipInput" class="form-control border-start-0 bg-light" oninput="fetchListings()" placeholder="Pincode (e.g. 500001)..." data-i18n-attr="placeholder" data-i18n="zip_placeholder">
             </div>
           </div>
           <div class="col-md-2">
             <select id="sellerTypeFilter" class="form-select bg-light" onchange="fetchListings()">
-              <option value="" data-i18n="filter_all_sellers">All Sellers (Farmers & FPOs)</option>
+              <option value="" data-i18n="filter_all_sellers">All Sellers (Farmers &amp; FPOs)</option>
               <option value="FARMER" data-i18n="filter_farmers_only">Individual Farmers</option>
               <option value="FPO" data-i18n="filter_fpos_only">FPO Collectives</option>
             </select>
           </div>
           <div class="col-md-2 d-flex gap-2">
-            <button class="btn btn-brand w-100 fw-semibold" onclick="fetchListings()" data-i18n="filter_btn">Search</button>
+            <button class="btn btn-brand w-100 fw-semibold" onclick="fetchListings()">
+              <i data-lucide="sliders-horizontal" class="icon-xs"></i>
+              <span data-i18n="filter_btn">Filter</span>
+            </button>
             <button class="btn btn-outline-success d-none" id="farmerAddListingBtn" onclick="openCreateListingModal()" title="Add Crop Listing">
-              <i class="bi bi-plus-lg"></i>
+              <i data-lucide="plus" class="icon-sm"></i>
             </button>
           </div>
         </div>
 
-        <!-- Category Filter Chips -->
+        <!-- Category Filter Chips with Lucide React Icons -->
         <div class="d-flex align-items-center gap-2 flex-wrap pt-2 border-top">
-          <span class="small fw-semibold text-muted me-1">Filter by:</span>
-          <span class="chip-filter active" onclick="filterByChip('', this)">🌱 All Harvests</span>
-          <span class="chip-filter" onclick="filterByChip('TOMATO', this)">🍅 Tomatoes</span>
-          <span class="chip-filter" onclick="filterByChip('ONION', this)">🧅 Onions</span>
-          <span class="chip-filter" onclick="filterByChip('POTATO', this)">🥔 Potatoes</span>
-          <span class="chip-filter" onclick="filterByChip('CHILLI', this)">🌶️ Chillies</span>
-          <span class="chip-filter" onclick="filterByChip('BANANA', this)">🍌 Fruits</span>
-          <span class="chip-filter" onclick="filterByChip('CABBAGE', this)">🥬 Greens</span>
+          <span class="small fw-semibold text-muted me-1">Category:</span>
+          <button type="button" class="chip-filter active" onclick="filterByChip('', this)"><i data-lucide="layers" class="icon-sm"></i> <span>All Produce</span></button>
+          <button type="button" class="chip-filter" onclick="filterByChip('TOMATO', this)"><i data-lucide="apple" class="icon-sm text-danger"></i> <span>Tomatoes</span></button>
+          <button type="button" class="chip-filter" onclick="filterByChip('ONION', this)"><i data-lucide="circle-dot" class="icon-sm text-purple"></i> <span>Onions</span></button>
+          <button type="button" class="chip-filter" onclick="filterByChip('POTATO', this)"><i data-lucide="package" class="icon-sm text-warning"></i> <span>Potatoes</span></button>
+          <button type="button" class="chip-filter" onclick="filterByChip('CHILLI', this)"><i data-lucide="flame" class="icon-sm text-danger"></i> <span>Chillies</span></button>
+          <button type="button" class="chip-filter" onclick="filterByChip('BANANA', this)"><i data-lucide="citrus" class="icon-sm text-warning"></i> <span>Fruits</span></button>
+          <button type="button" class="chip-filter" onclick="filterByChip('CABBAGE', this)"><i data-lucide="leaf" class="icon-sm text-success"></i> <span>Greens</span></button>
         </div>
       </div>
 
@@ -489,15 +715,20 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       <div id="sellerDashboardBox" class="card border-0 bg-success bg-opacity-10 rounded-4 p-3 mb-4 d-none">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
           <div>
-            <h6 class="fw-bold text-success mb-0"><i class="bi bi-speedometer2 me-2"></i><span data-i18n="seller_portal">Seller Hub</span></h6>
+            <h6 class="fw-bold text-success mb-0 d-flex align-items-center gap-1.5">
+              <i data-lucide="layout-dashboard" class="icon-sm"></i>
+              <span data-i18n="seller_portal">Seller Hub</span>
+            </h6>
             <small class="text-muted" data-i18n="seller_portal_desc">Manage your live farm harvest listings, buyer inquiries, and automated dispatch.</small>
           </div>
           <div class="d-flex gap-2">
             <button class="btn btn-sm btn-brand fw-semibold rounded-pill px-3" onclick="openCreateListingModal()">
-              <i class="bi bi-plus-circle me-1"></i> <span data-i18n="add_listing">+ Add Harvest Listing</span>
+              <i data-lucide="plus-circle" class="icon-xs"></i>
+              <span data-i18n="add_listing">+ Add Harvest Listing</span>
             </button>
             <button class="btn btn-sm btn-outline-success fw-semibold rounded-pill px-3" onclick="switchTab('logistics')">
-              <i class="bi bi-truck me-1"></i> <span data-i18n="route_dispatch">Logistics Dispatch</span>
+              <i data-lucide="truck" class="icon-xs"></i>
+              <span data-i18n="route_dispatch">Logistics Dispatch</span>
             </button>
           </div>
         </div>
@@ -507,8 +738,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       <div class="row g-4" id="listingsContainer"></div>
 
       <div id="noListings" class="text-center text-muted d-none my-5 py-5">
-        <i class="bi bi-basket3 fs-1 text-muted d-block mb-2"></i>
-        <p class="mb-0" data-i18n="no_listings">No active crop listings found matching your search.</p>
+        <div class="p-3 bg-light rounded-circle d-inline-flex mb-3">
+          <i data-lucide="shopping-bag" class="icon-xl text-muted"></i>
+        </div>
+        <h5 class="fw-bold text-dark mb-1">No Active Listings Found</h5>
+        <p class="mb-0 text-muted" data-i18n="no_listings">No active crop listings match your current filters. Try searching for "Tomato" or PIN "500001".</p>
       </div>
     </div>
 
@@ -519,15 +753,20 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       <div class="card bg-white border-0 shadow-sm rounded-4 p-4">
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
           <div>
-            <h4 class="fw-bold text-dark mb-1"><i class="bi bi-box-seam me-2 text-success"></i><span id="ordersTitleText" data-i18n="orders_title">Orders & Batch Requests</span></h4>
+            <h4 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
+              <i data-lucide="package-check" class="icon-md text-success"></i>
+              <span id="ordersTitleText" data-i18n="orders_title">Orders &amp; Batch Requests</span>
+            </h4>
             <p class="text-muted small mb-0" data-i18n="orders_desc">Real-time status tracking from farm-gate harvest to verified delivery.</p>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn btn-outline-success btn-sm rounded-pill px-3" onclick="fetchOrdersData()">
-              <i class="bi bi-arrow-clockwise me-1"></i> <span data-i18n="refresh">Refresh</span>
+            <button class="btn btn-outline-success btn-sm rounded-pill px-3 d-flex align-items-center gap-1.5" onclick="fetchOrdersData()">
+              <i data-lucide="rotate-cw" class="icon-xs"></i>
+              <span data-i18n="refresh">Refresh</span>
             </button>
-            <button class="btn btn-brand btn-sm d-none rounded-pill px-3" id="orderAutoDispatchBtn" onclick="autoLoadOrdersToLogistics()">
-              <i class="bi bi-truck me-1"></i> <span data-i18n="plan_route_from_orders">Plan Delivery Route</span>
+            <button class="btn btn-brand btn-sm d-none rounded-pill px-3 d-flex align-items-center gap-1.5" id="orderAutoDispatchBtn" onclick="autoLoadOrdersToLogistics()">
+              <i data-lucide="truck" class="icon-xs"></i>
+              <span data-i18n="plan_route_from_orders">Plan Delivery Route</span>
             </button>
           </div>
         </div>
@@ -547,7 +786,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       <div class="row g-4">
         <div class="col-lg-4">
           <div class="card bg-white border-0 shadow-sm rounded-4 p-4 h-100">
-            <h5 class="fw-bold text-success mb-3"><i class="bi bi-magic me-2"></i><span data-i18n="ai_forecast_config">Forecast Query</span></h5>
+            <h5 class="fw-bold text-success mb-3 d-flex align-items-center gap-2">
+              <i data-lucide="sparkles" class="icon-md"></i>
+              <span data-i18n="ai_forecast_config">Forecast Query</span>
+            </h5>
             <div class="mb-3">
               <label class="form-label small fw-semibold text-secondary" data-i18n="crop_name">Select / Enter Crop</label>
               <select id="forecastCropSelect" class="form-select mb-2" onchange="syncForecastCropInput(this.value)">
@@ -572,15 +814,18 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
               </select>
             </div>
             <button class="btn btn-brand w-100 py-2 fw-semibold rounded-pill" onclick="runAIDemandForecast()">
-              <i class="bi bi-cpu-fill me-1"></i> <span data-i18n="run_forecast_btn">Generate AI Forecast</span>
+              <i data-lucide="cpu" class="icon-sm"></i>
+              <span data-i18n="run_forecast_btn">Generate AI Forecast</span>
             </button>
             
             <hr class="my-4">
             <div class="small text-muted">
-              <h6 class="fw-bold text-dark small mb-1"><i class="bi bi-info-circle me-1 text-primary"></i>How the AI Engine Works:</h6>
-              <ul class="ps-3 mb-0" style="font-size:0.82rem;">
+              <h6 class="fw-bold text-dark small mb-2 d-flex align-items-center gap-1.5">
+                <i data-lucide="info" class="icon-xs text-primary"></i>How the AI Engine Works:
+              </h6>
+              <ul class="ps-3 mb-0" style="font-size:0.82rem; line-height: 1.6;">
                 <li>Recency-weighted regression on real marketplace order transactions.</li>
-                <li>Crop perishability & seasonal elasticity weighting.</li>
+                <li>Crop perishability &amp; seasonal elasticity weighting.</li>
                 <li>Equilibrium pricing balancing farmer profit vs buyer savings in ₹.</li>
               </ul>
             </div>
@@ -590,8 +835,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         <div class="col-lg-8">
           <div class="card bg-white border-0 shadow-sm rounded-4 p-4 h-100" id="forecastResultsCard">
             <div class="text-center py-5 text-muted">
-              <i class="bi bi-bar-chart-line fs-1 text-muted d-block mb-2"></i>
-              <p data-i18n="ai_forecast_prompt">Select a crop and click 'Generate AI Forecast' to view demand projections & price advice.</p>
+              <div class="p-3 bg-light rounded-circle d-inline-flex mb-2">
+                <i data-lucide="bar-chart-3" class="icon-xl text-muted"></i>
+              </div>
+              <p data-i18n="ai_forecast_prompt">Select a crop and click 'Generate AI Forecast' to view demand projections &amp; price advice.</p>
             </div>
           </div>
         </div>
@@ -605,12 +852,16 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       <div class="card bg-white border-0 shadow-sm rounded-4 p-4 mb-4">
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
           <div>
-            <h4 class="fw-bold text-dark mb-1"><i class="bi bi-truck me-2 text-success"></i><span data-i18n="logistics_title">Smart Logistics & Route Optimizer</span></h4>
+            <h4 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
+              <i data-lucide="truck" class="icon-md text-success"></i>
+              <span data-i18n="logistics_title">Smart Logistics &amp; Route Optimizer</span>
+            </h4>
             <p class="text-muted small mb-0" data-i18n="logistics_desc">Consolidated multi-drop routing cuts road miles, fuel costs in ₹, and transit spoilage.</p>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn btn-outline-success btn-sm rounded-pill px-3" onclick="autoLoadOrdersToLogistics()">
-              <i class="bi bi-magic me-1"></i> <span data-i18n="auto_import_orders">Auto-Import Accepted Orders</span>
+            <button class="btn btn-outline-success btn-sm rounded-pill px-3 d-flex align-items-center gap-1.5" onclick="autoLoadOrdersToLogistics()">
+              <i data-lucide="sparkles" class="icon-xs"></i>
+              <span data-i18n="auto_import_orders">Auto-Import Accepted Orders</span>
             </button>
           </div>
         </div>
@@ -618,7 +869,9 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         <div class="row g-4">
           <div class="col-lg-5">
             <div class="p-3 bg-light rounded-4 border">
-              <h6 class="fw-bold text-dark mb-3"><i class="bi bi-geo-alt-fill text-danger me-1"></i>Hub Origin & Vehicle Capacity</h6>
+              <h6 class="fw-bold text-dark mb-3 d-flex align-items-center gap-1.5">
+                <i data-lucide="map-pin" class="icon-sm text-danger"></i>Hub Origin &amp; Vehicle Capacity
+              </h6>
               <div class="row g-2 mb-3">
                 <div class="col-12">
                   <label class="form-label small fw-semibold text-secondary">Origin Hub Name</label>
@@ -638,12 +891,15 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                 </div>
               </div>
 
-              <h6 class="fw-bold text-dark mb-2"><i class="bi bi-signpost-split text-success me-1"></i>Delivery Waypoint Stops</h6>
+              <h6 class="fw-bold text-dark mb-2 d-flex align-items-center gap-1.5">
+                <i data-lucide="milestone" class="icon-sm text-success"></i>Delivery Waypoint Stops
+              </h6>
               <p class="text-muted" style="font-size:0.78rem;">Format per line: <code>Buyer Name, Lat, Lon, KG, [Address]</code></p>
               <textarea id="routeStops" class="form-control font-monospace mb-3" rows="6" placeholder="Wholesale Mart Begumpet, 17.4435, 78.4738, 150, Secunderabad&#10;Green Valley Apt Banjara Hills, 17.4156, 78.4350, 25, Road 12&#10;Kukatpally Supermarket, 17.4933, 78.3995, 200, Main Road&#10;Madhapur Organic Store, 17.4483, 78.3915, 80, Hitec City"></textarea>
 
               <button class="btn btn-brand w-100 fw-semibold rounded-pill" onclick="runRouteOptimizer()">
-                <i class="bi bi-signpost-2-fill me-1"></i> <span data-i18n="optimize_route_btn">Optimize Delivery Route</span>
+                <i data-lucide="route" class="icon-sm"></i>
+                <span data-i18n="optimize_route_btn">Optimize Delivery Route</span>
               </button>
             </div>
           </div>
@@ -651,8 +907,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           <div class="col-lg-7">
             <div id="routeResultsBox" class="p-3 bg-light rounded-4 border h-100">
               <div class="text-center py-5 text-muted">
-                <i class="bi bi-map fs-1 text-muted d-block mb-2"></i>
-                <span data-i18n="route_prompt">Add waypoint stops and click 'Optimize Delivery Route' to generate the most efficient drop sequence.</span>
+                <div class="p-3 bg-white rounded-circle d-inline-flex mb-2 shadow-sm">
+                  <i data-lucide="map" class="icon-xl text-muted"></i>
+                </div>
+                <p class="mb-0" data-i18n="route_prompt">Add waypoint stops and click 'Optimize Delivery Route' to generate the most efficient drop sequence.</p>
               </div>
             </div>
           </div>
@@ -660,7 +918,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
         <!-- Dispatched Trips History -->
         <div class="mt-5">
-          <h5 class="fw-bold text-dark mb-3"><i class="bi bi-clock-history me-2 text-primary"></i><span data-i18n="active_trips_title">Active Logistics Trips</span></h5>
+          <h5 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
+            <i data-lucide="clock" class="icon-md text-primary"></i>
+            <span data-i18n="active_trips_title">Active Logistics Trips</span>
+          </h5>
           <div id="tripsListContainer">
             <p class="text-muted small">Loading active trips...</p>
           </div>
@@ -675,7 +936,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       <div class="card bg-white border-0 shadow-sm rounded-4 p-4 mb-4">
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
           <div>
-            <h4 class="fw-bold text-dark mb-1"><i class="bi bi-pie-chart-fill me-2 text-success"></i><span data-i18n="fair_price_title">Fair Pricing & Middleman Elimination Breakdown</span></h4>
+            <h4 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
+              <i data-lucide="pie-chart" class="icon-md text-success"></i>
+              <span data-i18n="fair_price_title">Fair Pricing &amp; Middleman Elimination Breakdown</span>
+            </h4>
             <p class="text-muted small mb-0" data-i18n="fair_price_desc">Compare traditional multi-hop mandi losses vs CropConnect direct farm linkage.</p>
           </div>
           <div class="d-flex gap-2 align-items-center">
@@ -728,10 +992,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                 <div class="mb-3">
                   <label class="form-label small fw-semibold text-secondary" data-i18n="role_label">Account Role</label>
                   <select class="form-select" id="loginRole">
-                    <option value="FARMER">🧑‍🌾 Farmer (Individual Producer)</option>
-                    <option value="FPO">🚜 FPO (Farmer Producer Org / Collective)</option>
-                    <option value="BULK_BUYER">🏢 Bulk / Wholesale Buyer (Supermarkets, Hotels)</option>
-                    <option value="CONSUMER">🛒 Direct Consumer (Household / Retail)</option>
+                    <option value="FARMER">Farmer — Individual Cultivator</option>
+                    <option value="FPO">FPO — Farmer Producer Organization / Collective</option>
+                    <option value="BULK_BUYER">Bulk Buyer — Wholesaler, Supermarket, HoReCa</option>
+                    <option value="CONSUMER">Consumer — Direct Household / Retail Buyer</option>
                   </select>
                 </div>
                 <div class="mb-3">
@@ -743,25 +1007,41 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                   <input type="password" class="form-control" id="loginPassword" required placeholder="Password">
                 </div>
                 <button type="submit" class="btn btn-brand w-100 py-2 fw-semibold rounded-pill" data-i18n="sign_in">Sign In</button>
-                <div class="alert alert-light border small mt-3 mb-0 rounded-3">
-                  <strong>Demo Accounts:</strong><br>
-                  Farmer: <code>+919876543210</code> / <code>password123</code><br>
-                  FPO: <code>+919876543220</code> / <code>password123</code><br>
-                  Bulk Buyer: <code>+919876543211</code> / <code>password123</code><br>
-                  Consumer: <code>+919876543230</code> / <code>password123</code>
+                
+                <!-- Quick 1-Click Demo Accounts -->
+                <div class="p-3 bg-light border small mt-3 mb-0 rounded-3">
+                  <div class="fw-bold text-dark mb-1 d-flex align-items-center gap-1">
+                    <i data-lucide="zap" class="icon-xs text-warning"></i>
+                    <span>Quick-Fill Demo Accounts:</span>
+                  </div>
+                  <div class="d-flex flex-wrap gap-1 mt-2">
+                    <button type="button" class="btn btn-xs btn-outline-success rounded-pill px-2 py-1" onclick="quickFillAuth('+919876543210', 'password123', 'FARMER')">
+                      Farmer (Ramesh)
+                    </button>
+                    <button type="button" class="btn btn-xs btn-outline-primary rounded-pill px-2 py-1" onclick="quickFillAuth('+919876543220', 'password123', 'FPO')">
+                      FPO Collective
+                    </button>
+                    <button type="button" class="btn btn-xs btn-outline-warning rounded-pill px-2 py-1" onclick="quickFillAuth('+919876543211', 'password123', 'BULK_BUYER')">
+                      Bulk Buyer
+                    </button>
+                    <button type="button" class="btn btn-xs btn-outline-info rounded-pill px-2 py-1" onclick="quickFillAuth('+919876543230', 'password123', 'CONSUMER')">
+                      Consumer (Priya)
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
+            
             <!-- REGISTER FORM -->
             <div class="tab-pane fade" id="register-pane">
               <form onsubmit="handleRegister(event)">
                 <div class="mb-3">
                   <label class="form-label small fw-semibold text-secondary" data-i18n="role_label">Account Role</label>
                   <select class="form-select" id="regRole">
-                    <option value="FARMER">🧑‍🌾 Farmer (Individual Producer)</option>
-                    <option value="FPO">🚜 FPO (Farmer Producer Organization)</option>
-                    <option value="BULK_BUYER">🏢 Bulk / Institutional Buyer</option>
-                    <option value="CONSUMER">🛒 Direct Household Consumer</option>
+                    <option value="FARMER">Farmer — Individual Cultivator</option>
+                    <option value="FPO">FPO — Farmer Producer Organization / Collective</option>
+                    <option value="BULK_BUYER">Bulk Buyer — Wholesaler, Supermarket, HoReCa</option>
+                    <option value="CONSUMER">Consumer — Direct Household / Retail Buyer</option>
                   </select>
                 </div>
                 <div class="mb-3">
@@ -794,7 +1074,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-content-custom">
         <div class="modal-header modal-header-custom">
-          <h5 class="modal-title fw-bold" id="listingModalTitle" data-i18n="new_listing_title">Add Harvest Listing</h5>
+          <h5 class="modal-title fw-bold d-flex align-items-center gap-2" id="listingModalTitle">
+            <i data-lucide="plus-circle" class="icon-sm"></i>
+            <span data-i18n="new_listing_title">Add Harvest Listing</span>
+          </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <form onsubmit="handleSaveListing(event)">
@@ -853,7 +1136,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-content-custom">
         <div class="modal-header modal-header-custom">
-          <h5 class="modal-title fw-bold" id="orderModalTitle" data-i18n="request_order_title">Order Fresh Crop Batch</h5>
+          <h5 class="modal-title fw-bold d-flex align-items-center gap-2" id="orderModalTitle">
+            <i data-lucide="shopping-bag" class="icon-sm"></i>
+            <span data-i18n="request_order_title">Order Fresh Crop Batch</span>
+          </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <form onsubmit="handleSubmitOrder(event)">
@@ -904,21 +1190,21 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
               <input type="text" class="form-control form-control-sm" id="orderNotesInput" placeholder="e.g. Deliver before 10 AM, wholesale gate entry">
             </div>
 
-            <!-- Transparent Price Breakdown -->
+            <!-- Transparent Price Breakdown in ₹ -->
             <div class="p-3 bg-light rounded-3 border">
               <div class="d-flex justify-content-between mb-1">
                 <span class="text-muted small">Estimated Total:</span>
                 <span class="fs-4 fw-bold text-success" id="orderTotalPriceEst">₹0</span>
               </div>
               <div class="d-flex justify-content-between align-items-center">
-                <span class="badge bg-warning text-dark border" id="orderSavingsBadge">You save ~₹0 vs Retail!</span>
-                <small class="text-muted">₹0 Middleman Cut</small>
+                <span class="badge bg-warning-subtle text-warning-emphasis border" id="orderSavingsBadge">You save ~₹0 vs Retail!</span>
+                <small class="text-muted"><i data-lucide="shield-check" class="icon-xs text-success me-1"></i>₹0 Middleman Cut</small>
               </div>
             </div>
           </div>
           <div class="modal-footer bg-light rounded-bottom-4">
             <button type="button" class="btn btn-secondary rounded-pill px-3" data-bs-dismiss="modal" data-i18n="cancel">Cancel</button>
-            <button type="submit" class="btn btn-brand rounded-pill px-4 fw-semibold" data-i18n="submit_order_btn">Confirm & Place Order</button>
+            <button type="submit" class="btn btn-brand rounded-pill px-4 fw-semibold" data-i18n="submit_order_btn">Confirm &amp; Place Order</button>
           </div>
         </form>
       </div>
@@ -931,7 +1217,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       <div class="modal-content modal-content-custom">
         <div class="modal-header modal-header-custom">
           <div>
-            <h6 class="modal-title fw-bold mb-0" id="chatCropTitle">Chat</h6>
+            <h6 class="modal-title fw-bold mb-0 d-flex align-items-center gap-1.5" id="chatCropTitle">
+              <i data-lucide="message-square" class="icon-sm"></i>
+              <span>Direct Chat</span>
+            </h6>
             <small class="text-white-50" id="chatPartnerTitle"></small>
           </div>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
@@ -948,8 +1237,8 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
           <form onsubmit="handleSendMessage(event)" class="d-flex gap-2">
             <input type="text" class="form-control rounded-pill px-3" id="chatInputText" placeholder="Type a message..." data-i18n-attr="placeholder" data-i18n="type_message" required>
-            <button type="submit" class="btn btn-brand rounded-circle p-0" style="width:42px;height:42px;flex-shrink:0;" id="chatSendBtn">
-              <i class="bi bi-send-fill"></i>
+            <button type="submit" class="btn btn-brand rounded-circle p-0 d-flex align-items-center justify-content-center" style="width:42px;height:42px;flex-shrink:0;" id="chatSendBtn">
+              <i data-lucide="send" class="icon-sm"></i>
             </button>
           </form>
         </div>
@@ -957,26 +1246,33 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
     </div>
   </div>
 
+  <!-- Floating Toast Notifications Container -->
+  <div class="toast-container-custom" id="toastContainer"></div>
+
   <!-- Handcrafted Footer -->
   <footer class="footer-custom">
     <div class="container">
       <div class="row g-4 align-items-center">
         <div class="col-md-6">
           <div class="d-flex align-items-center gap-2 mb-2">
-            <div class="logo-icon" style="width:28px;height:28px;font-size:0.9rem;"><i class="bi bi-flower1"></i></div>
-            <strong class="text-dark">CropConnect</strong>
+            <div class="logo-icon" style="width:28px;height:28px;"><i data-lucide="sprout" class="icon-sm text-success"></i></div>
+            <strong class="text-dark fs-6">CropConnect</strong>
           </div>
           <p class="text-muted small mb-0">Empowering Indian farmers and direct buyers through transparent pricing in ₹, direct chat, and consolidated 2-Opt logistics.</p>
         </div>
         <div class="col-md-6 text-md-end">
-          <div class="small text-muted mb-1"><i class="bi bi-telephone-fill text-success me-1"></i> Farmer Toll-Free Helpline: <strong>1800-AGRI-CONNECT</strong></div>
-          <div class="small text-muted"><i class="bi bi-shield-check text-primary me-1"></i> APMC Mandi Benchmark Integration &middot; Zero Hidden Markups</div>
+          <div class="small text-muted mb-1">
+            <i data-lucide="phone" class="icon-xs text-success me-1"></i> Kisan Call Centre / Farmer Helpline: <strong>1800-180-1551</strong>
+          </div>
+          <div class="small text-muted">
+            <i data-lucide="shield-check" class="icon-xs text-primary me-1"></i> APMC Mandi Benchmark Integration &middot; Zero Hidden Markups
+          </div>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Bootstrap JS -->
+  <!-- Bootstrap 5 JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
@@ -999,7 +1295,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         filter_all_sellers: "All Sellers (Farmers & FPOs)",
         filter_farmers_only: "Individual Farmers",
         filter_fpos_only: "FPO Collectives",
-        filter_btn: "Search", add_listing: "+ Add Harvest Listing",
+        filter_btn: "Filter", add_listing: "+ Add Harvest Listing",
         seller_portal: "Seller Hub",
         seller_portal_desc: "Manage your live farm harvest listings, buyer inquiries, and automated dispatch.",
         route_dispatch: "Logistics Dispatch",
@@ -1053,7 +1349,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         filter_all_sellers: "सभी विक्रेता (किसान व FPO)",
         filter_farmers_only: "केवल व्यक्तिगत किसान",
         filter_fpos_only: "केवल FPO समूह",
-        filter_btn: "खोजें", add_listing: "+ फसल जोड़ें",
+        filter_btn: "फ़िल्टर", add_listing: "+ फसल जोड़ें",
         seller_portal: "विक्रेता केंद्र (Seller Hub)",
         seller_portal_desc: "अपनी फसल सूची, ऑर्डर और 1-क्लिक लॉजिस्टिक्स डिलीवरी प्रबंधित करें।",
         route_dispatch: "लॉजिस्टिक्स डिस्पैच",
@@ -1107,7 +1403,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         filter_all_sellers: "అందరూ అమ్మకందారులు (రైతులు & FPOలు)",
         filter_farmers_only: "రైతులు మాత్రమే",
         filter_fpos_only: "FPO సంఘాలు మాత్రమే",
-        filter_btn: "శోధించు", add_listing: "+ పంటను జోడించండి",
+        filter_btn: "ఫిల్టర్", add_listing: "+ పంటను జోడించండి",
         seller_portal: "విక్రేత కేంద్రం (Seller Hub)",
         seller_portal_desc: "మీ పంట నిల్వలు, ఆర్డర్లు మరియు డెలివరీ రూట్‌ను నిర్వహించండి.",
         route_dispatch: "రవాణా పంపు",
@@ -1148,55 +1444,55 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       },
       ta: {
         app_name: "கிராப்கனெக்ட்",
-        hero_title: "விவசாயிகளுக்கு அதிக லாபம். நுகர்வோருக்கு குறைந்த விலை.",
-        hero_subtitle: "விவசாயிகளுக்கு +45% கூடுதல் லாபம், நுகர்வோருக்கு 25% வரை சேமிப்பு, இடைத்தரகர் இல்லாத AI விநியோகம்.",
-        tagline_badge: "நேரடி டிஜிட்டல் சந்தை + ஸ்மார்ட் AI விநியோகம்",
-        sms_hint: "விவசாயிகள் SMS அனுப்பவும்:",
-        login: "உள்நுழைவு", register: "பதிவு", logout: "வெளியேறு",
-        nav_marketplace: "நேரடி சந்தை", nav_orders: "ஆர்டர்கள்",
-        nav_ai: "AI தேவை கணிப்பு", nav_logistics: "ஸ்மார்ட் விநியோக பாதை",
-        nav_value: "நியாய விலை & சேமிப்பு",
-        search_placeholder: "பயிர்களைத் தேடுங்கள்...",
-        zip_placeholder: "அஞ்சல் குறியீடு...",
+        hero_title: "விவசாயிகளுக்கு நியாயமான விலை. நுகர்வோருக்கு புதிய விளைபொருட்கள்.",
+        hero_subtitle: "விவசாயிகளுக்கு +45% அதிக வருமானம், நுகர்வோருக்கு 25% சேமிப்பு, இடைத்தரகர் இல்லா வர்த்தகம் & AI போக்குவரத்து.",
+        tagline_badge: "நேரடி டிஜிட்டல் சந்தை + ஸ்மார்ட் AI தளவாடங்கள்",
+        sms_hint: "விவசாயிகள் SMS அனுப்புக:",
+        login: "உள்நுழைக", register: "பதிவு செய்க", logout: "வெளியேறுக",
+        nav_marketplace: "நேரடி சந்தை", nav_orders: "ஆர்டர்கள் & கோரிக்கைகள்",
+        nav_ai: "AI தேவை கணிப்பு", nav_logistics: "ஸ்மார்ட் தளவாடங்கள் & பாதை",
+        nav_value: "நியாயமான விலை பகுப்பாய்வு",
+        search_placeholder: "பயிர்களைத் தேடுக (எ.கா. தக்காளி, வெங்காயம்)...",
+        zip_placeholder: "பின்கோடு (எ.கா. 500001)...",
         filter_all_sellers: "அனைத்து விற்பனையாளர்கள்",
         filter_farmers_only: "விவசாயிகள் மட்டும்",
-        filter_fpos_only: "FPO குழுக்கள் மட்டும்",
-        filter_btn: "தேடு", add_listing: "+ பயிர் சேர்",
-        seller_portal: "விற்பனையாளர் தளம்",
-        seller_portal_desc: "உங்கள் பயிர் பட்டியல்கள் மற்றும் விநியோகங்களை நிர்வகியுங்கள்.",
-        route_dispatch: "விநியோகத்தை அனுப்பு",
-        no_listings: "பயிர் பட்டியல்கள் எதுவும் இல்லை.",
-        kg_left: "கிலோ உள்ளது", min_order: "குறைந்தபட்ச ஆர்டர்",
-        market_benchmark: "சில்லறை விலை:",
-        farmer_gain: "விவசாயிக்கு +45% கூடுதல் லாபம்",
-        consumer_save: "25% வரை சேமிப்பு",
-        chat_seller: "விற்பனையாளருடன் பேசு", order_now: "ஆர்டர் செய்",
-        orders_title: "ஆர்டர்கள் & கோரிக்கைகள்",
-        orders_desc: "பண்ணையிலிருந்து நேரடி விநியோக நிலை.",
-        refresh: "புதுப்பி", plan_route_from_orders: "பாதை திட்டமிடு",
-        crop_name: "பயிர் பெயர்", seller: "விற்பவர்", quantity_kg: "அளவு (கிலோ)",
+        filter_fpos_only: "FPO அமைப்புகள் மட்டும்",
+        filter_btn: "வடிகட்டுக", add_listing: "+ பயிரை சேர்க்கவும்",
+        seller_portal: "விற்பனையாளர் மையம் (Seller Hub)",
+        seller_portal_desc: "உங்கள் விளைபொருள் இருப்பு, ஆர்டர்கள் மற்றும் போக்குவரத்து வழியை நிர்வகிக்கவும்.",
+        route_dispatch: "தளவாடங்கள் அனுப்புக",
+        no_listings: "விளைபொருள் எதுவும் கிடைக்கவில்லை.",
+        kg_left: "கிலோ மீதம்", min_order: "குறைந்தபட்ச ஆர்டர்",
+        market_benchmark: "சந்தை விலை:",
+        farmer_gain: "விவசாயிக்கு +45% கூடுதல் வருவாய்",
+        consumer_save: "சில்லறை விலையை விட 25% சேமிப்பு",
+        chat_seller: "விவசாயியுடன் அரட்டையடிக்கவும்", order_now: "ஆர்டர் செய்க",
+        orders_title: "ஆர்டர்கள் மற்றும் கோரிக்கைகள்",
+        orders_desc: "பண்ணையிலிருந்து நுகர்வோர் வரை நேரடி கண்காணிப்பு.",
+        refresh: "புதுப்பி", plan_route_from_orders: "டெலிவரி பாதையை திட்டமிடுக",
+        crop_name: "பயிரின் பெயர்", seller: "விற்பனையாளர்", quantity_kg: "அளவு (கிலோ)",
         total_price: "மொத்த விலை", status: "நிலை", actions: "செயல்கள்",
         status_pending: "நிலுவையில்", status_accepted: "ஏற்றுக்கொள்ளப்பட்டது",
         status_rejected: "நிராகரிக்கப்பட்டது", status_dispatched: "அனுப்பப்பட்டது",
-        status_delivered: "வழங்கப்பட்டது", status_cancelled: "ரத்து செய்யப்பட்டது",
-        accept: "ஏற்றுக்கொள்", decline: "நிராகரி", chat: "உரையாடு", cancel_order: "ரத்து செய்",
-        new_listing_title: "புதிய பயிர் சேர்", edit_listing_title: "பயிரைத் திருத்து",
-        save: "சேமி", cancel: "ரத்து",
-        request_order_title: "பயிரை ஆர்டர் செய்",
-        request_qty: "வாங்க வேண்டிய அளவு (கிலோ)", delivery_address: "விநியோக முகவரி",
-        order_notes: "விநியோக வழிமுறைகள்", submit_order_btn: "ஆர்டரை உறுதிசெய்",
-        available_stock: "இருப்பு அளவு",
+        status_delivered: "சேர்க்கப்பட்டது", status_cancelled: "ரத்து செய்யப்பட்டது",
+        accept: "ஏற்கவும்", decline: "நிராகரிக்கவும்", chat: "அரட்டை", cancel_order: "ரத்து செய்",
+        new_listing_title: "புதிய பயிர் பட்டியல்", edit_listing_title: "பயிர் பட்டியல் திருத்து",
+        save: "சேமிக்கவும்", cancel: "ரத்து",
+        request_order_title: "புதிய பயிரை ஆர்டர் செய்யவும்",
+        request_qty: "ஆர்டர் அளவு (கிலோ)", delivery_address: "டெலிவரி முகவரி",
+        order_notes: "டெலிவரி குறிப்புகள்", submit_order_btn: "ஆர்டரை உறுதிப்படுத்துக",
+        available_stock: "கிடைக்கும் இருப்பு",
         ai_forecast_config: "தேவை கணிப்பு", forecast_horizon: "கணிப்பு காலம்",
-        run_forecast_btn: "AI கணிப்பை இயக்கு", ai_forecast_prompt: "தேவையை கணிக்க பயிரைத் தேர்ந்தெடுக்கவும்.",
-        logistics_title: "ஸ்மார்ட் விநியோக பாதை அமைப்பு",
-        logistics_desc: "2-Opt மூலம் விநியோக தூரம் மற்றும் செலவு குறைகிறது.",
-        auto_import_orders: "ஆர்டர்களை தானாக சேர்",
-        optimize_route_btn: "பாதையை மேம்படுத்து",
-        route_prompt: "விநியோக வழியை உருவாக்க இடங்களைச் சேர்க்கவும்.",
-        active_trips_title: "செயலில் உள்ள விநியோகங்கள்",
-        fair_price_title: "நியாய விலை & இடைத்தரகர் நீக்கம்",
-        fair_price_desc: "நேரடி சந்தையால் கிடைக்கும் கூடுதல் நன்மைகளைக் காண்க.",
-        type_message: "செய்தியை உள்ளிடவும்...", send: "அனுப்பு",
+        run_forecast_btn: "AI கணிப்பை இயக்குக", ai_forecast_prompt: "பயிரைத் தேர்வுசெய்து கணிப்பைக் காண்க.",
+        logistics_title: "ஸ்மார்ட் தளவாடங்கள் & வழி உகப்பாக்கம்",
+        logistics_desc: "2-Opt வழித்தட உகப்பாக்கம் மூலம் எரிபொருள் செலவு மிச்சமாகிறது.",
+        auto_import_orders: "ஏற்றுக்கொண்ட ஆர்டர்களை சேர்க்க",
+        optimize_route_btn: "பாதையை உகப்பாக்குக",
+        route_prompt: "பாதையை உருவாக்க டெலிவரி நிறுத்தங்களை சேர்க்கவும்.",
+        active_trips_title: "செயலில் உள்ள பயணங்கள்",
+        fair_price_title: "நியாயமான விலை & இடைத்தரகர் ஒழிப்பு",
+        fair_price_desc: "விவசாயிகள் மற்றும் வாங்குபவர்கள் பெறும் உண்மையான பயனைப் பாருங்கள்.",
+        type_message: "செய்தி தட்டச்சு செய்க...", send: "அனுப்புக",
         select_buyer: "வாங்குபவர் உரையாடல்கள்:", loading: "ஏற்றுகிறது...",
         you: "நீங்கள்"
       }
@@ -1217,21 +1513,84 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
     window._lastListings = [];
     window._lastOrders = [];
 
-    // Helper: Crop Emojis
-    function getCropEmoji(name) {
+    // Helper: Lucide Icon Refresher
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === "function") {
+        window.lucide.createIcons();
+      }
+    }
+
+    // Helper: Toast Notifications
+    function showToast(title, message, type = "success") {
+      const container = document.getElementById("toastContainer");
+      if (!container) return;
+
+      const toast = document.createElement("div");
+      toast.className = `custom-toast ${type === 'error' ? 'custom-toast-error' : (type === 'info' ? 'custom-toast-info' : '')}`;
+      
+      let iconName = "check-circle-2";
+      let iconColor = "text-success";
+      if (type === "error") { iconName = "alert-circle"; iconColor = "text-danger"; }
+      if (type === "info") { iconName = "info"; iconColor = "text-primary"; }
+
+      toast.innerHTML = `
+        <i data-lucide="${iconName}" class="icon-sm ${iconColor} flex-shrink-0 mt-0.5"></i>
+        <div class="flex-grow-1">
+          <strong class="d-block text-dark small mb-0.5">${esc(title)}</strong>
+          <span class="text-muted small">${esc(message)}</span>
+        </div>
+        <button type="button" class="btn-close btn-close-sm" style="font-size: 0.65rem;" onclick="this.closest('.custom-toast').remove()"></button>
+      `;
+
+      container.appendChild(toast);
+      refreshIcons();
+
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateX(100%)";
+        setTimeout(() => toast.remove(), 250);
+      }, 3500);
+    }
+
+    // Quick-Fill Demo Auth Helper
+    function quickFillAuth(phone, password, role) {
+      document.getElementById("loginPhone").value = phone;
+      document.getElementById("loginPassword").value = password;
+      document.getElementById("loginRole").value = role;
+      showToast("Demo Credentials Loaded", `Ready to sign in as ${role}`, "info");
+    }
+
+    // Helper: Styled Crop Visual Badges (Lucide React Icons with tailored backgrounds)
+    function getCropVisual(name) {
       const n = (name || "").toUpperCase();
-      if (n.includes("TOMATO")) return "🍅";
-      if (n.includes("ONION")) return "🧅";
-      if (n.includes("POTATO")) return "🥔";
-      if (n.includes("CHILLI") || n.includes("CHILI")) return "🌶️";
-      if (n.includes("BANANA")) return "🍌";
-      if (n.includes("CABBAGE")) return "🥬";
-      if (n.includes("CARROT")) return "🥕";
-      if (n.includes("MANGO")) return "🥭";
-      if (n.includes("CAPSICUM") || n.includes("PEPPER")) return "🫑";
-      if (n.includes("RICE") || n.includes("PADDY")) return "🌾";
-      if (n.includes("WHEAT")) return "🌾";
-      return "🌱";
+      if (n.includes("TOMATO")) {
+        return { icon: "apple", colorClass: "crop-avatar-rose", label: "Tomato" };
+      }
+      if (n.includes("ONION")) {
+        return { icon: "circle-dot", colorClass: "crop-avatar-purple", label: "Onion" };
+      }
+      if (n.includes("POTATO")) {
+        return { icon: "package", colorClass: "crop-avatar-amber", label: "Potato" };
+      }
+      if (n.includes("CHILLI") || n.includes("CHILI")) {
+        return { icon: "flame", colorClass: "crop-avatar-red", label: "Chilli" };
+      }
+      if (n.includes("BANANA") || n.includes("MANGO")) {
+        return { icon: "citrus", colorClass: "crop-avatar-yellow", label: "Fruit" };
+      }
+      if (n.includes("CABBAGE") || n.includes("GREENS") || n.includes("SPINACH")) {
+        return { icon: "leaf", colorClass: "crop-avatar-green", label: "Greens" };
+      }
+      if (n.includes("CARROT")) {
+        return { icon: "carrot", colorClass: "crop-avatar-amber", label: "Root" };
+      }
+      if (n.includes("CAPSICUM") || n.includes("PEPPER")) {
+        return { icon: "shield", colorClass: "crop-avatar-emerald", label: "Capsicum" };
+      }
+      if (n.includes("RICE") || n.includes("PADDY") || n.includes("WHEAT")) {
+        return { icon: "wheat", colorClass: "crop-avatar-gold", label: "Grain" };
+      }
+      return { icon: "sprout", colorClass: "crop-avatar-default", label: "Farm Produce" };
     }
 
     function setLang(lang) {
@@ -1266,6 +1625,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       if (window._lastOrders && window._lastOrders.length) {
         renderOrdersTable(window._lastOrders);
       }
+      refreshIcons();
     }
 
     function switchTab(tabId) {
@@ -1283,6 +1643,8 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       if (tabId === "ai") runAIDemandForecast();
       if (tabId === "logistics") fetchTripsData();
       if (tabId === "analytics") fetchValueDistribution(document.getElementById("valueCropSelect").value);
+
+      refreshIcons();
     }
 
     function filterByChip(crop, chipEl) {
@@ -1307,6 +1669,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         sellerBox.classList.add("d-none");
         addBtn.classList.add("d-none");
         autoDispatchBtn.classList.add("d-none");
+        refreshIcons();
         return;
       }
 
@@ -1320,30 +1683,31 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       
       const role = (currentUser.role || "").toUpperCase();
       if (role === "FARMER") {
-        badgeEl.textContent = "🧑‍🌾 Farmer";
-        badgeEl.className = "badge bg-success-subtle text-success border border-success-subtle px-2 py-1";
+        badgeEl.innerHTML = `<i data-lucide="sprout" class="icon-xs me-1"></i> Farmer`;
+        badgeEl.className = "badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 rounded-pill d-inline-flex align-items-center";
         sellerBox.classList.remove("d-none");
         addBtn.classList.remove("d-none");
         autoDispatchBtn.classList.remove("d-none");
       } else if (role === "FPO") {
-        badgeEl.textContent = "🚜 FPO Collective";
-        badgeEl.className = "badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1";
+        badgeEl.innerHTML = `<i data-lucide="users" class="icon-xs me-1"></i> FPO Collective`;
+        badgeEl.className = "badge bg-primary-subtle text-primary border border-primary-subtle px-2.5 py-1.5 rounded-pill d-inline-flex align-items-center";
         sellerBox.classList.remove("d-none");
         addBtn.classList.remove("d-none");
         autoDispatchBtn.classList.remove("d-none");
       } else if (role === "BULK_BUYER") {
-        badgeEl.textContent = "🏢 Bulk Buyer";
-        badgeEl.className = "badge bg-warning-subtle text-warning border border-warning-subtle px-2 py-1";
+        badgeEl.innerHTML = `<i data-lucide="building-2" class="icon-xs me-1"></i> Bulk Buyer`;
+        badgeEl.className = "badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-2.5 py-1.5 rounded-pill d-inline-flex align-items-center";
         sellerBox.classList.add("d-none");
         addBtn.classList.add("d-none");
         autoDispatchBtn.classList.add("d-none");
       } else {
-        badgeEl.textContent = "🛒 Consumer";
-        badgeEl.className = "badge bg-info-subtle text-info border border-info-subtle px-2 py-1";
+        badgeEl.innerHTML = `<i data-lucide="shopping-cart" class="icon-xs me-1"></i> Consumer`;
+        badgeEl.className = "badge bg-info-subtle text-info-emphasis border border-info-subtle px-2.5 py-1.5 rounded-pill d-inline-flex align-items-center";
         sellerBox.classList.add("d-none");
         addBtn.classList.add("d-none");
         autoDispatchBtn.classList.add("d-none");
       }
+      refreshIcons();
     }
 
     function logout() {
@@ -1353,7 +1717,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       stopSyncPolling();
       updateNavUserState();
       fetchListings();
-      alert("Logged out successfully.");
+      showToast("Signed Out", "You have been logged out successfully.", "info");
     }
 
     function setAuthTab(tab) {
@@ -1408,16 +1772,21 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
       if (!data || data.length === 0) {
         if (noEl) noEl.classList.remove("d-none");
+        refreshIcons();
         return;
       }
       if (noEl) noEl.classList.add("d-none");
 
       data.forEach(item => {
         const isFPO = (item.seller_type === "FPO");
-        const sellerBadgeClass = isFPO ? "badge-fpo-tag" : "badge-farmer-tag";
-        const sellerTypeTitle = isFPO ? "🚜 FPO Collective" : "🧑‍🌾 Verified Farmer";
-        const sourceLabel = item.source === "SMS" ? "⚡ SMS Listed" : "✅ Web Verified";
-        const cropEmoji = getCropEmoji(item.crop_name);
+        const sellerBadgeClass = isFPO ? "role-badge-fpo" : "role-badge-farmer";
+        const sellerRoleIcon = isFPO ? "users" : "sprout";
+        const sellerTypeTitle = isFPO ? "FPO Collective" : "Verified Farmer";
+        const sourceLabel = item.source === "SMS" 
+          ? `<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill px-2 py-0.5 d-inline-flex align-items-center gap-1"><i data-lucide="smartphone" class="icon-xs"></i> SMS Listed</span>`
+          : `<span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-0.5 d-inline-flex align-items-center gap-1"><i data-lucide="check-check" class="icon-xs"></i> Web Verified</span>`;
+        
+        const visual = getCropVisual(item.crop_name);
 
         const retailBenchmark = item.retail_market_price_per_kg || Math.round(item.price_per_kg * 1.45);
         const savingsAmount = Math.max(0, retailBenchmark - item.price_per_kg);
@@ -1426,52 +1795,60 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         container.innerHTML += `
           <div class="col-md-6 col-lg-4">
             <div class="crop-card p-3">
-              <div class="d-flex justify-content-between align-items-start mb-2">
-                <div class="d-flex align-items-center gap-2">
-                  <div class="crop-avatar">${cropEmoji}</div>
+              <div class="d-flex justify-content-between align-items-start mb-2.5">
+                <div class="d-flex align-items-center gap-2.5">
+                  <div class="crop-avatar ${visual.colorClass}">
+                    <i data-lucide="${visual.icon}" class="icon-lg"></i>
+                  </div>
                   <div>
-                    <span class="badge ${sellerBadgeClass} rounded-pill px-2 py-0.5">${sellerTypeTitle}</span>
-                    <h5 class="fw-bold text-dark mb-0 mt-0.5">${esc(item.crop_name)}</h5>
+                    <span class="${sellerBadgeClass}">
+                      <i data-lucide="${sellerRoleIcon}" class="icon-xs"></i>
+                      <span>${sellerTypeTitle}</span>
+                    </span>
+                    <h5 class="fw-bold text-dark mb-0 mt-1">${esc(item.crop_name)}</h5>
                   </div>
                 </div>
                 <div class="text-end">
-                  <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-1">
+                  <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2.5 py-1 fw-semibold">
                     ${item.quantity_kg} ${t("kg_left")}
                   </span>
-                  <small class="text-muted d-block" style="font-size:0.7rem; margin-top:2px;">${sourceLabel}</small>
+                  <div class="mt-1">${sourceLabel}</div>
                 </div>
               </div>
 
               <!-- Price & Transparent Savings in ₹ -->
-              <div class="p-2 bg-light rounded-3 mb-3 border">
+              <div class="p-2.5 bg-light rounded-3 mb-3 border">
                 <div class="d-flex justify-content-between align-items-baseline">
                   <div>
                     <span class="price-display">₹${item.price_per_kg}</span>
                     <span class="price-unit">/kg</span>
                   </div>
                   <div class="text-end">
-                    <span class="savings-badge"><i class="bi bi-tag-fill me-1"></i>Save ~${savingsPercent}%</span>
+                    <span class="savings-badge">
+                      <i data-lucide="trending-up" class="icon-xs"></i>
+                      <span>Save ~${savingsPercent}%</span>
+                    </span>
                   </div>
                 </div>
-                <div class="d-flex justify-content-between text-muted" style="font-size:0.75rem; margin-top:4px;">
+                <div class="d-flex justify-content-between text-muted" style="font-size:0.76rem; margin-top:5px;">
                   <span>${t("market_benchmark")} <del>₹${retailBenchmark}</del></span>
-                  <span class="text-success fw-bold">Save ₹${savingsAmount.toFixed(1)}/kg</span>
+                  <span class="text-success fw-bold">Direct Save ₹${savingsAmount.toFixed(1)}/kg</span>
                 </div>
               </div>
 
               <!-- Farmer / Location Details -->
               <div class="mb-3 small">
-                <div class="text-secondary mb-1 d-flex align-items-center">
-                  <i class="bi bi-person-circle text-success me-1"></i>
+                <div class="text-secondary mb-1.5 d-flex align-items-center gap-1.5">
+                  <i data-lucide="user" class="icon-xs text-success"></i>
                   <span>${t("seller")}: <strong class="text-dark">${esc(item.farmer_name)}</strong></span>
                 </div>
-                <div class="text-secondary mb-1 d-flex align-items-center">
-                  <i class="bi bi-geo-alt-fill text-danger me-1"></i>
+                <div class="text-secondary mb-1.5 d-flex align-items-center gap-1.5">
+                  <i data-lucide="map-pin" class="icon-xs text-danger"></i>
                   <span class="text-truncate">${esc(item.location_name || item.zip_code)} (Pin: ${esc(item.zip_code)})</span>
                 </div>
-                <div class="text-secondary d-flex align-items-center justify-content-between">
-                  <span><i class="bi bi-patch-check-fill text-success me-1"></i> ${esc(item.quality_grade || "Grade A")}</span>
-                  <span><i class="bi bi-box me-1"></i> Min: <strong>${item.min_order_kg || 1} KG</strong></span>
+                <div class="text-secondary d-flex align-items-center justify-content-between pt-1 border-top" style="font-size:0.78rem;">
+                  <span class="d-flex align-items-center gap-1"><i data-lucide="shield-check" class="icon-xs text-success"></i> ${esc(item.quality_grade || "Grade A Fresh")}</span>
+                  <span class="d-flex align-items-center gap-1"><i data-lucide="package" class="icon-xs text-muted"></i> Min: <strong>${item.min_order_kg || 1} KG</strong></span>
                 </div>
               </div>
 
@@ -1479,16 +1856,19 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
               <div class="mt-auto d-grid gap-2">
                 <div class="d-flex gap-2">
                   <button class="btn btn-sm btn-brand-outline w-50" onclick="openChatForListing(${item.id}, '${esc(item.crop_name)}', '${esc(item.farmer_phone)}', '${esc(item.farmer_name)}')">
-                    <i class="bi bi-chat-dots me-1"></i> ${t("chat_seller")}
+                    <i data-lucide="message-square" class="icon-xs"></i>
+                    <span>${t("chat_seller")}</span>
                   </button>
                   <button class="btn btn-sm btn-brand w-50" onclick='openOrderModal(${JSON.stringify(item)})'>
-                    <i class="bi bi-cart-check-fill me-1"></i> ${t("order_now")}
+                    <i data-lucide="shopping-bag" class="icon-xs"></i>
+                    <span>${t("order_now")}</span>
                   </button>
                 </div>
               </div>
             </div>
           </div>`;
       });
+      refreshIcons();
     }
 
     // =========================================================================
@@ -1496,7 +1876,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
     // =========================================================================
     function openOrderModal(item) {
       if (!currentUser) {
-        alert("Please log in or register first to place an order.");
+        showToast("Authentication Required", "Please log in or register first to place an order.", "info");
         setAuthTab("login");
         new bootstrap.Modal(document.getElementById("authModal")).show();
         return;
@@ -1522,6 +1902,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
       updateOrderTotal();
       new bootstrap.Modal(document.getElementById("orderModal")).show();
+      refreshIcons();
     }
 
     function updateOrderTotal() {
@@ -1567,14 +1948,15 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         const data = await res.json();
         if (res.ok) {
           bootstrap.Modal.getInstance(document.getElementById("orderModal")).hide();
-          alert(data.message || "Order placed successfully!");
+          showToast("Order Placed Successfully", data.message || "Your harvest order has been received by the producer.", "success");
           fetchListings();
           switchTab("orders");
         } else {
-          alert(data.detail || "Error placing order");
+          showToast("Order Error", data.detail || "Could not place order", "error");
         }
       } catch (err) {
         console.error("Order submit error:", err);
+        showToast("Error", "Network error while placing order", "error");
       }
     }
 
@@ -1585,10 +1967,16 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       if (!currentUser) {
         document.getElementById("ordersTableContainer").innerHTML = `
           <div class="text-center py-5 text-muted">
-            <i class="bi bi-shield-lock fs-1 d-block mb-2 text-warning"></i>
-            <p>Please log in to view and manage your orders and batch requests.</p>
-            <button class="btn btn-brand btn-sm fw-semibold rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#authModal" onclick="setAuthTab('login')">Log In Now</button>
+            <div class="p-3 bg-light rounded-circle d-inline-flex mb-2">
+              <i data-lucide="shield" class="icon-xl text-warning"></i>
+            </div>
+            <h5 class="fw-bold text-dark mb-1">Authentication Required</h5>
+            <p class="text-muted small mb-3">Please log in to view and manage your orders and batch requests.</p>
+            <button class="btn btn-brand btn-sm fw-semibold rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#authModal" onclick="setAuthTab('login')">
+              <i data-lucide="log-in" class="icon-xs me-1"></i> Log In Now
+            </button>
           </div>`;
+        refreshIcons();
         return;
       }
 
@@ -1624,9 +2012,12 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       if (!orders || orders.length === 0) {
         container.innerHTML = `
           <div class="text-center py-5 text-muted">
-            <i class="bi bi-inbox fs-1 d-block mb-2 text-secondary"></i>
-            <p>No orders recorded yet.</p>
+            <div class="p-3 bg-light rounded-circle d-inline-flex mb-2">
+              <i data-lucide="inbox" class="icon-xl text-muted"></i>
+            </div>
+            <p class="mb-0">No orders recorded yet.</p>
           </div>`;
+        refreshIcons();
         return;
       }
 
@@ -1647,12 +2038,12 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
             <tbody>
               ${orders.map(o => {
                 let statusBadge = "";
-                if (o.status === "PENDING") statusBadge = `<span class="badge bg-warning text-dark border"><i class="bi bi-hourglass-split me-1"></i>Pending</span>`;
-                else if (o.status === "ACCEPTED") statusBadge = `<span class="badge bg-primary"><i class="bi bi-check-circle-fill me-1"></i>Accepted</span>`;
-                else if (o.status === "DISPATCHED") statusBadge = `<span class="badge bg-info text-dark"><i class="bi bi-truck me-1"></i>Dispatched</span>`;
-                else if (o.status === "DELIVERED") statusBadge = `<span class="badge bg-success"><i class="bi bi-patch-check-fill me-1"></i>Delivered</span>`;
-                else if (o.status === "REJECTED") statusBadge = `<span class="badge bg-danger">Declined</span>`;
-                else statusBadge = `<span class="badge bg-secondary">Cancelled</span>`;
+                if (o.status === "PENDING") statusBadge = `<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1"><i data-lucide="clock" class="icon-xs"></i> Pending</span>`;
+                else if (o.status === "ACCEPTED") statusBadge = `<span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1"><i data-lucide="check-circle-2" class="icon-xs"></i> Accepted</span>`;
+                else if (o.status === "DISPATCHED") statusBadge = `<span class="badge bg-info-subtle text-info-emphasis border border-info-subtle rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1"><i data-lucide="truck" class="icon-xs"></i> Dispatched</span>`;
+                else if (o.status === "DELIVERED") statusBadge = `<span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1"><i data-lucide="shield-check" class="icon-xs"></i> Delivered</span>`;
+                else if (o.status === "REJECTED") statusBadge = `<span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1"><i data-lucide="x-circle" class="icon-xs"></i> Declined</span>`;
+                else statusBadge = `<span class="badge bg-secondary-subtle text-secondary border rounded-pill px-2.5 py-1">Cancelled</span>`;
 
                 const buyerOrSellerInfo = isSellerRole ? `
                   <div>
@@ -1670,30 +2061,30 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                   if (o.status === "PENDING") {
                     actions = `
                       <div class="btn-group btn-group-sm">
-                        <button class="btn btn-success fw-semibold" onclick="handleAcceptOrder(${o.id})">
-                          <i class="bi bi-check-lg me-1"></i> Accept
+                        <button class="btn btn-success fw-semibold d-inline-flex align-items-center gap-1" onclick="handleAcceptOrder(${o.id})">
+                          <i data-lucide="check" class="icon-xs"></i> Accept
                         </button>
-                        <button class="btn btn-outline-danger" onclick="handleRejectOrder(${o.id})">
-                          <i class="bi bi-x-lg"></i>
+                        <button class="btn btn-outline-danger" onclick="handleRejectOrder(${o.id})" title="Decline">
+                          <i data-lucide="x" class="icon-xs"></i>
                         </button>
-                        <button class="btn btn-outline-primary" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.buyer_phone)}', '${esc(o.buyer_name)}')">
-                          <i class="bi bi-chat-dots-fill"></i>
+                        <button class="btn btn-outline-primary" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.buyer_phone)}', '${esc(o.buyer_name)}')" title="Chat">
+                          <i data-lucide="message-square" class="icon-xs"></i>
                         </button>
                       </div>`;
                   } else if (o.status === "ACCEPTED") {
                     actions = `
                       <div class="btn-group btn-group-sm">
-                        <button class="btn btn-outline-primary" onclick="loadSingleOrderToRoute(${JSON.stringify(o).replace(/"/g, '&quot;')})">
-                          <i class="bi bi-truck me-1"></i> Route
+                        <button class="btn btn-outline-primary d-inline-flex align-items-center gap-1" onclick="loadSingleOrderToRoute(${JSON.stringify(o).replace(/"/g, '&quot;')})">
+                          <i data-lucide="truck" class="icon-xs"></i> Route
                         </button>
-                        <button class="btn btn-outline-success" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.buyer_phone)}', '${esc(o.buyer_name)}')">
-                          <i class="bi bi-chat-dots-fill"></i>
+                        <button class="btn btn-outline-success" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.buyer_phone)}', '${esc(o.buyer_name)}')" title="Chat">
+                          <i data-lucide="message-square" class="icon-xs"></i>
                         </button>
                       </div>`;
                   } else {
                     actions = `
-                      <button class="btn btn-sm btn-outline-secondary" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.buyer_phone)}', '${esc(o.buyer_name)}')">
-                        <i class="bi bi-chat-dots-fill me-1"></i> Chat
+                      <button class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.buyer_phone)}', '${esc(o.buyer_name)}')">
+                        <i data-lucide="message-square" class="icon-xs"></i> Chat
                       </button>`;
                   }
                 } else {
@@ -1703,14 +2094,14 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                         <button class="btn btn-outline-danger" onclick="handleCancelOrder(${o.id})">
                           Cancel
                         </button>
-                        <button class="btn btn-outline-success" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.farmer_phone)}', '${esc(o.farmer_name)}')">
-                          <i class="bi bi-chat-dots-fill"></i> Chat
+                        <button class="btn btn-outline-success d-inline-flex align-items-center gap-1" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.farmer_phone)}', '${esc(o.farmer_name)}')">
+                          <i data-lucide="message-square" class="icon-xs"></i> Chat
                         </button>
                       </div>`;
                   } else {
                     actions = `
-                      <button class="btn btn-sm btn-outline-success" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.farmer_phone)}', '${esc(o.farmer_name)}')">
-                        <i class="bi bi-chat-dots-fill me-1"></i> Chat
+                      <button class="btn btn-sm btn-outline-success d-inline-flex align-items-center gap-1" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.farmer_phone)}', '${esc(o.farmer_name)}')">
+                        <i data-lucide="message-square" class="icon-xs"></i> Chat
                       </button>`;
                   }
                 }
@@ -1729,6 +2120,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
             </tbody>
           </table>
         </div>`;
+      refreshIcons();
     }
 
     async function handleAcceptOrder(orderId) {
@@ -1737,11 +2129,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         const res = await fetch(`/api/orders/${orderId}/accept?farmer_phone=${encodeURIComponent(currentUser.phone)}`, { method: "POST" });
         const data = await res.json();
         if (res.ok) {
-          alert(data.message || "Order accepted!");
+          showToast("Order Accepted", data.message || "Batch request accepted and ready for dispatch.", "success");
           fetchOrdersData();
           fetchListings();
         } else {
-          alert(data.detail || "Error accepting order");
+          showToast("Error", data.detail || "Error accepting order", "error");
         }
       } catch (err) {
         console.error("Accept error:", err);
@@ -1754,10 +2146,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         const res = await fetch(`/api/orders/${orderId}/reject?farmer_phone=${encodeURIComponent(currentUser.phone)}`, { method: "POST" });
         const data = await res.json();
         if (res.ok) {
-          alert(data.message || "Order declined.");
+          showToast("Order Declined", data.message || "Batch request declined.", "info");
           fetchOrdersData();
         } else {
-          alert(data.detail || "Error declining order");
+          showToast("Error", data.detail || "Error declining order", "error");
         }
       } catch (err) {
         console.error("Reject error:", err);
@@ -1770,11 +2162,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         const res = await fetch(`/api/orders/${orderId}/cancel?buyer_phone=${encodeURIComponent(currentUser.phone)}`, { method: "POST" });
         const data = await res.json();
         if (res.ok) {
-          alert(data.message || "Order cancelled.");
+          showToast("Order Cancelled", data.message || "Order request cancelled.", "info");
           fetchOrdersData();
           fetchListings();
         } else {
-          alert(data.detail || "Error cancelling order");
+          showToast("Error", data.detail || "Error cancelling order", "error");
         }
       } catch (err) {
         console.error("Cancel error:", err);
@@ -1800,28 +2192,35 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         const data = await res.json();
         if (!res.ok) throw new Error(data.detail || "Forecast calculation error");
 
-        const trendBadge = data.trend === "rising" ? "bg-success" : (data.trend === "falling" ? "bg-danger" : "bg-primary");
-        const trendIcon = data.trend === "rising" ? "bi-arrow-up-right" : (data.trend === "falling" ? "bi-arrow-down-right" : "bi-dash-lg");
+        const isRising = data.trend === "rising";
+        const isFalling = data.trend === "falling";
+        const trendBadge = isRising ? "bg-success-subtle text-success border border-success-subtle" : (isFalling ? "bg-danger-subtle text-danger border border-danger-subtle" : "bg-primary-subtle text-primary border border-primary-subtle");
+        const trendIcon = isRising ? "trending-up" : (isFalling ? "trending-down" : "minus");
 
         const maxVal = Math.max(...data.daily_projection.map(d => d.demand_kg), 10);
         const barsHtml = data.daily_projection.map((d, i) => {
           const heightPct = Math.round((d.demand_kg / maxVal) * 100);
           return `
-            <div class="d-flex flex-column align-items-center flex-fill" style="min-width:42px;">
+            <div class="d-flex flex-column align-items-center flex-fill" style="min-width:44px;">
               <span class="small fw-bold text-success mb-1" style="font-size:0.72rem;">${d.demand_kg}kg</span>
-              <div class="w-100 bg-success bg-opacity-75 rounded-top" style="height:${heightPct}px; min-height:8px;"></div>
-              <span class="text-muted text-truncate mt-1" style="font-size:0.68rem;">${d.day.split(" ")[0]}</span>
+              <div class="w-100 bg-success bg-opacity-75 rounded-top" style="height:${heightPct}px; min-height:10px;"></div>
+              <span class="text-muted text-truncate mt-1.5" style="font-size:0.68rem;">${d.day.split(" ")[0]}</span>
             </div>`;
         }).join("");
 
         card.innerHTML = `
           <div class="d-flex justify-content-between align-items-start mb-3">
             <div>
-              <span class="badge ${trendBadge} rounded-pill px-3 py-1 mb-1"><i class="bi ${trendIcon} me-1"></i>Trend: ${esc(data.trend.toUpperCase())}</span>
+              <span class="badge ${trendBadge} rounded-pill px-3 py-1 mb-1 d-inline-flex align-items-center gap-1">
+                <i data-lucide="${trendIcon}" class="icon-xs"></i>
+                <span>Trend: ${esc(data.trend.toUpperCase())}</span>
+              </span>
               <h4 class="fw-bold text-success mb-0">${esc(data.crop)} AI Demand Forecast (${data.forecast_days} Days)</h4>
             </div>
             <div class="text-end">
-              <span class="badge bg-light text-dark border px-2 py-1 rounded-pill">Confidence: <strong>${data.confidence_percent}%</strong></span>
+              <span class="badge bg-light text-dark border px-2.5 py-1.5 rounded-pill small">
+                Confidence: <strong>${data.confidence_percent}%</strong>
+              </span>
             </div>
           </div>
 
@@ -1860,7 +2259,9 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
           <div class="p-3 bg-light rounded-4 mb-4 border">
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <h6 class="fw-bold text-dark small mb-0"><i class="bi bi-graph-up text-success me-1"></i>Daily Projected Consumption (KG)</h6>
+              <h6 class="fw-bold text-dark small mb-0 d-flex align-items-center gap-1.5">
+                <i data-lucide="bar-chart-3" class="icon-xs text-success"></i>Daily Projected Consumption (KG)
+              </h6>
               <span class="badge bg-white text-muted border small">Shelf Life: ${data.shelf_life_days} Days</span>
             </div>
             <div class="d-flex align-items-end gap-2 pt-3 pb-1" style="height:140px; overflow-x:auto;">
@@ -1872,14 +2273,18 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           <div class="row g-3 mb-3">
             <div class="col-md-6">
               <div class="p-3 bg-success bg-opacity-10 border border-success border-opacity-25 rounded-4">
-                <h6 class="fw-bold text-success mb-1"><i class="bi bi-cash-coin me-1"></i>Recommended Farmer Price</h6>
+                <h6 class="fw-bold text-success mb-1 d-flex align-items-center gap-1.5">
+                  <i data-lucide="coins" class="icon-sm"></i>Recommended Farmer Price
+                </h6>
                 <div class="fs-4 fw-bold text-success">₹${data.fair_farmer_price_inr} / KG</div>
                 <small class="text-muted">Mandi Baseline: <del>₹${data.mandi_benchmark_inr}</del> (Farmer earns <strong>+45% more</strong>)</small>
               </div>
             </div>
             <div class="col-md-6">
               <div class="p-3 bg-primary bg-opacity-10 border border-primary border-opacity-25 rounded-4">
-                <h6 class="fw-bold text-primary mb-1"><i class="bi bi-bag-check-fill me-1"></i>Target Direct Consumer Price</h6>
+                <h6 class="fw-bold text-primary mb-1 d-flex align-items-center gap-1.5">
+                  <i data-lucide="shopping-bag" class="icon-sm"></i>Target Direct Consumer Price
+                </h6>
                 <div class="fs-4 fw-bold text-primary">₹${data.fair_consumer_price_inr} / KG</div>
                 <small class="text-muted">Retail Supermarket: <del>₹${data.retail_benchmark_inr}</del> (Consumer saves <strong>25%</strong>)</small>
               </div>
@@ -1887,12 +2292,13 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           </div>
 
           <div class="alert alert-success d-flex align-items-center mb-0 rounded-4">
-            <i class="bi bi-lightbulb-fill text-success fs-3 me-3"></i>
+            <i data-lucide="lightbulb" class="icon-md text-success me-3 flex-shrink-0"></i>
             <div>
-              <strong class="d-block mb-1">AI Recommendation:</strong>
+              <strong class="d-block mb-0.5">AI Recommendation:</strong>
               <span class="small">${esc(data.recommendation)}</span>
             </div>
           </div>`;
+        refreshIcons();
       } catch (err) {
         card.innerHTML = `<div class="alert alert-danger mb-0">${esc(err.message)}</div>`;
       }
@@ -1907,7 +2313,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       switchTab("logistics");
       const acceptedOrders = (window._lastOrders || []).filter(o => o.status === "ACCEPTED");
       if (acceptedOrders.length === 0) {
-        alert("No ACCEPTED orders available yet. Accept pending orders first to load them into the delivery route.");
+        showToast("No Orders Available", "Accept pending orders first to load them into the delivery route.", "info");
         return;
       }
 
@@ -1985,10 +2391,12 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         resultBox.innerHTML = `
           <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-              <span class="badge bg-success rounded-pill px-3 py-1 mb-1"><i class="bi bi-lightning-charge-fill me-1"></i>2-Opt Optimized Sequence</span>
+              <span class="badge bg-success rounded-pill px-3 py-1 mb-1 d-inline-flex align-items-center gap-1">
+                <i data-lucide="zap" class="icon-xs"></i>2-Opt Optimized Sequence
+              </span>
               <h5 class="fw-bold text-dark mb-0">Delivery Route Summary</h5>
             </div>
-            ${isSellerRole ? `<button class="btn btn-brand btn-sm rounded-pill px-3 fw-semibold" onclick="handleDispatchTripSubmit()"><i class="bi bi-send-check-fill me-1"></i> Create & Dispatch Trip</button>` : ''}
+            ${isSellerRole ? `<button class="btn btn-brand btn-sm rounded-pill px-3 fw-semibold d-inline-flex align-items-center gap-1" onclick="handleDispatchTripSubmit()"><i data-lucide="send" class="icon-xs"></i> Create &amp; Dispatch Trip</button>` : ''}
           </div>
 
           <div class="row g-2 mb-3">
@@ -2015,35 +2423,42 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
             </div>
           </div>
 
-          <div class="alert alert-success py-2 px-3 small mb-3 rounded-3">
+          <div class="alert alert-success py-2.5 px-3 small mb-3 rounded-3">
             <div class="d-flex justify-content-between align-items-center">
-              <div><i class="bi bi-truck me-1"></i><strong>Recommended Vehicle:</strong> ${esc(data.recommended_vehicle)}</div>
+              <div class="d-flex align-items-center gap-1"><i data-lucide="truck" class="icon-sm"></i><strong>Recommended Vehicle:</strong> ${esc(data.recommended_vehicle)}</div>
               <div><span class="badge bg-success-subtle text-success">Est. Fuel: ₹${data.estimated_fuel_cost_inr}</span></div>
             </div>
-            <div class="text-muted mt-1" style="font-size:0.75rem;">
-              🌱 <strong>Green Impact:</strong> Consolidated routing saves <strong>${data.co2_saved_kg} KG of CO2</strong> and ₹${data.cost_savings_inr} in direct transport expenses.
+            <div class="text-muted mt-1.5 d-flex align-items-start gap-1" style="font-size:0.76rem;">
+              <i data-lucide="leaf" class="icon-xs text-success flex-shrink-0 mt-0.5"></i>
+              <span><strong>Green Impact:</strong> Consolidated routing saves <strong>${data.co2_saved_kg} KG of CO2</strong> and ₹${data.cost_savings_inr} in direct transport expenses.</span>
             </div>
           </div>
 
-          <h6 class="fw-bold text-dark small mb-2"><i class="bi bi-signpost-split text-success me-1"></i>Optimized Drop Sequence:</h6>
+          <h6 class="fw-bold text-dark small mb-2 d-flex align-items-center gap-1.5">
+            <i data-lucide="milestone" class="icon-xs text-success"></i>Optimized Drop Sequence:
+          </h6>
           <div class="d-flex flex-column gap-2" style="max-height: 250px; overflow-y:auto;">
-            <div class="p-2 bg-white rounded-3 border-start border-success border-4 shadow-sm">
-              <strong class="text-success">🚀 Origin: ${esc(data.origin.name)}</strong>
+            <div class="p-2.5 bg-white rounded-3 border-start border-success border-4 shadow-sm">
+              <strong class="text-success d-flex align-items-center gap-1.5">
+                <i data-lucide="map-pin" class="icon-sm"></i> Origin Hub: ${esc(data.origin.name)}
+              </strong>
               <small class="text-muted d-block">Coordinates: [${data.origin.lat}, ${data.origin.lon}]</small>
             </div>
             ${data.route.map(stop => `
-              <div class="route-stop-card p-2 shadow-sm border">
+              <div class="p-2.5 bg-white rounded-3 border shadow-sm">
                 <div class="d-flex justify-content-between align-items-center mb-1">
                   <strong>${stop.sequence}. ${esc(stop.name)}</strong>
-                  <span class="badge bg-success-subtle text-success">${stop.quantity_kg} KG</span>
+                  <span class="badge bg-success-subtle text-success rounded-pill">${stop.quantity_kg} KG</span>
                 </div>
-                <div class="text-muted small" style="font-size:0.78rem;">
-                  <i class="bi bi-geo-alt me-1"></i>${esc(stop.address)} &nbsp;|&nbsp;
-                  <i class="bi bi-arrow-right-short text-primary"></i> ${stop.distance_from_previous_km} km from previous stop
+                <div class="text-muted small d-flex align-items-center gap-2" style="font-size:0.78rem;">
+                  <span><i data-lucide="map-pin" class="icon-xs me-0.5"></i>${esc(stop.address)}</span>
+                  <span>&bull;</span>
+                  <span><i data-lucide="arrow-right" class="icon-xs text-primary me-0.5"></i>${stop.distance_from_previous_km} km from previous stop</span>
                 </div>
               </div>
             `).join("")}
           </div>`;
+        refreshIcons();
       } catch (err) {
         resultBox.innerHTML = `<div class="alert alert-danger mb-0">${esc(err.message)}</div>`;
       }
@@ -2080,11 +2495,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
         const data = await res.json();
         if (res.ok) {
-          alert(data.message || "Trip dispatched successfully!");
+          showToast("Trip Dispatched", data.message || "Logistics trip dispatched successfully.", "success");
           fetchTripsData();
           fetchOrdersData();
         } else {
-          alert(data.detail || "Dispatch failed");
+          showToast("Error", data.detail || "Dispatch failed", "error");
         }
       } catch (err) {
         console.error("Dispatch error:", err);
@@ -2120,19 +2535,20 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                     <span class="badge ${tr.status === 'DELIVERED' ? 'bg-success' : 'bg-primary'} rounded-pill px-3">${tr.status}</span>
                   </div>
                   <div class="small text-secondary mb-2">
-                    <div><i class="bi bi-truck me-1"></i> ${esc(tr.vehicle_type)} (${esc(tr.vehicle_number)})</div>
-                    <div><i class="bi bi-person-badge me-1"></i> Driver: ${esc(tr.driver_name)} (${esc(tr.driver_phone)})</div>
-                    <div><i class="bi bi-speedometer2 me-1"></i> ${tr.total_distance_km} km &nbsp;|&nbsp; ${tr.total_load_kg} KG load</div>
+                    <div class="d-flex align-items-center gap-1.5"><i data-lucide="truck" class="icon-xs"></i> ${esc(tr.vehicle_type)} (${esc(tr.vehicle_number)})</div>
+                    <div class="d-flex align-items-center gap-1.5"><i data-lucide="user-check" class="icon-xs"></i> Driver: ${esc(tr.driver_name)} (${esc(tr.driver_phone)})</div>
+                    <div class="d-flex align-items-center gap-1.5"><i data-lucide="gauge" class="icon-xs"></i> ${tr.total_distance_km} km &nbsp;|&nbsp; ${tr.total_load_kg} KG load</div>
                   </div>
                   ${isSellerRole && tr.status !== 'DELIVERED' ? `
-                    <button class="btn btn-outline-success btn-sm w-100 fw-semibold rounded-pill" onclick="handleMarkTripDelivered(${tr.id})">
-                      <i class="bi bi-check-circle-fill me-1"></i> Mark Trip & Orders Delivered
+                    <button class="btn btn-outline-success btn-sm w-100 fw-semibold rounded-pill d-inline-flex align-items-center justify-content-center gap-1" onclick="handleMarkTripDelivered(${tr.id})">
+                      <i data-lucide="check-circle-2" class="icon-xs"></i> Mark Trip &amp; Orders Delivered
                     </button>
                   ` : ''}
                 </div>
               </div>
             `).join("")}
           </div>`;
+        refreshIcons();
       } catch (err) {
         console.error("fetchTrips error:", err);
       }
@@ -2144,11 +2560,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         const res = await fetch(`/api/logistics/trips/${tripId}/deliver?phone=${encodeURIComponent(currentUser.phone)}`, { method: "POST" });
         const data = await res.json();
         if (res.ok) {
-          alert(data.message || "Trip marked delivered!");
+          showToast("Trip Completed", data.message || "All orders marked delivered.", "success");
           fetchTripsData();
           fetchOrdersData();
         } else {
-          alert(data.detail || "Error updating trip");
+          showToast("Error", data.detail || "Error updating trip", "error");
         }
       } catch (err) {
         console.error("Mark trip error:", err);
@@ -2172,36 +2588,39 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
             <div class="col-lg-6">
               <div class="p-4 bg-danger bg-opacity-10 rounded-4 border border-danger border-opacity-25 h-100">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h5 class="fw-bold text-danger mb-0"><i class="bi bi-x-circle-fill me-2"></i>Traditional Multi-Tier Mandi Chain</h5>
+                  <h5 class="fw-bold text-danger mb-0 d-flex align-items-center gap-2">
+                    <i data-lucide="alert-triangle" class="icon-md"></i>Traditional Mandi Chain
+                  </h5>
                   <span class="badge bg-danger rounded-pill px-3">High Inefficiency</span>
                 </div>
                 <p class="text-muted small">Passes through 3-4 intermediaries before reaching consumers, resulting in massive margins lost to middlemen and 25% post-harvest food waste.</p>
 
                 <div class="d-flex flex-column gap-2 mb-3">
-                  <div class="p-2 bg-white rounded-3 border d-flex justify-content-between">
-                    <span>🌾 Farmer Realization</span>
+                  <div class="p-2.5 bg-white rounded-3 border d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="sprout" class="icon-sm text-danger"></i> Farmer Realization</span>
                     <strong class="text-danger">₹${data.traditional_chain.farmer_earns_inr}/KG (42%)</strong>
                   </div>
                   <div class="p-2 bg-white rounded-3 border d-flex justify-content-between text-muted small">
-                    <span>1. Village Aggregator Margin</span>
+                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="user-x" class="icon-xs"></i> 1. Village Aggregator Margin</span>
                     <span>₹${data.traditional_chain.village_middleman_inr}/KG</span>
                   </div>
                   <div class="p-2 bg-white rounded-3 border d-flex justify-content-between text-muted small">
-                    <span>2. Mandi Arhatiya Commission</span>
+                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="landmark" class="icon-xs"></i> 2. Mandi Arhatiya Commission</span>
                     <span>₹${data.traditional_chain.mandi_commission_inr}/KG</span>
                   </div>
                   <div class="p-2 bg-white rounded-3 border d-flex justify-content-between text-muted small">
-                    <span>3. Wholesaler + Retailer Markup</span>
+                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="store" class="icon-xs"></i> 3. Wholesaler + Retailer Markup</span>
                     <span>₹${(data.traditional_chain.wholesaler_margin_inr + data.traditional_chain.retailer_margin_inr).toFixed(1)}/KG</span>
                   </div>
-                  <div class="p-2 bg-white rounded-3 border d-flex justify-content-between">
-                    <span>🛒 Consumer Pays</span>
+                  <div class="p-2.5 bg-white rounded-3 border d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="shopping-cart" class="icon-sm text-dark"></i> Consumer Pays</span>
                     <strong class="text-dark">₹${data.traditional_chain.consumer_pays_inr}/KG</strong>
                   </div>
                 </div>
 
-                <div class="badge bg-danger bg-opacity-25 text-danger border border-danger p-2 w-100 text-start rounded-3">
-                  ⚠️ <strong>Supply Chain Loss:</strong> ~25% perishable spoilage due to delayed multi-hop handling.
+                <div class="badge bg-danger bg-opacity-25 text-danger border border-danger p-2.5 w-100 text-start rounded-3 d-flex align-items-start gap-1.5">
+                  <i data-lucide="alert-circle" class="icon-xs flex-shrink-0 mt-0.5"></i>
+                  <span><strong>Supply Chain Loss:</strong> ~25% perishable spoilage due to delayed multi-hop handling.</span>
                 </div>
               </div>
             </div>
@@ -2209,32 +2628,35 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
             <div class="col-lg-6">
               <div class="p-4 bg-success bg-opacity-10 rounded-4 border border-success border-opacity-25 h-100">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h5 class="fw-bold text-success mb-0"><i class="bi bi-check-circle-fill me-2"></i>CropConnect Direct Model</h5>
+                  <h5 class="fw-bold text-success mb-0 d-flex align-items-center gap-2">
+                    <i data-lucide="shield-check" class="icon-md"></i>CropConnect Direct Model
+                  </h5>
                   <span class="badge bg-success rounded-pill px-3">Direct Linkage</span>
                 </div>
                 <p class="text-muted small">Connects farmers/FPOs directly with buyers via automated matchmaking and consolidated 2-Opt logistics.</p>
 
                 <div class="d-flex flex-column gap-2 mb-3">
-                  <div class="p-2 bg-white rounded-3 border d-flex justify-content-between">
-                    <span>🌾 Farmer Realization</span>
+                  <div class="p-2.5 bg-white rounded-3 border d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="sprout" class="icon-sm text-success"></i> Farmer Realization</span>
                     <strong class="text-success">₹${data.cropconnect_direct_chain.farmer_earns_inr}/KG (+${data.benefits.farmer_income_increase_percent}%)</strong>
                   </div>
                   <div class="p-2 bg-white rounded-3 border d-flex justify-content-between text-muted small">
-                    <span>🚚 Direct Smart Logistics</span>
+                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="truck" class="icon-xs text-primary"></i> Direct Smart Logistics</span>
                     <span>₹${data.cropconnect_direct_chain.direct_logistics_inr}/KG</span>
                   </div>
                   <div class="p-2 bg-white rounded-3 border d-flex justify-content-between text-muted small">
-                    <span>❌ Intermediary Middleman Cut</span>
+                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="ban" class="icon-xs text-success"></i> Intermediary Middleman Cut</span>
                     <span class="text-success fw-bold">₹0.0 (100% Eliminated)</span>
                   </div>
-                  <div class="p-2 bg-white rounded-3 border d-flex justify-content-between">
-                    <span>🛒 Consumer Pays</span>
+                  <div class="p-2.5 bg-white rounded-3 border d-flex justify-content-between align-items-center">
+                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="shopping-cart" class="icon-sm text-success"></i> Consumer Pays</span>
                     <strong class="text-success">₹${data.cropconnect_direct_chain.consumer_pays_inr}/KG (-${data.benefits.consumer_price_savings_percent}%)</strong>
                   </div>
                 </div>
 
-                <div class="badge bg-success bg-opacity-25 text-success border border-success p-2 w-100 text-start rounded-3">
-                  ✅ <strong>Direct Freshness:</strong> &lt; 4.5% food loss through farm-to-table optimized routes.
+                <div class="badge bg-success bg-opacity-25 text-success border border-success p-2.5 w-100 text-start rounded-3 d-flex align-items-start gap-1.5">
+                  <i data-lucide="check-check" class="icon-xs flex-shrink-0 mt-0.5"></i>
+                  <span><strong>Direct Freshness:</strong> &lt; 4.5% food loss through farm-to-table optimized routes.</span>
                 </div>
               </div>
             </div>
@@ -2243,26 +2665,33 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           <div class="row g-3">
             <div class="col-md-4">
               <div class="metric-card">
-                <i class="bi bi-cash-stack fs-2 text-success mb-2 d-block"></i>
+                <div class="p-2 bg-success bg-opacity-10 rounded-circle d-inline-flex mb-2">
+                  <i data-lucide="trending-up" class="icon-lg text-success"></i>
+                </div>
                 <h4 class="fw-bold text-success mb-0">+${data.benefits.farmer_income_increase_percent}%</h4>
                 <small class="text-muted">Direct Income Boost for Farmers</small>
               </div>
             </div>
             <div class="col-md-4">
               <div class="metric-card">
-                <i class="bi bi-wallet2 fs-2 text-primary mb-2 d-block"></i>
+                <div class="p-2 bg-primary bg-opacity-10 rounded-circle d-inline-flex mb-2">
+                  <i data-lucide="wallet" class="icon-lg text-primary"></i>
+                </div>
                 <h4 class="fw-bold text-primary mb-0">-${data.benefits.consumer_price_savings_percent}%</h4>
                 <small class="text-muted">Price Discount for Consumers</small>
               </div>
             </div>
             <div class="col-md-4">
               <div class="metric-card">
-                <i class="bi bi-shield-check fs-2 text-warning mb-2 d-block"></i>
-                <h4 class="fw-bold text-warning mb-0">${data.benefits.supply_chain_waste_reduction_percent}%</h4>
+                <div class="p-2 bg-warning bg-opacity-10 rounded-circle d-inline-flex mb-2">
+                  <i data-lucide="shield-check" class="icon-lg text-warning"></i>
+                </div>
+                <h4 class="fw-bold text-warning-emphasis mb-0">${data.benefits.supply_chain_waste_reduction_percent}%</h4>
                 <small class="text-muted">Post-Harvest Waste Reduced</small>
               </div>
             </div>
           </div>`;
+        refreshIcons();
       } catch (err) {
         container.innerHTML = `<div class="alert alert-danger">${esc(err.message)}</div>`;
       }
@@ -2273,7 +2702,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
     // =========================================================================
     function openCreateListingModal() {
       if (!currentUser || (currentUser.role !== "FARMER" && currentUser.role !== "FPO")) {
-        alert("Please register or log in as a Farmer or FPO to add listings.");
+        showToast("Authentication Required", "Please register or log in as a Farmer or FPO to add listings.", "info");
         setAuthTab("login");
         new bootstrap.Modal(document.getElementById("authModal")).show();
         return;
@@ -2289,6 +2718,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       document.getElementById("listingGrade").value = "Grade A - Freshly Harvested";
       document.getElementById("listingModalTitle").textContent = t("new_listing_title");
       new bootstrap.Modal(document.getElementById("listingModal")).show();
+      refreshIcons();
     }
 
     async function handleSaveListing(e) {
@@ -2332,10 +2762,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         const data = await res.json();
         if (res.ok) {
           bootstrap.Modal.getInstance(document.getElementById("listingModal")).hide();
-          alert(data.message || "Listing saved successfully!");
+          showToast("Listing Saved", data.message || "Harvest listing published successfully!", "success");
           fetchListings();
         } else {
-          alert(data.detail || "Error saving listing");
+          showToast("Error", data.detail || "Error saving listing", "error");
         }
       } catch (err) {
         console.error("Save listing error:", err);
@@ -2347,7 +2777,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
     // =========================================================================
     function openChatForListing(listingId, cropName, partnerPhone, partnerName) {
       if (!currentUser) {
-        alert("Please log in first to chat with the seller.");
+        showToast("Login Required", "Please log in first to chat with the seller.", "info");
         setAuthTab("login");
         new bootstrap.Modal(document.getElementById("authModal")).show();
         return;
@@ -2357,7 +2787,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       activeChatPartnerPhone = partnerPhone;
       activeChatPartnerName = partnerName;
 
-      document.getElementById("chatCropTitle").textContent = `${cropName} - Direct Chat`;
+      document.getElementById("chatCropTitle").innerHTML = `<i data-lucide="message-square" class="icon-sm me-1"></i> ${esc(cropName)} - Direct Chat`;
       document.getElementById("chatPartnerTitle").textContent = `${partnerName} (${partnerPhone})`;
       document.getElementById("farmerBuyerBar").classList.add("d-none");
       document.getElementById("chatInputText").value = "";
@@ -2369,6 +2799,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
       fetchChatMessages();
       startChatPolling();
+      refreshIcons();
     }
 
     async function fetchChatMessages() {
@@ -2433,7 +2864,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           fetchChatMessages();
         } else {
           const err = await res.json();
-          alert(err.detail || "Error sending message");
+          showToast("Chat Error", err.detail || "Error sending message", "error");
         }
       } catch (err) {
         console.error("Send message error:", err);
@@ -2485,12 +2916,13 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           updateNavUserState();
           fetchListings();
           startSyncPolling();
-          alert(`Welcome back, ${currentUser.name}!`);
+          showToast("Welcome Back", `Signed in as ${currentUser.name}`, "success");
         } else {
-          alert(data.detail || "Login failed");
+          showToast("Login Failed", data.detail || "Invalid credentials", "error");
         }
       } catch (err) {
         console.error("Login error:", err);
+        showToast("Error", "Network connection failed", "error");
       }
     }
 
@@ -2510,21 +2942,33 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         });
         const data = await res.json();
         if (res.ok) {
-          alert("Account created successfully! You can now log in.");
+          showToast("Account Created", "Registration successful! You can now log in.", "success");
           setAuthTab("login");
         } else {
-          alert(data.detail || "Registration failed");
+          showToast("Registration Failed", data.detail || "Failed to create account", "error");
         }
       } catch (err) {
         console.error("Register error:", err);
+        showToast("Error", "Network connection failed", "error");
       }
     }
 
     // ============ App Init ============
+    document.addEventListener("DOMContentLoaded", () => {
+      setLang(currentLang);
+      updateNavUserState();
+      fetchListings();
+      startSyncPolling();
+      refreshIcons();
+    });
+
+    // Immediate init in case DOM is already loaded
     setLang(currentLang);
     updateNavUserState();
     fetchListings();
     startSyncPolling();
+    setTimeout(refreshIcons, 100);
+    setTimeout(refreshIcons, 500);
   </script>
 </body>
 </html>

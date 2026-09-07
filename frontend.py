@@ -1,7 +1,7 @@
 # ==============================================================================
-# CropConnect - Direct Farm-to-Buyer Marketplace & Smart Logistics Platform
-# Thoughtfully Handcrafted UI with Modern Lucide React Iconography
-# Currency: Indian Rupee (₹) | Real-time APMC Mandi Linkage | Consolidated 2-Opt Logistics
+# CropConnect - Direct Agri Marketplace & Smart Logistics Platform
+# Thoughtfully Handcrafted for Indian Farmers, FPOs, and Direct Buyers
+# Exact Matching Crop SVGs + Lucide React System Icons | Currency in Indian Rupee (₹)
 # ==============================================================================
 
 FRONTEND_HTML = r"""<!DOCTYPE html>
@@ -9,17 +9,17 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CropConnect | Direct Farm-to-Buyer Marketplace &amp; Smart Agri Logistics</title>
+  <title>CropConnect | Direct Farm-to-Buyer Marketplace &amp; Smart Logistics</title>
   
   <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Bootstrap 5.3.2 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   
-  <!-- Lucide Icons (Standard Modern React Icon System) -->
+  <!-- Lucide Icons (Standard React Icon Library) -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
@@ -32,25 +32,23 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       
       --accent-amber: #d97706;
       --accent-amber-light: #fef3c7;
-      --accent-earth: #92400e;
       
-      --bg-warm: #f8fafc;
+      --bg-warm: #fafaf9;
       --bg-card: #ffffff;
       --text-main: #0f172a;
-      --text-secondary: #475569;
+      --text-secondary: #334155;
       --text-muted: #64748b;
       --border-subtle: #e2e8f0;
       --border-strong: #cbd5e1;
       
       --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.04);
       --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
-      --shadow-hover: 0 14px 28px -4px rgba(21, 128, 61, 0.12), 0 6px 12px -2px rgba(21, 128, 61, 0.06);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+      --shadow-hover: 0 12px 24px -4px rgba(21, 128, 61, 0.12), 0 4px 8px -2px rgba(21, 128, 61, 0.06);
       
-      --radius-xs: 6px;
-      --radius-sm: 10px;
-      --radius-md: 16px;
-      --radius-lg: 22px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
       --radius-full: 9999px;
     }
 
@@ -68,11 +66,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
     h1, h2, h3, h4, h5, h6, .brand-font {
       font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.02em;
       color: var(--text-main);
     }
 
-    /* Lucide React Icon Sizing & Sizing Utilities */
+    /* Lucide React Icon Rules */
     .lucide, [data-lucide] {
       width: 1.15rem;
       height: 1.15rem;
@@ -80,22 +78,19 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       stroke: currentColor;
       display: inline-block;
       vertical-align: -0.16em;
-      transition: stroke 0.15s ease;
     }
-    .icon-xs { width: 0.92rem !important; height: 0.92rem !important; stroke-width: 2.1px !important; }
-    .icon-sm { width: 1.05rem !important; height: 1.05rem !important; stroke-width: 2px !important; }
-    .icon-md { width: 1.3rem !important; height: 1.3rem !important; stroke-width: 1.85px !important; }
-    .icon-lg { width: 1.65rem !important; height: 1.65rem !important; stroke-width: 1.8px !important; }
+    .icon-xs { width: 0.95rem !important; height: 0.95rem !important; stroke-width: 2px !important; }
+    .icon-sm { width: 1.1rem !important; height: 1.1rem !important; stroke-width: 1.9px !important; }
+    .icon-md { width: 1.35rem !important; height: 1.35rem !important; stroke-width: 1.85px !important; }
+    .icon-lg { width: 1.75rem !important; height: 1.75rem !important; stroke-width: 1.8px !important; }
     .icon-xl { width: 2.25rem !important; height: 2.25rem !important; stroke-width: 1.75px !important; }
 
     /* Top Navbar */
     .navbar-custom {
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: #ffffff;
       border-bottom: 1px solid var(--border-subtle);
       padding: 0.75rem 0;
-      transition: box-shadow 0.2s ease;
+      box-shadow: var(--shadow-xs);
     }
     .brand-logo {
       font-weight: 800;
@@ -115,7 +110,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 10px rgba(21, 128, 61, 0.25);
+      box-shadow: 0 4px 10px rgba(21, 128, 61, 0.22);
     }
 
     /* Live Mandi Benchmark Ticker */
@@ -155,7 +150,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
     .ticker-scroll-content {
       display: inline-block;
       white-space: nowrap;
-      animation: tickerScroll 38s linear infinite;
+      animation: tickerScroll 36s linear infinite;
     }
     .ticker-scroll-content:hover {
       animation-play-state: paused;
@@ -171,47 +166,30 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       margin-right: 1.8rem;
       color: #cbd5e1;
     }
-    .ticker-item strong {
-      color: #ffffff;
-    }
+    .ticker-item strong { color: #ffffff; }
     .ticker-up { color: #4ade80; font-weight: 600; }
     .ticker-down { color: #f87171; font-weight: 600; }
 
+    /* Welcome / Demo Accounts Banner */
+    .demo-bar-welcome {
+      background: #f0fdf4;
+      border-bottom: 1px solid var(--primary-border);
+      padding: 0.5rem 0;
+      font-size: 0.82rem;
+    }
+
     /* Hero Section */
     .hero-container {
-      background: linear-gradient(145deg, #14532d 0%, #166534 50%, #0f3d1f 100%);
+      background: linear-gradient(145deg, #14532d 0%, #166534 60%, #0f3d1f 100%);
       color: #ffffff;
-      padding: 3.25rem 0 2.75rem;
+      padding: 2.75rem 0 2.25rem;
       position: relative;
-      overflow: hidden;
-    }
-    .hero-container::before {
-      content: "";
-      position: absolute;
-      top: -40%;
-      right: -8%;
-      width: 550px;
-      height: 550px;
-      background: radial-gradient(circle, rgba(34, 197, 94, 0.18) 0%, rgba(255,255,255,0) 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    .hero-container::after {
-      content: "";
-      position: absolute;
-      bottom: -30%;
-      left: -5%;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(217, 119, 6, 0.15) 0%, rgba(255,255,255,0) 70%);
-      border-radius: 50%;
-      pointer-events: none;
     }
     .badge-glass {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.14);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       color: #ffffff;
       padding: 0.35rem 0.9rem;
       border-radius: var(--radius-full);
@@ -233,7 +211,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       color: #e2e8f0;
     }
 
-    /* Tabs Bar */
+    /* Navigation Tabs Bar */
     .nav-tabs-wrapper {
       background: #ffffff;
       border-bottom: 1px solid var(--border-subtle);
@@ -253,7 +231,6 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
     }
     .nav-tabs-custom .nav-link:hover {
       color: var(--primary);
-      border-bottom-color: rgba(21, 128, 61, 0.3);
     }
     .nav-tabs-custom .nav-link.active {
       color: var(--primary-dark);
@@ -262,16 +239,16 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       font-weight: 700;
     }
 
-    /* Category Filter Chips */
+    /* Category Filter Chips with Crop SVGs */
     .chip-filter {
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      padding: 0.42rem 0.95rem;
+      padding: 0.45rem 1rem;
       border-radius: var(--radius-full);
       background: #ffffff;
       border: 1px solid var(--border-subtle);
-      font-size: 0.83rem;
+      font-size: 0.84rem;
       font-weight: 600;
       color: var(--text-secondary);
       cursor: pointer;
@@ -288,10 +265,17 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       background: var(--primary);
       color: #ffffff;
       border-color: var(--primary);
-      box-shadow: 0 2px 8px rgba(21, 128, 61, 0.25);
+      box-shadow: 0 3px 10px rgba(21, 128, 61, 0.25);
     }
     .chip-filter.active .lucide {
       stroke: #ffffff;
+    }
+    .chip-svg-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* Crop Card System */
@@ -300,61 +284,49 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-sm);
-      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
       display: flex;
       flex-direction: column;
       height: 100%;
       position: relative;
     }
     .crop-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       box-shadow: var(--shadow-hover);
       border-color: rgba(21, 128, 61, 0.35);
     }
 
-    /* Visual Crop Badges with tailored color themes */
-    .crop-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+    /* Crop Visual Avatar Container */
+    .crop-avatar-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: transform 0.2s ease;
+      border: 1px solid var(--border-subtle);
     }
-    .crop-card:hover .crop-avatar {
-      transform: scale(1.05);
-    }
-    .crop-avatar-rose   { background: #fff1f2; color: #e11d48; border: 1px solid #ffe4e6; }
-    .crop-avatar-purple { background: #faf5ff; color: #9333ea; border: 1px solid #f3e8ff; }
-    .crop-avatar-amber  { background: #fffbeb; color: #b45309; border: 1px solid #fef3c7; }
-    .crop-avatar-red    { background: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; }
-    .crop-avatar-green  { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
-    .crop-avatar-yellow { background: #fefce8; color: #ca8a04; border: 1px solid #fef9c3; }
-    .crop-avatar-gold   { background: #fffbeb; color: #d97706; border: 1px solid #fef3c7; }
-    .crop-avatar-emerald{ background: #ecfdf5; color: #059669; border: 1px solid #d1fae5; }
-    .crop-avatar-default{ background: #f0fdf4; color: #15803d; border: 1px solid #dcfce7; }
 
     .price-display {
       font-family: 'Outfit', sans-serif;
-      font-size: 1.6rem;
+      font-size: 1.65rem;
       font-weight: 800;
-      color: var(--text-main);
+      color: var(--primary-dark);
       line-height: 1;
     }
     .price-unit {
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       color: var(--text-muted);
       font-weight: 600;
     }
-    .savings-badge {
+    .savings-pill {
       background: var(--accent-amber-light);
-      color: var(--accent-earth);
+      color: #78350f;
       font-weight: 700;
       font-size: 0.76rem;
-      padding: 0.28rem 0.6rem;
-      border-radius: var(--radius-xs);
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-full);
       border: 1px solid rgba(217, 119, 6, 0.25);
       display: inline-flex;
       align-items: center;
@@ -367,24 +339,24 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       color: #065f46;
       border: 1px solid #a7f3d0;
       font-weight: 600;
-      font-size: 0.72rem;
-      padding: 0.2rem 0.55rem;
+      font-size: 0.74rem;
+      padding: 0.22rem 0.6rem;
       border-radius: var(--radius-full);
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.35rem;
     }
     .role-badge-fpo {
       background: #f5f3ff;
       color: #5b21b6;
       border: 1px solid #ddd6fe;
       font-weight: 600;
-      font-size: 0.72rem;
-      padding: 0.2rem 0.55rem;
+      font-size: 0.74rem;
+      padding: 0.22rem 0.6rem;
       border-radius: var(--radius-full);
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.35rem;
     }
 
     /* Buttons */
@@ -395,7 +367,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       border: none;
       border-radius: var(--radius-sm);
       padding: 0.55rem 1.15rem;
-      transition: all 0.2s ease;
+      transition: all 0.18s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -414,7 +386,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       font-weight: 600;
       border-radius: var(--radius-sm);
       padding: 0.5rem 1rem;
-      transition: all 0.2s ease;
+      transition: all 0.18s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -446,7 +418,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       border-bottom-left-radius: 4px;
     }
 
-    /* Metric Card */
+    /* Metric Cards */
     .metric-card {
       background: #ffffff;
       border: 1px solid var(--border-subtle);
@@ -454,11 +426,6 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       padding: 1.15rem;
       box-shadow: var(--shadow-xs);
       text-align: center;
-      transition: transform 0.18s ease;
-    }
-    .metric-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-sm);
     }
 
     /* Modals */
@@ -475,7 +442,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       border-bottom: none;
     }
 
-    /* Toast Notification Container */
+    /* Toast Notifications */
     .toast-container-custom {
       position: fixed;
       top: 1.25rem;
@@ -499,14 +466,9 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       align-items: flex-start;
       gap: 0.75rem;
       animation: slideInToast 0.25s ease-out forwards;
-      transition: opacity 0.25s ease, transform 0.25s ease;
     }
-    .custom-toast-error {
-      border-left-color: #ef4444;
-    }
-    .custom-toast-info {
-      border-left-color: #3b82f6;
-    }
+    .custom-toast-error { border-left-color: #ef4444; }
+    .custom-toast-info { border-left-color: #3b82f6; }
     @keyframes slideInToast {
       from { transform: translateX(100%); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
@@ -535,15 +497,15 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       <div class="overflow-hidden flex-grow-1">
         <div class="ticker-scroll-content">
           <span class="ticker-item"><strong>Azadpur APMC Tomato:</strong> ₹18.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹1.50</span></span>
-          <span class="ticker-item"><strong>Bowenpally Onion Red:</strong> ₹16.00/kg <span class="ticker-down"><i data-lucide="trending-down" class="icon-xs"></i> -₹0.80</span></span>
+          <span class="ticker-item"><strong>Bowenpally Red Onion:</strong> ₹16.00/kg <span class="ticker-down"><i data-lucide="trending-down" class="icon-xs"></i> -₹0.80</span></span>
           <span class="ticker-item"><strong>Kolar APMC Potato:</strong> ₹14.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹0.50</span></span>
           <span class="ticker-item"><strong>Guntur APMC Chilli Teja:</strong> ₹42.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹2.20</span></span>
-          <span class="ticker-item"><strong>Vashi Banana:</strong> ₹24.00/dozen <span class="text-white-50">— Stable</span></span>
+          <span class="ticker-item"><strong>Vashi Banana:</strong> ₹24.00/dozen <span class="text-white-50"><i data-lucide="minus" class="icon-xs"></i> Stable</span></span>
           <span class="ticker-item"><strong>Warangal Turmeric:</strong> ₹92.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹3.00</span></span>
           <span class="ticker-item"><strong>Shamshabad Hub Logistics:</strong> 2-Opt Pooled Freight ₹2.50/kg</span>
-          <!-- Repeat for smooth infinite scroll -->
+          <!-- Repeat for continuous scroll -->
           <span class="ticker-item"><strong>Azadpur APMC Tomato:</strong> ₹18.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹1.50</span></span>
-          <span class="ticker-item"><strong>Bowenpally Onion Red:</strong> ₹16.00/kg <span class="ticker-down"><i data-lucide="trending-down" class="icon-xs"></i> -₹0.80</span></span>
+          <span class="ticker-item"><strong>Bowenpally Red Onion:</strong> ₹16.00/kg <span class="ticker-down"><i data-lucide="trending-down" class="icon-xs"></i> -₹0.80</span></span>
           <span class="ticker-item"><strong>Kolar APMC Potato:</strong> ₹14.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹0.50</span></span>
           <span class="ticker-item"><strong>Guntur APMC Chilli Teja:</strong> ₹42.00/kg <span class="ticker-up"><i data-lucide="trending-up" class="icon-xs"></i> +₹2.20</span></span>
         </div>
@@ -599,6 +561,30 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
     </div>
   </nav>
 
+  <!-- 1-Click Demo Accounts Floating Ribbon (For simple testing) -->
+  <div class="demo-bar-welcome" id="demoAccountsBar">
+    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <div class="d-flex align-items-center gap-2 text-secondary">
+        <i data-lucide="zap" class="icon-xs text-warning"></i>
+        <span><strong>1-Click Quick Demo Login:</strong> Test the platform instantly without typing:</span>
+      </div>
+      <div class="d-flex flex-wrap gap-1.5">
+        <button type="button" class="btn btn-xs btn-outline-success rounded-pill px-2.5 py-1 bg-white shadow-xs" onclick="quickFillAndLogin('+919876543210', 'password123', 'FARMER')">
+          <i data-lucide="user" class="icon-xs me-1"></i> Farmer (Ramesh)
+        </button>
+        <button type="button" class="btn btn-xs btn-outline-primary rounded-pill px-2.5 py-1 bg-white shadow-xs" onclick="quickFillAndLogin('+919876543220', 'password123', 'FPO')">
+          <i data-lucide="users" class="icon-xs me-1"></i> FPO Collective
+        </button>
+        <button type="button" class="btn btn-xs btn-outline-warning rounded-pill px-2.5 py-1 bg-white shadow-xs" onclick="quickFillAndLogin('+919876543211', 'password123', 'BULK_BUYER')">
+          <i data-lucide="store" class="icon-xs me-1"></i> Bulk Buyer
+        </button>
+        <button type="button" class="btn btn-xs btn-outline-info rounded-pill px-2.5 py-1 bg-white shadow-xs" onclick="quickFillAndLogin('+919876543230', 'password123', 'CONSUMER')">
+          <i data-lucide="shopping-cart" class="icon-xs me-1"></i> Consumer (Priya)
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Hero Header -->
   <section class="hero-container">
     <div class="container text-center position-relative">
@@ -625,33 +611,33 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       <ul class="nav nav-tabs nav-tabs-custom border-bottom-0" id="mainAppTabs">
         <li class="nav-item">
           <button class="nav-link active" onclick="switchTab('marketplace')" id="tab-marketplace">
-            <i data-lucide="store" class="icon-sm"></i>
-            <span data-i18n="nav_marketplace">Direct Marketplace</span>
+            <i data-lucide="shopping-bag" class="icon-sm"></i>
+            <span data-i18n="nav_marketplace">Browse Produce</span>
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-link" onclick="switchTab('orders')" id="tab-orders">
-            <i data-lucide="package-check" class="icon-sm"></i>
-            <span data-i18n="nav_orders">Orders &amp; Requests</span>
+            <i data-lucide="clipboard-list" class="icon-sm"></i>
+            <span data-i18n="nav_orders">Orders</span>
             <span class="badge bg-danger rounded-pill ms-1 d-none" id="tabOrdersBadge">0</span>
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-link" onclick="switchTab('ai')" id="tab-ai">
-            <i data-lucide="trending-up" class="icon-sm"></i>
-            <span data-i18n="nav_ai">AI Demand Forecast</span>
+            <i data-lucide="line-chart" class="icon-sm"></i>
+            <span data-i18n="nav_ai">Demand &amp; Price Trends</span>
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-link" onclick="switchTab('logistics')" id="tab-logistics">
             <i data-lucide="truck" class="icon-sm"></i>
-            <span data-i18n="nav_logistics">Smart Logistics &amp; Route</span>
+            <span data-i18n="nav_logistics">Delivery Routing</span>
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-link" onclick="switchTab('analytics')" id="tab-analytics">
-            <i data-lucide="pie-chart" class="icon-sm"></i>
-            <span data-i18n="nav_value">Fair Pricing &amp; Value Chain</span>
+            <i data-lucide="scale" class="icon-sm"></i>
+            <span data-i18n="nav_value">Price Transparency</span>
           </button>
         </li>
       </ul>
@@ -671,13 +657,13 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           <div class="col-md-5">
             <div class="input-group">
               <span class="input-group-text bg-light border-end-0 text-muted"><i data-lucide="search" class="icon-sm"></i></span>
-              <input type="text" id="searchInput" class="form-control border-start-0 bg-light" oninput="fetchListings()" placeholder="Search crops (e.g. Tomato, Onion, Chilli)..." data-i18n-attr="placeholder" data-i18n="search_placeholder">
+              <input type="text" id="searchInput" class="form-control border-start-0 bg-light" oninput="fetchListings()" placeholder="Search crop name (Tomato, Onion, Chilli)..." data-i18n-attr="placeholder" data-i18n="search_placeholder">
             </div>
           </div>
           <div class="col-md-3">
             <div class="input-group">
               <span class="input-group-text bg-light border-end-0 text-muted"><i data-lucide="map-pin" class="icon-sm"></i></span>
-              <input type="text" id="zipInput" class="form-control border-start-0 bg-light" oninput="fetchListings()" placeholder="Pincode (e.g. 500001)..." data-i18n-attr="placeholder" data-i18n="zip_placeholder">
+              <input type="text" id="zipInput" class="form-control border-start-0 bg-light" oninput="fetchListings()" placeholder="Filter by Pincode (e.g. 500001)..." data-i18n-attr="placeholder" data-i18n="zip_placeholder">
             </div>
           </div>
           <div class="col-md-2">
@@ -689,7 +675,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           </div>
           <div class="col-md-2 d-flex gap-2">
             <button class="btn btn-brand w-100 fw-semibold" onclick="fetchListings()">
-              <i data-lucide="sliders-horizontal" class="icon-xs"></i>
+              <i data-lucide="filter" class="icon-xs"></i>
               <span data-i18n="filter_btn">Filter</span>
             </button>
             <button class="btn btn-outline-success d-none" id="farmerAddListingBtn" onclick="openCreateListingModal()" title="Add Crop Listing">
@@ -698,16 +684,37 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- Category Filter Chips with Lucide React Icons -->
-        <div class="d-flex align-items-center gap-2 flex-wrap pt-2 border-top">
-          <span class="small fw-semibold text-muted me-1">Category:</span>
-          <button type="button" class="chip-filter active" onclick="filterByChip('', this)"><i data-lucide="layers" class="icon-sm"></i> <span>All Produce</span></button>
-          <button type="button" class="chip-filter" onclick="filterByChip('TOMATO', this)"><i data-lucide="apple" class="icon-sm text-danger"></i> <span>Tomatoes</span></button>
-          <button type="button" class="chip-filter" onclick="filterByChip('ONION', this)"><i data-lucide="circle-dot" class="icon-sm text-purple"></i> <span>Onions</span></button>
-          <button type="button" class="chip-filter" onclick="filterByChip('POTATO', this)"><i data-lucide="package" class="icon-sm text-warning"></i> <span>Potatoes</span></button>
-          <button type="button" class="chip-filter" onclick="filterByChip('CHILLI', this)"><i data-lucide="flame" class="icon-sm text-danger"></i> <span>Chillies</span></button>
-          <button type="button" class="chip-filter" onclick="filterByChip('BANANA', this)"><i data-lucide="citrus" class="icon-sm text-warning"></i> <span>Fruits</span></button>
-          <button type="button" class="chip-filter" onclick="filterByChip('CABBAGE', this)"><i data-lucide="leaf" class="icon-sm text-success"></i> <span>Greens</span></button>
+        <!-- Category Filter Chips with EXACT Matching Vector Illustrations -->
+        <div class="d-flex align-items-center gap-2 flex-wrap pt-2 border-top" id="cropFilterChipsBar">
+          <span class="small fw-semibold text-muted me-1">Crops:</span>
+          <button type="button" class="chip-filter active" onclick="filterByChip('', this)">
+            <i data-lucide="shopping-basket" class="icon-sm"></i>
+            <span>All Produce</span>
+          </button>
+          <button type="button" class="chip-filter" onclick="filterByChip('TOMATO', this)">
+            <span class="chip-svg-icon" id="chip-icon-tomato"></span>
+            <span>Tomatoes</span>
+          </button>
+          <button type="button" class="chip-filter" onclick="filterByChip('ONION', this)">
+            <span class="chip-svg-icon" id="chip-icon-onion"></span>
+            <span>Onions</span>
+          </button>
+          <button type="button" class="chip-filter" onclick="filterByChip('POTATO', this)">
+            <span class="chip-svg-icon" id="chip-icon-potato"></span>
+            <span>Potatoes</span>
+          </button>
+          <button type="button" class="chip-filter" onclick="filterByChip('CHILLI', this)">
+            <span class="chip-svg-icon" id="chip-icon-chilli"></span>
+            <span>Chillies</span>
+          </button>
+          <button type="button" class="chip-filter" onclick="filterByChip('BANANA', this)">
+            <span class="chip-svg-icon" id="chip-icon-banana"></span>
+            <span>Fruits</span>
+          </button>
+          <button type="button" class="chip-filter" onclick="filterByChip('CABBAGE', this)">
+            <span class="chip-svg-icon" id="chip-icon-cabbage"></span>
+            <span>Greens</span>
+          </button>
         </div>
       </div>
 
@@ -739,10 +746,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
       <div id="noListings" class="text-center text-muted d-none my-5 py-5">
         <div class="p-3 bg-light rounded-circle d-inline-flex mb-3">
-          <i data-lucide="shopping-bag" class="icon-xl text-muted"></i>
+          <i data-lucide="shopping-basket" class="icon-xl text-muted"></i>
         </div>
         <h5 class="fw-bold text-dark mb-1">No Active Listings Found</h5>
-        <p class="mb-0 text-muted" data-i18n="no_listings">No active crop listings match your current filters. Try searching for "Tomato" or PIN "500001".</p>
+        <p class="mb-0 text-muted" data-i18n="no_listings">No active crop listings match your search. Try searching for "Tomato" or PIN "500001".</p>
       </div>
     </div>
 
@@ -754,7 +761,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
           <div>
             <h4 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
-              <i data-lucide="package-check" class="icon-md text-success"></i>
+              <i data-lucide="clipboard-list" class="icon-md text-success"></i>
               <span id="ordersTitleText" data-i18n="orders_title">Orders &amp; Batch Requests</span>
             </h4>
             <p class="text-muted small mb-0" data-i18n="orders_desc">Real-time status tracking from farm-gate harvest to verified delivery.</p>
@@ -787,7 +794,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         <div class="col-lg-4">
           <div class="card bg-white border-0 shadow-sm rounded-4 p-4 h-100">
             <h5 class="fw-bold text-success mb-3 d-flex align-items-center gap-2">
-              <i data-lucide="sparkles" class="icon-md"></i>
+              <i data-lucide="line-chart" class="icon-md"></i>
               <span data-i18n="ai_forecast_config">Forecast Query</span>
             </h5>
             <div class="mb-3">
@@ -814,7 +821,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
               </select>
             </div>
             <button class="btn btn-brand w-100 py-2 fw-semibold rounded-pill" onclick="runAIDemandForecast()">
-              <i data-lucide="cpu" class="icon-sm"></i>
+              <i data-lucide="sparkles" class="icon-sm"></i>
               <span data-i18n="run_forecast_btn">Generate AI Forecast</span>
             </button>
             
@@ -836,7 +843,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           <div class="card bg-white border-0 shadow-sm rounded-4 p-4 h-100" id="forecastResultsCard">
             <div class="text-center py-5 text-muted">
               <div class="p-3 bg-light rounded-circle d-inline-flex mb-2">
-                <i data-lucide="bar-chart-3" class="icon-xl text-muted"></i>
+                <i data-lucide="line-chart" class="icon-xl text-muted"></i>
               </div>
               <p data-i18n="ai_forecast_prompt">Select a crop and click 'Generate AI Forecast' to view demand projections &amp; price advice.</p>
             </div>
@@ -892,7 +899,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
               </div>
 
               <h6 class="fw-bold text-dark mb-2 d-flex align-items-center gap-1.5">
-                <i data-lucide="milestone" class="icon-sm text-success"></i>Delivery Waypoint Stops
+                <i data-lucide="route" class="icon-sm text-success"></i>Delivery Waypoint Stops
               </h6>
               <p class="text-muted" style="font-size:0.78rem;">Format per line: <code>Buyer Name, Lat, Lon, KG, [Address]</code></p>
               <textarea id="routeStops" class="form-control font-monospace mb-3" rows="6" placeholder="Wholesale Mart Begumpet, 17.4435, 78.4738, 150, Secunderabad&#10;Green Valley Apt Banjara Hills, 17.4156, 78.4350, 25, Road 12&#10;Kukatpally Supermarket, 17.4933, 78.3995, 200, Main Road&#10;Madhapur Organic Store, 17.4483, 78.3915, 80, Hitec City"></textarea>
@@ -937,7 +944,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
           <div>
             <h4 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
-              <i data-lucide="pie-chart" class="icon-md text-success"></i>
+              <i data-lucide="scale" class="icon-md text-success"></i>
               <span data-i18n="fair_price_title">Fair Pricing &amp; Middleman Elimination Breakdown</span>
             </h4>
             <p class="text-muted small mb-0" data-i18n="fair_price_desc">Compare traditional multi-hop mandi losses vs CropConnect direct farm linkage.</p>
@@ -1007,28 +1014,6 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                   <input type="password" class="form-control" id="loginPassword" required placeholder="Password">
                 </div>
                 <button type="submit" class="btn btn-brand w-100 py-2 fw-semibold rounded-pill" data-i18n="sign_in">Sign In</button>
-                
-                <!-- Quick 1-Click Demo Accounts -->
-                <div class="p-3 bg-light border small mt-3 mb-0 rounded-3">
-                  <div class="fw-bold text-dark mb-1 d-flex align-items-center gap-1">
-                    <i data-lucide="zap" class="icon-xs text-warning"></i>
-                    <span>Quick-Fill Demo Accounts:</span>
-                  </div>
-                  <div class="d-flex flex-wrap gap-1 mt-2">
-                    <button type="button" class="btn btn-xs btn-outline-success rounded-pill px-2 py-1" onclick="quickFillAuth('+919876543210', 'password123', 'FARMER')">
-                      Farmer (Ramesh)
-                    </button>
-                    <button type="button" class="btn btn-xs btn-outline-primary rounded-pill px-2 py-1" onclick="quickFillAuth('+919876543220', 'password123', 'FPO')">
-                      FPO Collective
-                    </button>
-                    <button type="button" class="btn btn-xs btn-outline-warning rounded-pill px-2 py-1" onclick="quickFillAuth('+919876543211', 'password123', 'BULK_BUYER')">
-                      Bulk Buyer
-                    </button>
-                    <button type="button" class="btn btn-xs btn-outline-info rounded-pill px-2 py-1" onclick="quickFillAuth('+919876543230', 'password123', 'CONSUMER')">
-                      Consumer (Priya)
-                    </button>
-                  </div>
-                </div>
               </form>
             </div>
             
@@ -1137,7 +1122,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       <div class="modal-content modal-content-custom">
         <div class="modal-header modal-header-custom">
           <h5 class="modal-title fw-bold d-flex align-items-center gap-2" id="orderModalTitle">
-            <i data-lucide="shopping-bag" class="icon-sm"></i>
+            <i data-lucide="shopping-cart" class="icon-sm"></i>
             <span data-i18n="request_order_title">Order Fresh Crop Batch</span>
           </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
@@ -1218,7 +1203,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         <div class="modal-header modal-header-custom">
           <div>
             <h6 class="modal-title fw-bold mb-0 d-flex align-items-center gap-1.5" id="chatCropTitle">
-              <i data-lucide="message-square" class="icon-sm"></i>
+              <i data-lucide="message-circle" class="icon-sm"></i>
               <span>Direct Chat</span>
             </h6>
             <small class="text-white-50" id="chatPartnerTitle"></small>
@@ -1262,7 +1247,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         </div>
         <div class="col-md-6 text-md-end">
           <div class="small text-muted mb-1">
-            <i data-lucide="phone" class="icon-xs text-success me-1"></i> Kisan Call Centre / Farmer Helpline: <strong>1800-180-1551</strong>
+            <i data-lucide="phone-call" class="icon-xs text-success me-1"></i> Kisan Call Centre / Farmer Helpline: <strong>1800-180-1551</strong>
           </div>
           <div class="small text-muted">
             <i data-lucide="shield-check" class="icon-xs text-primary me-1"></i> APMC Mandi Benchmark Integration &middot; Zero Hidden Markups
@@ -1277,6 +1262,106 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
   <script>
     // ==========================================
+    // EXACT MATCHING CROP VECTOR ILLUSTRATIONS
+    // ==========================================
+    const CROP_SVGS = {
+      TOMATO: `<svg viewBox="0 0 36 36" width="36" height="36" fill="none">
+        <circle cx="18" cy="20" r="13" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+        <path d="M18 7 V12 M18 10 C14 8 11 11 11 11 M18 10 C22 8 25 11 25 11 M18 10 C16 13 14 14 14 14 M18 10 C20 13 22 14 22 14" stroke="#15803d" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="14" cy="17" r="2.5" fill="#fca5a5" opacity="0.6"/>
+      </svg>`,
+      ONION: `<svg viewBox="0 0 36 36" width="36" height="36" fill="none">
+        <path d="M18 6 C17 11 10 16 10 22 C10 27 13.5 31 18 31 C22.5 31 26 27 26 22 C26 16 19 11 18 6 Z" fill="#c084fc" stroke="#7e22ce" stroke-width="1.5"/>
+        <path d="M18 12 C14 17 14 26 18 30 C22 26 22 17 18 12 Z" stroke="#7e22ce" stroke-width="1.2" fill="#d8b4fe" opacity="0.7"/>
+        <path d="M18 3 V7 M16 2 L18 6 L20 2" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>`,
+      POTATO: `<svg viewBox="0 0 36 36" width="36" height="36" fill="none">
+        <ellipse cx="18" cy="19" rx="14" ry="11" fill="#d97706" stroke="#92400e" stroke-width="1.5" transform="rotate(-5 18 19)"/>
+        <ellipse cx="18" cy="19" rx="13" ry="10" fill="#f59e0b" opacity="0.85" transform="rotate(-5 18 19)"/>
+        <circle cx="12" cy="16" r="1.2" fill="#78350f"/>
+        <circle cx="21" cy="15" r="1" fill="#78350f"/>
+        <circle cx="24" cy="22" r="1.3" fill="#78350f"/>
+        <circle cx="15" cy="23" r="0.9" fill="#78350f"/>
+      </svg>`,
+      CHILLI: `<svg viewBox="0 0 36 36" width="36" height="36" fill="none">
+        <path d="M25 7 C21 11 19 16 17 21 C15 25 12 28 8 29 C12 30 16 28 19 23 C22 18 24 13 26 9 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5"/>
+        <path d="M25 7 C26 5 28 4 30 5 M24 6 C25 8 26 9 27 10" stroke="#16a34a" stroke-width="2" stroke-linecap="round"/>
+      </svg>`,
+      BANANA: `<svg viewBox="0 0 36 36" width="36" height="36" fill="none">
+        <path d="M9 25 C14 26 21 24 25 19 C28 15 29 10 27 7 C25 11 22 16 17 19 C13 21 10 21 9 25 Z" fill="#eab308" stroke="#a16207" stroke-width="1.5"/>
+        <path d="M27 7 L29 5" stroke="#15803d" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M9 25 L8 27" stroke="#713f12" stroke-width="2" stroke-linecap="round"/>
+      </svg>`,
+      CABBAGE: `<svg viewBox="0 0 36 36" width="36" height="36" fill="none">
+        <circle cx="18" cy="19" r="12" fill="#86efac" stroke="#15803d" stroke-width="1.5"/>
+        <path d="M10 15 C13 19 15 24 18 25 C21 24 23 19 26 15" stroke="#15803d" stroke-width="1.5" fill="#4ade80" opacity="0.6"/>
+        <path d="M13 24 C16 22 20 22 23 24" stroke="#15803d" stroke-width="1.2"/>
+        <path d="M18 10 V14" stroke="#15803d" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>`,
+      WHEAT: `<svg viewBox="0 0 36 36" width="36" height="36" fill="none">
+        <path d="M18 5 V31" stroke="#d97706" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="14" cy="9" rx="3.5" ry="2" fill="#f59e0b" stroke="#b45309" stroke-width="1" transform="rotate(-30 14 9)"/>
+        <ellipse cx="22" cy="9" rx="3.5" ry="2" fill="#f59e0b" stroke="#b45309" stroke-width="1" transform="rotate(30 22 9)"/>
+        <ellipse cx="14" cy="15" rx="3.5" ry="2" fill="#f59e0b" stroke="#b45309" stroke-width="1" transform="rotate(-30 14 15)"/>
+        <ellipse cx="22" cy="15" rx="3.5" ry="2" fill="#f59e0b" stroke="#b45309" stroke-width="1" transform="rotate(30 22 15)"/>
+        <ellipse cx="14" cy="21" rx="3.5" ry="2" fill="#f59e0b" stroke="#b45309" stroke-width="1" transform="rotate(-30 14 21)"/>
+        <ellipse cx="22" cy="21" rx="3.5" ry="2" fill="#f59e0b" stroke="#b45309" stroke-width="1" transform="rotate(30 22 21)"/>
+      </svg>`,
+      CARROT: `<svg viewBox="0 0 36 36" width="36" height="36" fill="none">
+        <path d="M18 10 L14 28 C14 28 17 31 18 31 C19 31 22 28 22 28 Z" fill="#f97316" stroke="#c2410c" stroke-width="1.5"/>
+        <path d="M18 4 V10 M15 5 L18 10 L21 5" stroke="#15803d" stroke-width="2" stroke-linecap="round"/>
+      </svg>`,
+      DEFAULT: `<svg viewBox="0 0 36 36" width="36" height="36" fill="none">
+        <circle cx="18" cy="20" r="11" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5"/>
+        <path d="M18 14 V26 M18 18 C14 15 13 19 13 19 M18 20 C22 17 23 21 23 21" stroke="#15803d" stroke-width="2" stroke-linecap="round"/>
+      </svg>`
+    };
+
+    function populateFilterChipIcons() {
+      const elTomato = document.getElementById("chip-icon-tomato");
+      if (elTomato) elTomato.innerHTML = CROP_SVGS.TOMATO;
+      const elOnion = document.getElementById("chip-icon-onion");
+      if (elOnion) elOnion.innerHTML = CROP_SVGS.ONION;
+      const elPotato = document.getElementById("chip-icon-potato");
+      if (elPotato) elPotato.innerHTML = CROP_SVGS.POTATO;
+      const elChilli = document.getElementById("chip-icon-chilli");
+      if (elChilli) elChilli.innerHTML = CROP_SVGS.CHILLI;
+      const elBanana = document.getElementById("chip-icon-banana");
+      if (elBanana) elBanana.innerHTML = CROP_SVGS.BANANA;
+      const elCabbage = document.getElementById("chip-icon-cabbage");
+      if (elCabbage) elCabbage.innerHTML = CROP_SVGS.CABBAGE;
+    }
+
+    function getCropVisual(name) {
+      const n = (name || "").toUpperCase();
+      if (n.includes("TOMATO")) {
+        return { svg: CROP_SVGS.TOMATO, bg: "#fef2f2", border: "#fecaca" };
+      }
+      if (n.includes("ONION")) {
+        return { svg: CROP_SVGS.ONION, bg: "#faf5ff", border: "#e9d5ff" };
+      }
+      if (n.includes("POTATO")) {
+        return { svg: CROP_SVGS.POTATO, bg: "#fffbeb", border: "#fde68a" };
+      }
+      if (n.includes("CHILLI") || n.includes("CHILI")) {
+        return { svg: CROP_SVGS.CHILLI, bg: "#fef2f2", border: "#fecaca" };
+      }
+      if (n.includes("BANANA") || n.includes("MANGO")) {
+        return { svg: CROP_SVGS.BANANA, bg: "#fefce8", border: "#fef08a" };
+      }
+      if (n.includes("CABBAGE") || n.includes("GREENS") || n.includes("SPINACH")) {
+        return { svg: CROP_SVGS.CABBAGE, bg: "#f0fdf4", border: "#bbf7d0" };
+      }
+      if (n.includes("CARROT")) {
+        return { svg: CROP_SVGS.CARROT, bg: "#fff7ed", border: "#fed7aa" };
+      }
+      if (n.includes("RICE") || n.includes("PADDY") || n.includes("WHEAT")) {
+        return { svg: CROP_SVGS.WHEAT, bg: "#fffbeb", border: "#fde68a" };
+      }
+      return { svg: CROP_SVGS.DEFAULT, bg: "#f0fdf4", border: "#bbf7d0" };
+    }
+
+    // ==========================================
     // MULTILINGUAL I18N DICTIONARY (ALL IN ₹)
     // ==========================================
     const I18N = {
@@ -1287,11 +1372,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         tagline_badge: "Direct Farm-to-Buyer Marketplace & Smart AI Logistics",
         sms_hint: "No smartphone needed: Farmers list via SMS:",
         login: "Log In", register: "Register", logout: "Log Out",
-        nav_marketplace: "Direct Marketplace", nav_orders: "Orders & Requests",
-        nav_ai: "AI Demand Forecast", nav_logistics: "Smart Logistics & Route",
-        nav_value: "Fair Pricing & Value Chain",
-        search_placeholder: "Search crops (e.g. Tomato, Onion, Chilli)...",
-        zip_placeholder: "Pincode (e.g. 500001)...",
+        nav_marketplace: "Browse Produce", nav_orders: "Orders",
+        nav_ai: "Demand & Price Trends", nav_logistics: "Delivery Routing",
+        nav_value: "Price Transparency",
+        search_placeholder: "Search crop name (Tomato, Onion, Chilli)...",
+        zip_placeholder: "Filter by Pincode (e.g. 500001)...",
         filter_all_sellers: "All Sellers (Farmers & FPOs)",
         filter_farmers_only: "Individual Farmers",
         filter_fpos_only: "FPO Collectives",
@@ -1304,7 +1389,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         market_benchmark: "Retail Supermarket:",
         farmer_gain: "Farmer earns +45% more",
         consumer_save: "Save 25% vs Retail",
-        chat_seller: "Chat with Seller", order_now: "Order Batch / Retail",
+        chat_seller: "Chat with Farmer", order_now: "Order Produce",
         orders_title: "Orders & Batch Requests",
         orders_desc: "Real-time status tracking from farm-gate harvest to verified delivery.",
         refresh: "Refresh", plan_route_from_orders: "Plan Delivery Route",
@@ -1341,9 +1426,9 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         tagline_badge: "सीधा डिजिटल बाज़ार + स्मार्ट AI लॉजिस्टिक्स",
         sms_hint: "किसान SMS भेजें:",
         login: "लॉग इन", register: "पंजीकरण", logout: "लॉग आउट",
-        nav_marketplace: "सीधा बाज़ार", nav_orders: "ऑर्डर व अनुरोध",
-        nav_ai: "AI मांग पूर्वानुमान", nav_logistics: "स्मार्ट लॉजिस्टिक्स व रूट",
-        nav_value: "उचित मूल्य व बचत विश्लेषण",
+        nav_marketplace: "फसलें देखें", nav_orders: "ऑर्डर",
+        nav_ai: "मांग व मूल्य रुझान", nav_logistics: "डिलीवरी रूट",
+        nav_value: "पारदर्शी मूल्य",
         search_placeholder: "फसल खोजें (जैसे टमाटर, प्याज)...",
         zip_placeholder: "पिन कोड (जैसे 500001)...",
         filter_all_sellers: "सभी विक्रेता (किसान व FPO)",
@@ -1358,15 +1443,15 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         market_benchmark: "खुदरा बाज़ार दर:",
         farmer_gain: "किसान को +45% अधिक लाभ",
         consumer_save: "खुदरा से 25% बचत",
-        chat_seller: "विक्रेता से चैट करें", order_now: "ऑर्डर करें",
+        chat_seller: "किसान से चैट करें", order_now: "ऑर्डर करें",
         orders_title: "ऑर्डर और बैच अनुरोध",
         orders_desc: "खेत से उपभोक्ता तक सीधी डिलीवरी ट्रैकिंग।",
         refresh: "ताज़ा करें", plan_route_from_orders: "डिलीवरी रूट बनाएं",
         crop_name: "फसल का नाम", seller: "विक्रेता", quantity_kg: "मात्रा (किलो)",
         total_price: "कुल मूल्य", status: "स्थिति", actions: "कार्रवाई",
         status_pending: "लंबित", status_accepted: "स्वीकृत",
-        status_rejected: "अस्वीकृत", status_dispatched: "रवाना (Dispatched)",
-        status_delivered: "वितरित (Delivered)", status_cancelled: "रद्द",
+        status_rejected: "अस्वीकृत", status_dispatched: "रवाना",
+        status_delivered: "वितरित", status_cancelled: "रद्द",
         accept: "स्वीकार करें", decline: "अस्वीकार", chat: "चैट", cancel_order: "रद्द करें",
         new_listing_title: "नई फसल सूची जोड़ें", edit_listing_title: "फसल सूची संपादित करें",
         save: "सहेजें", cancel: "रद्द करें",
@@ -1395,9 +1480,9 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         tagline_badge: "ప్రత్యక్ష డిజిటల్ మార్కెట్ + స్మార్ట్ AI లాజిస్టిక్స్",
         sms_hint: "రైతులు SMS పంపండి:",
         login: "లాగిన్", register: "నమోదు", logout: "లాగౌట్",
-        nav_marketplace: "ప్రత్యక్ష మార్కెట్", nav_orders: "ఆర్డర్లు & అభ్యర్థనలు",
-        nav_ai: "AI డిమాండ్ అంచనా", nav_logistics: "స్మార్ట్ లాజిస్టిక్స్ & రూట్",
-        nav_value: "ధర & విలువ విశ్లేషణ",
+        nav_marketplace: "పంటలు చూడండి", nav_orders: "ఆర్డర్లు",
+        nav_ai: "డిమాండ్ & ధర అంచనా", nav_logistics: "డెలివరీ రూట్",
+        nav_value: "ధర పారదర్శకత",
         search_placeholder: "పంటను శోధించండి (ఉదా: టమోటా)...",
         zip_placeholder: "పిన్ కోడ్ (ఉదా: 500001)...",
         filter_all_sellers: "అందరూ అమ్మకందారులు (రైతులు & FPOలు)",
@@ -1420,7 +1505,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         total_price: "మొత్తం ధర", status: "స్థితి", actions: "చర్యలు",
         status_pending: "పెండింగ్", status_accepted: "అంగీకరించబడింది",
         status_rejected: "తిరస్కరించబడింది", status_dispatched: "రవాణాలో ఉంది",
-        status_delivered: "చేరింది (Delivered)", status_cancelled: "రద్దు చేయబడింది",
+        status_delivered: "చేరింది", status_cancelled: "రద్దు చేయబడింది",
         accept: "అంగీకరించు", decline: "తిరస్కరించు", chat: "చాట్", cancel_order: "రద్దు చేయి",
         new_listing_title: "కొత్త పంటను చేర్చండి", edit_listing_title: "పంట జాబితా సవరణ",
         save: "భద్రపరచు", cancel: "రద్దు చేయి",
@@ -1449,10 +1534,10 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         tagline_badge: "நேரடி டிஜிட்டல் சந்தை + ஸ்மார்ட் AI தளவாடங்கள்",
         sms_hint: "விவசாயிகள் SMS அனுப்புக:",
         login: "உள்நுழைக", register: "பதிவு செய்க", logout: "வெளியேறுக",
-        nav_marketplace: "நேரடி சந்தை", nav_orders: "ஆர்டர்கள் & கோரிக்கைகள்",
-        nav_ai: "AI தேவை கணிப்பு", nav_logistics: "ஸ்மார்ட் தளவாடங்கள் & பாதை",
-        nav_value: "நியாயமான விலை பகுப்பாய்வு",
-        search_placeholder: "பயிர்களைத் தேடுக (எ.கா. தக்காளி, வெங்காயம்)...",
+        nav_marketplace: "விளைபொருட்கள்", nav_orders: "ஆர்டர்கள்",
+        nav_ai: "தேவை கணிப்பு", nav_logistics: "டெலிவரி பாதை",
+        nav_value: "விலை வெளிப்படைத்தன்மை",
+        search_placeholder: "பயிர்களைத் தேடுக (எ.கா. தக்காளி)...",
         zip_placeholder: "பின்கோடு (எ.கா. 500001)...",
         filter_all_sellers: "அனைத்து விற்பனையாளர்கள்",
         filter_farmers_only: "விவசாயிகள் மட்டும்",
@@ -1466,13 +1551,13 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         market_benchmark: "சந்தை விலை:",
         farmer_gain: "விவசாயிக்கு +45% கூடுதல் வருவாய்",
         consumer_save: "சில்லறை விலையை விட 25% சேமிப்பு",
-        chat_seller: "விவசாயியுடன் அரட்டையடிக்கவும்", order_now: "ஆர்டர் செய்க",
+        chat_seller: "விவசாயியுடன் பேசுக", order_now: "ஆர்டர் செய்க",
         orders_title: "ஆர்டர்கள் மற்றும் கோரிக்கைகள்",
         orders_desc: "பண்ணையிலிருந்து நுகர்வோர் வரை நேரடி கண்காணிப்பு.",
         refresh: "புதுப்பி", plan_route_from_orders: "டெலிவரி பாதையை திட்டமிடுக",
         crop_name: "பயிரின் பெயர்", seller: "விற்பனையாளர்", quantity_kg: "அளவு (கிலோ)",
         total_price: "மொத்த விலை", status: "நிலை", actions: "செயல்கள்",
-        status_pending: "நிலுவையில்", status_accepted: "ஏற்றுக்கொள்ளப்பட்டது",
+        status_pending: "நிலுவையில்", status_accepted: "ஏற்கப்பட்டது",
         status_rejected: "நிராகரிக்கப்பட்டது", status_dispatched: "அனுப்பப்பட்டது",
         status_delivered: "சேர்க்கப்பட்டது", status_cancelled: "ரத்து செய்யப்பட்டது",
         accept: "ஏற்கவும்", decline: "நிராகரிக்கவும்", chat: "அரட்டை", cancel_order: "ரத்து செய்",
@@ -1513,14 +1598,12 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
     window._lastListings = [];
     window._lastOrders = [];
 
-    // Helper: Lucide Icon Refresher
     function refreshIcons() {
       if (window.lucide && typeof window.lucide.createIcons === "function") {
         window.lucide.createIcons();
       }
     }
 
-    // Helper: Toast Notifications
     function showToast(title, message, type = "success") {
       const container = document.getElementById("toastContainer");
       if (!container) return;
@@ -1552,45 +1635,32 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       }, 3500);
     }
 
-    // Quick-Fill Demo Auth Helper
-    function quickFillAuth(phone, password, role) {
+    // Quick-Fill Demo Auth Helper (Instant Login)
+    async function quickFillAndLogin(phone, password, role) {
       document.getElementById("loginPhone").value = phone;
       document.getElementById("loginPassword").value = password;
       document.getElementById("loginRole").value = role;
-      showToast("Demo Credentials Loaded", `Ready to sign in as ${role}`, "info");
-    }
 
-    // Helper: Styled Crop Visual Badges (Lucide React Icons with tailored backgrounds)
-    function getCropVisual(name) {
-      const n = (name || "").toUpperCase();
-      if (n.includes("TOMATO")) {
-        return { icon: "apple", colorClass: "crop-avatar-rose", label: "Tomato" };
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ role, phone, password })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          currentUser = data.user;
+          localStorage.setItem("cc_user", JSON.stringify(currentUser));
+          updateNavUserState();
+          fetchListings();
+          startSyncPolling();
+          showToast("Welcome!", `Signed in as ${currentUser.name}`, "success");
+        } else {
+          showToast("Login Failed", data.detail || "Invalid credentials", "error");
+        }
+      } catch (err) {
+        showToast("Error", "Could not sign in", "error");
       }
-      if (n.includes("ONION")) {
-        return { icon: "circle-dot", colorClass: "crop-avatar-purple", label: "Onion" };
-      }
-      if (n.includes("POTATO")) {
-        return { icon: "package", colorClass: "crop-avatar-amber", label: "Potato" };
-      }
-      if (n.includes("CHILLI") || n.includes("CHILI")) {
-        return { icon: "flame", colorClass: "crop-avatar-red", label: "Chilli" };
-      }
-      if (n.includes("BANANA") || n.includes("MANGO")) {
-        return { icon: "citrus", colorClass: "crop-avatar-yellow", label: "Fruit" };
-      }
-      if (n.includes("CABBAGE") || n.includes("GREENS") || n.includes("SPINACH")) {
-        return { icon: "leaf", colorClass: "crop-avatar-green", label: "Greens" };
-      }
-      if (n.includes("CARROT")) {
-        return { icon: "carrot", colorClass: "crop-avatar-amber", label: "Root" };
-      }
-      if (n.includes("CAPSICUM") || n.includes("PEPPER")) {
-        return { icon: "shield", colorClass: "crop-avatar-emerald", label: "Capsicum" };
-      }
-      if (n.includes("RICE") || n.includes("PADDY") || n.includes("WHEAT")) {
-        return { icon: "wheat", colorClass: "crop-avatar-gold", label: "Grain" };
-      }
-      return { icon: "sprout", colorClass: "crop-avatar-default", label: "Farm Produce" };
     }
 
     function setLang(lang) {
@@ -1625,6 +1695,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       if (window._lastOrders && window._lastOrders.length) {
         renderOrdersTable(window._lastOrders);
       }
+      populateFilterChipIcons();
       refreshIcons();
     }
 
@@ -1660,6 +1731,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       const sellerBox = document.getElementById("sellerDashboardBox");
       const addBtn = document.getElementById("farmerAddListingBtn");
       const autoDispatchBtn = document.getElementById("orderAutoDispatchBtn");
+      const demoBar = document.getElementById("demoAccountsBar");
 
       if (!currentUser) {
         authBtns.classList.remove("d-none");
@@ -1669,10 +1741,12 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         sellerBox.classList.add("d-none");
         addBtn.classList.add("d-none");
         autoDispatchBtn.classList.add("d-none");
+        if (demoBar) demoBar.classList.remove("d-none");
         refreshIcons();
         return;
       }
 
+      if (demoBar) demoBar.classList.add("d-none");
       authBtns.classList.add("d-none");
       authBtns.classList.remove("d-flex");
       userArea.classList.remove("d-none");
@@ -1683,25 +1757,25 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       
       const role = (currentUser.role || "").toUpperCase();
       if (role === "FARMER") {
-        badgeEl.innerHTML = `<i data-lucide="sprout" class="icon-xs me-1"></i> Farmer`;
+        badgeEl.innerHTML = `<i data-lucide="user" class="icon-xs me-1 text-success"></i> Farmer`;
         badgeEl.className = "badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 rounded-pill d-inline-flex align-items-center";
         sellerBox.classList.remove("d-none");
         addBtn.classList.remove("d-none");
         autoDispatchBtn.classList.remove("d-none");
       } else if (role === "FPO") {
-        badgeEl.innerHTML = `<i data-lucide="users" class="icon-xs me-1"></i> FPO Collective`;
+        badgeEl.innerHTML = `<i data-lucide="users" class="icon-xs me-1 text-primary"></i> FPO Collective`;
         badgeEl.className = "badge bg-primary-subtle text-primary border border-primary-subtle px-2.5 py-1.5 rounded-pill d-inline-flex align-items-center";
         sellerBox.classList.remove("d-none");
         addBtn.classList.remove("d-none");
         autoDispatchBtn.classList.remove("d-none");
       } else if (role === "BULK_BUYER") {
-        badgeEl.innerHTML = `<i data-lucide="building-2" class="icon-xs me-1"></i> Bulk Buyer`;
+        badgeEl.innerHTML = `<i data-lucide="store" class="icon-xs me-1 text-warning"></i> Bulk Buyer`;
         badgeEl.className = "badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-2.5 py-1.5 rounded-pill d-inline-flex align-items-center";
         sellerBox.classList.add("d-none");
         addBtn.classList.add("d-none");
         autoDispatchBtn.classList.add("d-none");
       } else {
-        badgeEl.innerHTML = `<i data-lucide="shopping-cart" class="icon-xs me-1"></i> Consumer`;
+        badgeEl.innerHTML = `<i data-lucide="shopping-cart" class="icon-xs me-1 text-info"></i> Consumer`;
         badgeEl.className = "badge bg-info-subtle text-info-emphasis border border-info-subtle px-2.5 py-1.5 rounded-pill d-inline-flex align-items-center";
         sellerBox.classList.add("d-none");
         addBtn.classList.add("d-none");
@@ -1780,11 +1854,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       data.forEach(item => {
         const isFPO = (item.seller_type === "FPO");
         const sellerBadgeClass = isFPO ? "role-badge-fpo" : "role-badge-farmer";
-        const sellerRoleIcon = isFPO ? "users" : "sprout";
+        const sellerRoleIcon = isFPO ? "users" : "user";
         const sellerTypeTitle = isFPO ? "FPO Collective" : "Verified Farmer";
         const sourceLabel = item.source === "SMS" 
           ? `<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill px-2 py-0.5 d-inline-flex align-items-center gap-1"><i data-lucide="smartphone" class="icon-xs"></i> SMS Listed</span>`
-          : `<span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-0.5 d-inline-flex align-items-center gap-1"><i data-lucide="check-check" class="icon-xs"></i> Web Verified</span>`;
+          : `<span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-0.5 d-inline-flex align-items-center gap-1"><i data-lucide="badge-check" class="icon-xs"></i> Web Verified</span>`;
         
         const visual = getCropVisual(item.crop_name);
 
@@ -1795,10 +1869,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         container.innerHTML += `
           <div class="col-md-6 col-lg-4">
             <div class="crop-card p-3">
+              <!-- Top Row: Exact Matching Crop Illustration + Name + Source -->
               <div class="d-flex justify-content-between align-items-start mb-2.5">
                 <div class="d-flex align-items-center gap-2.5">
-                  <div class="crop-avatar ${visual.colorClass}">
-                    <i data-lucide="${visual.icon}" class="icon-lg"></i>
+                  <div class="crop-avatar-box" style="background: ${visual.bg}; border-color: ${visual.border};">
+                    ${visual.svg}
                   </div>
                   <div>
                     <span class="${sellerBadgeClass}">
@@ -1824,19 +1899,19 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                     <span class="price-unit">/kg</span>
                   </div>
                   <div class="text-end">
-                    <span class="savings-badge">
-                      <i data-lucide="trending-up" class="icon-xs"></i>
+                    <span class="savings-pill">
+                      <i data-lucide="trending-up" class="icon-xs text-success"></i>
                       <span>Save ~${savingsPercent}%</span>
                     </span>
                   </div>
                 </div>
                 <div class="d-flex justify-content-between text-muted" style="font-size:0.76rem; margin-top:5px;">
-                  <span>${t("market_benchmark")} <del>₹${retailBenchmark}</del></span>
-                  <span class="text-success fw-bold">Direct Save ₹${savingsAmount.toFixed(1)}/kg</span>
+                  <span>Mandi: ₹${item.mandi_price_per_kg || Math.round(item.price_per_kg * 0.7)} &bull; Supermarket: <del>₹${retailBenchmark}</del></span>
+                  <span class="text-success fw-bold">Save ₹${savingsAmount.toFixed(1)}/kg</span>
                 </div>
               </div>
 
-              <!-- Farmer / Location Details -->
+              <!-- Matching Agricultural Details (Seller, Pin, Grade, Min Order) -->
               <div class="mb-3 small">
                 <div class="text-secondary mb-1.5 d-flex align-items-center gap-1.5">
                   <i data-lucide="user" class="icon-xs text-success"></i>
@@ -1844,11 +1919,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                 </div>
                 <div class="text-secondary mb-1.5 d-flex align-items-center gap-1.5">
                   <i data-lucide="map-pin" class="icon-xs text-danger"></i>
-                  <span class="text-truncate">${esc(item.location_name || item.zip_code)} (Pin: ${esc(item.zip_code)})</span>
+                  <span class="text-truncate">${esc(item.location_name || item.zip_code)} (PIN: ${esc(item.zip_code)})</span>
                 </div>
                 <div class="text-secondary d-flex align-items-center justify-content-between pt-1 border-top" style="font-size:0.78rem;">
-                  <span class="d-flex align-items-center gap-1"><i data-lucide="shield-check" class="icon-xs text-success"></i> ${esc(item.quality_grade || "Grade A Fresh")}</span>
-                  <span class="d-flex align-items-center gap-1"><i data-lucide="package" class="icon-xs text-muted"></i> Min: <strong>${item.min_order_kg || 1} KG</strong></span>
+                  <span class="d-flex align-items-center gap-1"><i data-lucide="award" class="icon-xs text-success"></i> ${esc(item.quality_grade || "Grade A Fresh")}</span>
+                  <span class="d-flex align-items-center gap-1"><i data-lucide="boxes" class="icon-xs text-muted"></i> Min: <strong>${item.min_order_kg || 1} KG</strong></span>
                 </div>
               </div>
 
@@ -1856,11 +1931,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
               <div class="mt-auto d-grid gap-2">
                 <div class="d-flex gap-2">
                   <button class="btn btn-sm btn-brand-outline w-50" onclick="openChatForListing(${item.id}, '${esc(item.crop_name)}', '${esc(item.farmer_phone)}', '${esc(item.farmer_name)}')">
-                    <i data-lucide="message-square" class="icon-xs"></i>
+                    <i data-lucide="message-circle" class="icon-xs"></i>
                     <span>${t("chat_seller")}</span>
                   </button>
                   <button class="btn btn-sm btn-brand w-50" onclick='openOrderModal(${JSON.stringify(item)})'>
-                    <i data-lucide="shopping-bag" class="icon-xs"></i>
+                    <i data-lucide="shopping-cart" class="icon-xs"></i>
                     <span>${t("order_now")}</span>
                   </button>
                 </div>
@@ -1948,7 +2023,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
         const data = await res.json();
         if (res.ok) {
           bootstrap.Modal.getInstance(document.getElementById("orderModal")).hide();
-          showToast("Order Placed Successfully", data.message || "Your harvest order has been received by the producer.", "success");
+          showToast("Order Placed", data.message || "Your harvest order has been received by the producer.", "success");
           fetchListings();
           switchTab("orders");
         } else {
@@ -2068,7 +2143,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                           <i data-lucide="x" class="icon-xs"></i>
                         </button>
                         <button class="btn btn-outline-primary" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.buyer_phone)}', '${esc(o.buyer_name)}')" title="Chat">
-                          <i data-lucide="message-square" class="icon-xs"></i>
+                          <i data-lucide="message-circle" class="icon-xs"></i>
                         </button>
                       </div>`;
                   } else if (o.status === "ACCEPTED") {
@@ -2078,13 +2153,13 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                           <i data-lucide="truck" class="icon-xs"></i> Route
                         </button>
                         <button class="btn btn-outline-success" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.buyer_phone)}', '${esc(o.buyer_name)}')" title="Chat">
-                          <i data-lucide="message-square" class="icon-xs"></i>
+                          <i data-lucide="message-circle" class="icon-xs"></i>
                         </button>
                       </div>`;
                   } else {
                     actions = `
                       <button class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.buyer_phone)}', '${esc(o.buyer_name)}')">
-                        <i data-lucide="message-square" class="icon-xs"></i> Chat
+                        <i data-lucide="message-circle" class="icon-xs"></i> Chat
                       </button>`;
                   }
                 } else {
@@ -2095,13 +2170,13 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                           Cancel
                         </button>
                         <button class="btn btn-outline-success d-inline-flex align-items-center gap-1" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.farmer_phone)}', '${esc(o.farmer_name)}')">
-                          <i data-lucide="message-square" class="icon-xs"></i> Chat
+                          <i data-lucide="message-circle" class="icon-xs"></i> Chat
                         </button>
                       </div>`;
                   } else {
                     actions = `
                       <button class="btn btn-sm btn-outline-success d-inline-flex align-items-center gap-1" onclick="openChatForListing(${o.listing_id}, '${esc(o.crop_name)}', '${esc(o.farmer_phone)}', '${esc(o.farmer_name)}')">
-                        <i data-lucide="message-square" class="icon-xs"></i> Chat
+                        <i data-lucide="message-circle" class="icon-xs"></i> Chat
                       </button>`;
                   }
                 }
@@ -2215,7 +2290,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                 <i data-lucide="${trendIcon}" class="icon-xs"></i>
                 <span>Trend: ${esc(data.trend.toUpperCase())}</span>
               </span>
-              <h4 class="fw-bold text-success mb-0">${esc(data.crop)} AI Demand Forecast (${data.forecast_days} Days)</h4>
+              <h4 class="fw-bold text-success mb-0">${esc(data.crop)} Demand Forecast (${data.forecast_days} Days)</h4>
             </div>
             <div class="text-end">
               <span class="badge bg-light text-dark border px-2.5 py-1.5 rounded-pill small">
@@ -2260,7 +2335,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           <div class="p-3 bg-light rounded-4 mb-4 border">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h6 class="fw-bold text-dark small mb-0 d-flex align-items-center gap-1.5">
-                <i data-lucide="bar-chart-3" class="icon-xs text-success"></i>Daily Projected Consumption (KG)
+                <i data-lucide="line-chart" class="icon-xs text-success"></i>Daily Projected Consumption (KG)
               </h6>
               <span class="badge bg-white text-muted border small">Shelf Life: ${data.shelf_life_days} Days</span>
             </div>
@@ -2294,7 +2369,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           <div class="alert alert-success d-flex align-items-center mb-0 rounded-4">
             <i data-lucide="lightbulb" class="icon-md text-success me-3 flex-shrink-0"></i>
             <div>
-              <strong class="d-block mb-0.5">AI Recommendation:</strong>
+              <strong class="d-block mb-0.5">Recommendation:</strong>
               <span class="small">${esc(data.recommendation)}</span>
             </div>
           </div>`;
@@ -2392,11 +2467,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
               <span class="badge bg-success rounded-pill px-3 py-1 mb-1 d-inline-flex align-items-center gap-1">
-                <i data-lucide="zap" class="icon-xs"></i>2-Opt Optimized Sequence
+                <i data-lucide="route" class="icon-xs"></i>2-Opt Optimized Sequence
               </span>
               <h5 class="fw-bold text-dark mb-0">Delivery Route Summary</h5>
             </div>
-            ${isSellerRole ? `<button class="btn btn-brand btn-sm rounded-pill px-3 fw-semibold d-inline-flex align-items-center gap-1" onclick="handleDispatchTripSubmit()"><i data-lucide="send" class="icon-xs"></i> Create &amp; Dispatch Trip</button>` : ''}
+            ${isSellerRole ? `<button class="btn btn-brand btn-sm rounded-pill px-3 fw-semibold d-inline-flex align-items-center gap-1" onclick="handleDispatchTripSubmit()"><i data-lucide="send" class="icon-xs"></i> Dispatch Trip</button>` : ''}
           </div>
 
           <div class="row g-2 mb-3">
@@ -2430,12 +2505,12 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
             </div>
             <div class="text-muted mt-1.5 d-flex align-items-start gap-1" style="font-size:0.76rem;">
               <i data-lucide="leaf" class="icon-xs text-success flex-shrink-0 mt-0.5"></i>
-              <span><strong>Green Impact:</strong> Consolidated routing saves <strong>${data.co2_saved_kg} KG of CO2</strong> and ₹${data.cost_savings_inr} in direct transport expenses.</span>
+              <span><strong>Green Freight:</strong> Consolidated routing saves <strong>${data.co2_saved_kg} KG of CO2</strong> and ₹${data.cost_savings_inr} in fuel expenses.</span>
             </div>
           </div>
 
           <h6 class="fw-bold text-dark small mb-2 d-flex align-items-center gap-1.5">
-            <i data-lucide="milestone" class="icon-xs text-success"></i>Optimized Drop Sequence:
+            <i data-lucide="map-pin" class="icon-xs text-success"></i>Optimized Drop Sequence:
           </h6>
           <div class="d-flex flex-column gap-2" style="max-height: 250px; overflow-y:auto;">
             <div class="p-2.5 bg-white rounded-3 border-start border-success border-4 shadow-sm">
@@ -2536,8 +2611,8 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                   </div>
                   <div class="small text-secondary mb-2">
                     <div class="d-flex align-items-center gap-1.5"><i data-lucide="truck" class="icon-xs"></i> ${esc(tr.vehicle_type)} (${esc(tr.vehicle_number)})</div>
-                    <div class="d-flex align-items-center gap-1.5"><i data-lucide="user-check" class="icon-xs"></i> Driver: ${esc(tr.driver_name)} (${esc(tr.driver_phone)})</div>
-                    <div class="d-flex align-items-center gap-1.5"><i data-lucide="gauge" class="icon-xs"></i> ${tr.total_distance_km} km &nbsp;|&nbsp; ${tr.total_load_kg} KG load</div>
+                    <div class="d-flex align-items-center gap-1.5"><i data-lucide="user" class="icon-xs"></i> Driver: ${esc(tr.driver_name)} (${esc(tr.driver_phone)})</div>
+                    <div class="d-flex align-items-center gap-1.5"><i data-lucide="milestone" class="icon-xs"></i> ${tr.total_distance_km} km &nbsp;|&nbsp; ${tr.total_load_kg} KG load</div>
                   </div>
                   ${isSellerRole && tr.status !== 'DELIVERED' ? `
                     <button class="btn btn-outline-success btn-sm w-100 fw-semibold rounded-pill d-inline-flex align-items-center justify-content-center gap-1" onclick="handleMarkTripDelivered(${tr.id})">
@@ -2597,11 +2672,11 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
                 <div class="d-flex flex-column gap-2 mb-3">
                   <div class="p-2.5 bg-white rounded-3 border d-flex justify-content-between align-items-center">
-                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="sprout" class="icon-sm text-danger"></i> Farmer Realization</span>
+                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="user" class="icon-sm text-danger"></i> Farmer Realization</span>
                     <strong class="text-danger">₹${data.traditional_chain.farmer_earns_inr}/KG (42%)</strong>
                   </div>
                   <div class="p-2 bg-white rounded-3 border d-flex justify-content-between text-muted small">
-                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="user-x" class="icon-xs"></i> 1. Village Aggregator Margin</span>
+                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="store" class="icon-xs"></i> 1. Village Aggregator Margin</span>
                     <span>₹${data.traditional_chain.village_middleman_inr}/KG</span>
                   </div>
                   <div class="p-2 bg-white rounded-3 border d-flex justify-content-between text-muted small">
@@ -2637,7 +2712,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
                 <div class="d-flex flex-column gap-2 mb-3">
                   <div class="p-2.5 bg-white rounded-3 border d-flex justify-content-between align-items-center">
-                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="sprout" class="icon-sm text-success"></i> Farmer Realization</span>
+                    <span class="d-flex align-items-center gap-1.5"><i data-lucide="user" class="icon-sm text-success"></i> Farmer Realization</span>
                     <strong class="text-success">₹${data.cropconnect_direct_chain.farmer_earns_inr}/KG (+${data.benefits.farmer_income_increase_percent}%)</strong>
                   </div>
                   <div class="p-2 bg-white rounded-3 border d-flex justify-content-between text-muted small">
@@ -2655,7 +2730,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
                 </div>
 
                 <div class="badge bg-success bg-opacity-25 text-success border border-success p-2.5 w-100 text-start rounded-3 d-flex align-items-start gap-1.5">
-                  <i data-lucide="check-check" class="icon-xs flex-shrink-0 mt-0.5"></i>
+                  <i data-lucide="badge-check" class="icon-xs flex-shrink-0 mt-0.5"></i>
                   <span><strong>Direct Freshness:</strong> &lt; 4.5% food loss through farm-to-table optimized routes.</span>
                 </div>
               </div>
@@ -2787,7 +2862,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       activeChatPartnerPhone = partnerPhone;
       activeChatPartnerName = partnerName;
 
-      document.getElementById("chatCropTitle").innerHTML = `<i data-lucide="message-square" class="icon-sm me-1"></i> ${esc(cropName)} - Direct Chat`;
+      document.getElementById("chatCropTitle").innerHTML = `<i data-lucide="message-circle" class="icon-sm me-1"></i> ${esc(cropName)} - Direct Chat`;
       document.getElementById("chatPartnerTitle").textContent = `${partnerName} (${partnerPhone})`;
       document.getElementById("farmerBuyerBar").classList.add("d-none");
       document.getElementById("chatInputText").value = "";
@@ -2955,6 +3030,7 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
 
     // ============ App Init ============
     document.addEventListener("DOMContentLoaded", () => {
+      populateFilterChipIcons();
       setLang(currentLang);
       updateNavUserState();
       fetchListings();
@@ -2962,12 +3038,16 @@ FRONTEND_HTML = r"""<!DOCTYPE html>
       refreshIcons();
     });
 
-    // Immediate init in case DOM is already loaded
+    // Immediate execution
+    populateFilterChipIcons();
     setLang(currentLang);
     updateNavUserState();
     fetchListings();
     startSyncPolling();
-    setTimeout(refreshIcons, 100);
+    setTimeout(() => {
+      populateFilterChipIcons();
+      refreshIcons();
+    }, 100);
     setTimeout(refreshIcons, 500);
   </script>
 </body>
